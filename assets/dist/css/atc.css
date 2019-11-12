@@ -1,3 +1,17 @@
 body {
   background-color: #eee;
 }
+
+.margen {
+  padding: 50px;
+}
+.dropdown-menu .dropdown-item:focus:not(.active):not(.disabled), .dropdown-menu .dropdown-item:hover:not(.active):not(.disabled) {
+  background-color: #7a5449;
+  color: #FFF;
+  font-weight: bold;
+}
+
+.fmapp-wrap .fm-box .fmapp-main .fm-body .fmapp-table-view table .files-more-link > a:first-child {
+  color: #7a5449;
+}
+
