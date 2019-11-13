@@ -4,6 +4,7 @@ body {
 
 .margen {
   padding: 50px;
+  min-height: 655px;
 }
 .dropdown-menu .dropdown-item:focus:not(.active):not(.disabled), .dropdown-menu .dropdown-item:hover:not(.active):not(.disabled) {
   background-color: #7a5449;
@@ -15,3 +16,10 @@ body {
   color: #7a5449;
 }
 
+.btn-link{
+  color: #7a5449;
+}
+
+a {
+  text-decoration: none;
+}

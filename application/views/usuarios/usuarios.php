@@ -16,16 +16,17 @@
                    <div class="fm-box">
 					<div class="fmapp-main fmapp-view-switch">
 					 <div class="fm-body">
-					  <div class="nicescroll-bar">
+					  <div class="">
 						<div class="fmapp-view-wrap">
 					     <div class="fmapp-table-view">
 					     <div class="col-xl-2">
 					     	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLarge01">
 					     		<font style="vertical-align: inherit;">
-                                    Agregar Usuario
+                                    <b>Agregar Usuario</b>
                                 </font>
                             </button>
 					     </div>
+					     <div class="col-xl-12"><br></div>
 						  <table id="fmapp_table_view" class="table table-hover w-100">
 							<thead>
 						     <tr>
@@ -49,15 +50,24 @@
 							  <td>file folder</td>
 							  <td>file folder</td>
 							  <td>
-								<span class="files-more-link">
-								 <a href="javascript:void(0)"><i class="zmdi zmdi-edit"></i></a>
-							  	 <a href="javascript:void(0)"><i class="zmdi zmdi-download"></i></a>
-							     <a href="javascript:void(0)"><i class="zmdi zmdi-more"></i></a>
-								</span>	
+								<div class="btn-group">
+                                   <div class="dropdown">
+                                     <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
+                                     <div role="menu" class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">Editar</a>
+                                        <a class="dropdown-item" href="#">Cambiar clave</a>
+                                        <div class="dropdown-divider"></div>
+                                            <a class="dropdown-item" href="#">Bloquear</a>
+                                        </div>
+                                    </div>
+                               	</div>
 							  </td>
 							 </tr>
 							</tbody>
 						  </table>
+
+						  <!-- Top Navbar -->
+
 						</div>
 						</div>
 						</div>
@@ -73,21 +83,5 @@
             <!-- /Container -->
         </div>
         <!-- /Main Content -->
-<div class="modal-dialog modal-lg" role="document" id="exampleModalLarge01">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Título modal</font></font></h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
-                <span aria-hidden="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">×</font></font></span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Praesent commodo cursus magna, vel scelerisque nisl consectetur et. </font><font style="vertical-align: inherit;">Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor.</font></font></p>
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cerrar</font></font></button>
-            <button type="button" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar cambios</font></font></button>
-        </div>
-    </div>
-</div>
+	<?=$view_nuevo_usuario?>
         
