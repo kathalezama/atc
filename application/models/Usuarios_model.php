@@ -51,4 +51,15 @@ class Usuarios_model extends CI_Model{
 
 			return $retorno;
 	}
+
+	function listUsuarios()
+	{
+		$this->db->where('estatus','0');
+		$listUsuarios = $this->db->get('public.t_usuarios');
+		
+		if($listUsuarios->num_rows()>0)
+		{
+			return $listUsuarios->result_array();
+		}
+	}
 }

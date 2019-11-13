@@ -17,6 +17,7 @@ class Usuarios extends CI_Controller {
 	public function index()
 	{
 		$data['roles'] = $this->usuarios_model->roles();
+		$vista['usuarios'] = $this->usuarios_model->listUsuarios();
 
 		$this->menu();
 		$vista['view_nuevo_usuario']=$this->load->view('usuarios/nuevo_usuario', $data, true);
@@ -32,6 +33,7 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function save_nuevo_usuario(){
+		
 		//[cedula] > [nombres] > [apellidos] > [correo] > [telefono] > [rol] > [username] > [clave] > [rclave] 
 
 		$save = $this->usuarios_model->save_nuevo_usuario($_POST);

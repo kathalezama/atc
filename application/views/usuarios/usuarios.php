@@ -1,3 +1,4 @@
+<?php // print_r($_ci_vars['usuarios']) ?>
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
@@ -30,8 +31,7 @@
 						  <table id="fmapp_table_view" class="table table-hover w-100">
 							<thead>
 						     <tr>
-							  <th>Nombre</th>
-							  <th>Apellido</th>
+							  <th>Apellidos y Nombres</th>
 							  <th>Correo</th>
 							  <th>Telefono</th>
 							  <th>Usuario</th>
@@ -41,14 +41,14 @@
 							 </tr>
 							</thead>
 							<tbody>
+							<?php foreach ($_ci_vars['usuarios'] as $usuarios) { ?>
 							 <tr>
-							  <td><span class="d-flex align-items-center"><span class="file-name">Prototip_v1.0</span></span></td>
-							  <td><span class="mr-10">20/11/2015</span><span class="file-time-modified inline-block">10:11</span></td>
-							  <td>24,555 KB</td>
-							  <td>file folder</td>
-							  <td>file folder</td>
-							  <td>file folder</td>
-							  <td>file folder</td>
+							  <td><?php echo $usuarios['nombre_completo']; ?></td>
+							  <td><?php echo $usuarios['correo']; ?></td>
+							  <td><?php echo $usuarios['telefono']; ?></td>
+							  <td><?php echo $usuarios['username']; ?></td>
+							  <td><?php echo $usuarios['id_rol']; ?></td>
+							  <td><?php echo $usuarios['estatus']; ?></td>
 							  <td>
 								<div class="btn-group">
                                    <div class="dropdown">
@@ -63,6 +63,7 @@
                                	</div>
 							  </td>
 							 </tr>
+							<?php } ?>
 							</tbody>
 						  </table>
 
