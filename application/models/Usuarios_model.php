@@ -34,6 +34,7 @@ class Usuarios_model extends CI_Model{
 
 
 		$data = array(
+			'cedula'=>$datos['cedula'],
 			'id_rol'=>$datos['rol'],
 			'nombre_completo'=>$datos['apellidos'].' '.$datos['nombres'],	
 			'correo'=>$datos['correo'],	
@@ -54,7 +55,9 @@ class Usuarios_model extends CI_Model{
 
 	function listUsuarios()
 	{
-		$this->db->where('estatus','0');
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_usuarios.estatus','left');
+		$this->db->join('t_roles','t_roles.id_rol = t_usuarios.id_rol','left');
+		//$this->db->where('estatus','0');
 		$listUsuarios = $this->db->get('public.t_usuarios');
 		
 		if($listUsuarios->num_rows()>0)

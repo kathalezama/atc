@@ -47,7 +47,7 @@
 							  <td><?php echo $usuarios['correo']; ?></td>
 							  <td><?php echo $usuarios['telefono']; ?></td>
 							  <td><?php echo $usuarios['username']; ?></td>
-							  <td><?php echo $usuarios['id_rol']; ?></td>
+							  <td><?php echo $usuarios['rol']; ?></td>
 							  <td><?php echo $usuarios['estatus']; ?></td>
 							  <td>
 								<div class="btn-group">
