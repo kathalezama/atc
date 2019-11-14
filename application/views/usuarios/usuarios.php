@@ -54,7 +54,7 @@
                                    <div class="dropdown">
                                      <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
                                      <div role="menu" class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">Editar</a>
+                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editaUser" id="<?php echo $usuarios['id_user']; ?>">Editar</a>
                                         <a class="dropdown-item _cambiar_clave" href="#" data-toggle="modal" data-target="#cambiarPass" id="<?php echo $usuarios['id_user']; ?>">Cambiar clave</a>
                                         <?php if ($usuarios['id_estatus'] == 0) { ?>
                                         <div class="dropdown-divider"></div>
@@ -91,5 +91,6 @@
         </div>
         <!-- /Main Content -->
 	<?=$view_cambiar_clave?>
+	<?=$view_editar?>
 	<?=$view_nuevo_usuario?>
         
