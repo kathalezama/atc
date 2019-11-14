@@ -41,6 +41,10 @@ class Usuarios extends CI_Controller {
 		echo "<script> alert('".$save."') </script>";
 
 		redirect('usuarios/' , 'refresh');
-		//echo $save;
+	}
+
+	public function bloquear_usuario(){
+		$bloc = $this->usuarios_model->bloquear_usuario($_POST);
+		echo $bloc;
 	}
 }

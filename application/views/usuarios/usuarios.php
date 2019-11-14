@@ -1,4 +1,4 @@
-<?php // print_r($_ci_vars['usuarios']) ?>
+<?php //echo "<br><br><br><br><br><br>"; print_r($_ci_vars['usuarios']) ?>
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
@@ -48,7 +48,7 @@
 							  <td><?php echo $usuarios['telefono']; ?></td>
 							  <td><?php echo $usuarios['username']; ?></td>
 							  <td><?php echo $usuarios['rol']; ?></td>
-							  <td><?php echo $usuarios['estatus']; ?></td>
+							  <td id="row_desactivar"><?php echo $usuarios['estatus']; ?></td>
 							  <td>
 								<div class="btn-group">
                                    <div class="dropdown">
@@ -56,9 +56,11 @@
                                      <div role="menu" class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Editar</a>
                                         <a class="dropdown-item" href="#">Cambiar clave</a>
+                                        <?php if ($usuarios['id_estatus'] == 0) { ?>
                                         <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Bloquear</a>
+                                            <a class="dropdown-item _bloquear" id="<?php echo $usuarios['id_user']; ?>">Bloquear</a>
                                         </div>
+										<?php } ?>
                                     </div>
                                	</div>
 							  </td>

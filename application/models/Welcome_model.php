@@ -17,4 +17,17 @@ class Welcome_model extends CI_Model{
 		}
 
 	}
+
+	function log($user,$act,$sent){
+
+		$data = array(
+			'id_usuario'=>$user,
+			'fecha_registro'=>date('Y-m-d H:i:s'),
+			'actividad'=>$act,
+			'sentencia'=>$sent,
+			);
+
+			$this->db->insert('public.logs',$data);
+
+	}
 }

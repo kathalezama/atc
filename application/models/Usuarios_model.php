@@ -4,6 +4,7 @@ class Usuarios_model extends CI_Model{
     function __construct(){
         parent::__construct();
         $this->load->database();
+        $this->load->model('welcome_model');
     }    
 
 	function menu()
@@ -48,6 +49,8 @@ class Usuarios_model extends CI_Model{
 
 
 			$this->db->insert('public.t_usuarios',$data);
+
+			$this->welcome_model->log('0','Creación de Usuario',$this->db->last_query());
 			$retorno="Usuario Creado";
 
 			return $retorno;
@@ -64,5 +67,20 @@ class Usuarios_model extends CI_Model{
 		{
 			return $listUsuarios->result_array();
 		}
+	}
+
+	function bloquear_usuario($datos){
+
+		$data = [
+			$_POST['name'] => $_POST['valor']
+		];
+
+		$this->db->where('id_user', $_POST['id']);
+		$this->db->update('public.'.$_POST['tb'], $data);
+
+		$this->welcome_model->log('0','Bloquear Usuario',$this->db->last_query());
+
+
+		return 'Bloqueado';
 	}
 }

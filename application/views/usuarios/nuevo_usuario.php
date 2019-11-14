@@ -86,5 +86,15 @@
           return false; 
         }
     })*/
+    $('._bloquear').click(function(){
+
+        var confirmacion = confirm("Realmente desea bloquear este usuario");
+
+        if (confirmacion==true) {
+            $.post("<?php echo base_url() ?>index.php/usuarios/bloquear_usuario", { id:$(this).attr("id"), tb:'t_usuarios', name: 'estatus', valor:'2' }, function(data){
+                $("#row_desactivar").html(data);
+              });
+        }
+    })
     
 </script>
