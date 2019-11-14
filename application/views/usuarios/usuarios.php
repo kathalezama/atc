@@ -48,17 +48,21 @@
 							  <td><?php echo $usuarios['telefono']; ?></td>
 							  <td><?php echo $usuarios['username']; ?></td>
 							  <td><?php echo $usuarios['rol']; ?></td>
-							  <td id="row_desactivar"><?php echo $usuarios['estatus']; ?></td>
+							  <td id="row_desactivar<?php echo $usuarios['id_user']; ?>"><?php echo $usuarios['estatus']; ?></td>
 							  <td>
 								<div class="btn-group">
                                    <div class="dropdown">
                                      <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
                                      <div role="menu" class="dropdown-menu">
                                         <a class="dropdown-item" href="#">Editar</a>
-                                        <a class="dropdown-item" href="#">Cambiar clave</a>
+                                        <a class="dropdown-item _cambiar_clave" href="#" data-toggle="modal" data-target="#cambiarPass" id="<?php echo $usuarios['id_user']; ?>">Cambiar clave</a>
                                         <?php if ($usuarios['id_estatus'] == 0) { ?>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item _bloquear" id="<?php echo $usuarios['id_user']; ?>">Bloquear</a>
+                                        </div>
+										<?php } elseif ($usuarios['id_estatus'] == 2) {?>
+											<div class="dropdown-divider"></div>
+                                            <a class="dropdown-item _activar" id="<?php echo $usuarios['id_user']; ?>">Activar</a>
                                         </div>
 										<?php } ?>
                                     </div>
@@ -86,5 +90,6 @@
             <!-- /Container -->
         </div>
         <!-- /Main Content -->
+	<?=$view_cambiar_clave?>
 	<?=$view_nuevo_usuario?>
         

@@ -41,7 +41,7 @@ class Usuarios_model extends CI_Model{
 			'correo'=>$datos['correo'],	
 			'telefono'=>$datos['telefono'],	
 			'username'=>$datos['username'],
-			'clave'=>$datos['clave'],
+			'clave'=>MD5($datos['clave']),
 			'id_usuario'=>'0',
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
@@ -78,9 +78,12 @@ class Usuarios_model extends CI_Model{
 		$this->db->where('id_user', $_POST['id']);
 		$this->db->update('public.'.$_POST['tb'], $data);
 
-		$this->welcome_model->log('0','Bloquear Usuario',$this->db->last_query());
+		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar Usuario'; }
+		elseif ($_POST['valor']==2) { $return = 'Bloqueado'; $log = 'Bloquear Usuario'; }
+
+		$this->welcome_model->log('0',$log,$this->db->last_query());
 
 
-		return 'Bloqueado';
+		return $return;
 	}
 }

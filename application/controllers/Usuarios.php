@@ -21,6 +21,7 @@ class Usuarios extends CI_Controller {
 
 		$this->menu();
 		$vista['view_nuevo_usuario']=$this->load->view('usuarios/nuevo_usuario', $data, true);
+		$vista['view_cambiar_clave']=$this->load->view('usuarios/cambiar_clave', null, true);
 		$this->load->view('usuarios/usuarios',$vista);
 		$this->load->view('layout/footer');
 
