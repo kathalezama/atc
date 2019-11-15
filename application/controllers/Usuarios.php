@@ -59,4 +59,21 @@ class Usuarios extends CI_Controller {
 		redirect('usuarios/' , 'refresh');
 
 	}
+
+	public function buscar_usuario(){
+
+		$user = $this->usuarios_model->buscar_usuario($_POST);
+
+		echo $user['cedula'].':'.$user['nombre_completo'].':'.$user['correo'].':'.$user['telefono'].':'.$user['id_rol'];
+
+	}
+
+	public function edit_usuario(){
+
+		//print_r($_POST);
+		$user = $this->usuarios_model->edit_usuario($_POST);
+		echo "<script> alert('".$user."') </script>";
+		redirect('usuarios/' , 'refresh');
+
+	}
 }
