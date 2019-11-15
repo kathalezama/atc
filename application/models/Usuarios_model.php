@@ -69,7 +69,8 @@ class Usuarios_model extends CI_Model{
 		}
 	}
 
-	function bloquear_usuario($datos){
+	function bloquear_usuario($datos)
+	{
 
 		$data = [
 			$_POST['name'] => $_POST['valor']
@@ -85,5 +86,21 @@ class Usuarios_model extends CI_Model{
 
 
 		return $return;
+	}
+
+	function cambiar_clave($datos)
+	{
+
+		$data = [
+			'clave' => MD5($_POST['c_clave'])
+		];
+
+		$this->db->where('id_user', $_POST['c_id_user']);
+		$this->db->update('public.t_usuarios', $data);
+
+		$this->welcome_model->log('0','Cambio de clave',$this->db->last_query());
+
+
+		return 'Clave Actualizado';
 	}
 }

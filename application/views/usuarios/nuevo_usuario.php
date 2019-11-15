@@ -33,8 +33,8 @@
                 <div class="col-lg-4">
                    <select id="rol" name="rol" class="form-control">
                     echo "<option value='' >-- Seleccione</option>";
-                      <?php foreach ($_ci_vars[roles] as $key) {
-                        echo "<option value='".$key[id_rol]."'>".$key[rol]."</option>";
+                      <?php foreach ($_ci_vars['roles'] as $key) {
+                        echo "<option value='".$key['id_rol']."'>".$key['rol']."</option>";
                       } ?>
                    </select>
                 </div>
@@ -57,6 +57,7 @@
             <button type="submit" id="guardar" name="guardar" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar</font></font></button>
         </div>
     </div>
+</div>
 </div>
 </form>
 
@@ -95,7 +96,7 @@
         if (confirmacion==true) {
             $.post("<?php echo base_url() ?>index.php/usuarios/bloquear_usuario", { id:$(this).attr("id"), tb:'t_usuarios', name: 'estatus', valor:'2' }, function(data){
                 $("#row_desactivar"+ide).html(data);
-              });
+            });
         }
     });
 
@@ -110,6 +111,14 @@
                 $("#row_desactivar"+ide).html(data);
               });
         }
+
+    });
+
+    $('._cambiar_clave').click(function(){
+
+        var ide = $(this).attr("id");
+        $('#c_id_user').val(ide);
+
     });
     
 </script>

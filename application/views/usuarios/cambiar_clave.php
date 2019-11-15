@@ -19,15 +19,17 @@
                 
                 <div class="col-lg-6"><input type="password" name="c_clave" id="c_clave" class="form-control"></div>
                 <div class="col-lg-6"><input type="password" name="c_rclave" id="c_rclave" class="form-control"></div>
+                <input type="hidden" name="c_id_user" id="c_id_user">
 
             </div>
         </div>
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cerrar</font></font></button>
-            <button type="submit" id="guardar" name="guardar" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar</font></font></button>
+            <button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar</font></font></button>
         </div>
     </div>
+    
 </div>
 </div>
 </form>

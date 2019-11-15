@@ -22,7 +22,7 @@ class Usuarios extends CI_Controller {
 		$this->menu();
 		$vista['view_nuevo_usuario']=$this->load->view('usuarios/nuevo_usuario', $data, true);
 		$vista['view_cambiar_clave']=$this->load->view('usuarios/cambiar_clave', null, true);
-		$vista['view_editar']=$this->load->view('usuarios/editar_usuario', null, true);
+		$vista['view_editar']=$this->load->view('usuarios/editar_usuario', $data, true);
 		$this->load->view('usuarios/usuarios',$vista);
 		$this->load->view('layout/footer');
 
@@ -46,7 +46,17 @@ class Usuarios extends CI_Controller {
 	}
 
 	public function bloquear_usuario(){
+		
 		$bloc = $this->usuarios_model->bloquear_usuario($_POST);
 		echo $bloc;
+
+	}
+
+	public function cambiar_clave(){
+
+		$pass = $this->usuarios_model->cambiar_clave($_POST);
+		echo "<script> alert('".$pass."') </script>";
+		redirect('usuarios/' , 'refresh');
+
 	}
 }
