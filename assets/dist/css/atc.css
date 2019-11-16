@@ -1,5 +1,5 @@
 body {
-  background-color: #eee;
+  background-color: #FFF;
 }
 
 .margen {
@@ -22,4 +22,23 @@ body {
 
 a {
   text-decoration: none;
+}
+
+.login-body{
+	background: #eeeeee;
+    padding: 20px;
+    border-radius: 15px;
+    border: 1px solid #cecece; 
+}
+
+.login-image-r{
+	background-image: url('./selafe.png');
+	background-repeat: no-repeat;
+	background-position: right;
+}
+
+.login-image-l{
+	background-image: url('./selafe2.png');
+	background-repeat: no-repeat;
+	background-position: center;
 }
