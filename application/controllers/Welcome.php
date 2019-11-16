@@ -20,8 +20,10 @@ class Welcome extends CI_Controller {
 	public function menu(){
 		
 		$menu = $this->welcome_model->menu();
-
-		//echo "<pre>";print_r($menu);echo "</pre>";
+		if (!isset($this->session->userdata)) {
+			$this->session->sess_destroy();
+			redirect('login/' , 'refresh');
+		}
 		$this->load->view('layout/header',$menu);
 	}
 }

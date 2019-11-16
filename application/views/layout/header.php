@@ -131,7 +131,7 @@
                     <a class="nav-link dropdown-toggle no-caret" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="media">
                             <div class="media-body">
-                                <span>Madelyn Shane<i class="zmdi zmdi-chevron-down"></i></span>
+                                <span><?php echo $this->session->userdata['nombre_completo'] ?><i class="zmdi zmdi-chevron-down"></i></span>
                             </div>
                         </div>
                     </a>

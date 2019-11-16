@@ -15,6 +15,7 @@ class Login extends CI_Controller {
 
 	public function index()
 	{
+        $this->session->sess_destroy();
 		$this->load->view('layout/header_login');
 		$this->load->view('login/login');
 	}
@@ -31,6 +32,8 @@ class Login extends CI_Controller {
 			redirect('login/' , 'refresh');
 
 		}else{
+
+			//print_r($valuser);
 
        		$this->session->set_userdata($valuser);
 
