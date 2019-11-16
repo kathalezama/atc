@@ -17,8 +17,32 @@ class Login extends CI_Controller {
 	{
 		$this->load->view('layout/header_login');
 		$this->load->view('login/login');
-		//$this->load->view('layout/footer');
-
 	}
+
+	public function login()
+    {
+
+		$valuser = $this->login_model->login($_POST);
+
+		if ($valuser==0) {
+			
+        	echo "<script> alert('Usuario o clave invalida') </script>";
+
+			redirect('login/' , 'refresh');
+
+		}else{
+
+       		$this->session->set_userdata($valuser);
+
+			redirect('welcome/' , 'refresh');
+
+		}
+   
+    }
+
+    public function logout()
+    {
+        $this->session->sess_destroy();
+    }
 	
 }

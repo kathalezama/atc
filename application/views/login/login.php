@@ -21,15 +21,15 @@
                     <div class="col-xl-7 pa-0 login-image-r">
                         <div class="auth-form-wrap py-xl-0 py-50">
                             <div class="auth-form w-xxl-55 w-xl-75 w-sm-90 w-xs-100 login-body">
-                                <form action="<?php echo base_url(); ?>index.php/usuarios/cambiar_clave" method="post">
+                                <form action="<?php echo base_url(); ?>index.php/login/login" method="post">
                                     <h1 class="display-4 mb-10">Iniciar Sesión</h1>
                                     <p class="mb-30"></p>
                                     <div class="form-group">
-                                        <input class="form-control letras" placeholder="Usuario" type="text">
+                                        <input class="form-control letras" id="user" name="user" placeholder="Usuario" type="text">
                                     </div>
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <input class="form-control" placeholder="Clave" type="password">
+                                            <input class="form-control" id="clave" name="clave" placeholder="Clave" type="password">
                                         </div>
                                     </div>
                                     <div class="custom-control custom-checkbox mb-25">
