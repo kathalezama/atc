@@ -51,9 +51,9 @@
                                         <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editar" id="<?php echo $motivos['id_motivo']; ?>">Editar</a>
                                         <?php if ($motivos['id_estatus'] == 0) { ?>
                                         <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item _bloquear" id="<?php echo $motivos['id_motivo']; ?>">Bloquear</a>
+                                            <a class="dropdown-item _bloquear" id="<?php echo $motivos['id_motivo']; ?>">Desactivar</a>
                                         </div>
-										<?php } elseif ($motivos['id_estatus'] == 2) {?>
+										<?php } elseif ($motivos['id_estatus'] == 1) {?>
 											<div class="dropdown-divider"></div>
                                             <a class="dropdown-item _activar" id="<?php echo $motivos['id_motivo']; ?>">Activar</a>
                                         </div>

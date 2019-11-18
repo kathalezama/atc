@@ -3,6 +3,7 @@
 class Motivos_model extends CI_Model{
     function __construct(){
         parent::__construct();
+        $this->load->model('welcome_model');
     }    
 
 	function menu()
@@ -29,6 +30,43 @@ class Motivos_model extends CI_Model{
 		{
 			return $listMotivos->result_array();
 		}
+	}
+
+	function save($datos)
+	{
+		$data = array(
+			'motivo'=>$datos['motivo'],
+			'id_usuario'=>$this->session->userdata['id_user'],
+			'fecha_registro'=>date('Y-m-d'),
+			'estatus'=>'0',
+			);
+
+
+			$this->db->insert('public.t_motivos',$data);
+
+			$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de Motivo',$this->db->last_query());
+			$retorno="Motivo Creado";
+
+			return $retorno;
+	}
+
+	function bloquear($datos)
+	{
+
+		$data = [
+			$_POST['name'] => $_POST['valor']
+		];
+
+		$this->db->where('id_motivo', $_POST['id']);
+		$this->db->update('public.'.$_POST['tb'], $data);
+
+		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar Motivo'; }
+		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar Motivo'; }
+
+		$this->welcome_model->log($this->session->userdata['id_user'],$log,$this->db->last_query());
+
+
+		return $return;
 	}
 
 }

@@ -41,7 +41,7 @@ class Usuarios_model extends CI_Model{
 			'telefono'=>$datos['telefono'],	
 			'username'=>$datos['username'],
 			'clave'=>MD5($datos['clave']),
-			'id_usuario'=>'0',
+			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
 			);
@@ -123,7 +123,7 @@ class Usuarios_model extends CI_Model{
 			'nombre_completo'=>$datos['e_nombres'],	
 			'correo'=>$datos['e_correo'],	
 			'telefono'=>$datos['e_telefono'],	
-			'id_usuario'=>'0',
+			'id_usuario'=>$this->session->userdata['id_user'],
 			'ult_mod'=>date('Y-m-d'),
 		);
 

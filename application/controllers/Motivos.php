@@ -33,4 +33,21 @@ class Motivos extends CI_Controller {
 		}
 		$this->load->view('layout/header',$menu);
 	}
+
+	public function save(){
+
+		$save = $this->motivos_model->save($_POST);
+
+		echo "<script> alert('".$save."') </script>";
+
+		redirect('motivos/' , 'refresh');
+
+	}
+
+	public function bloquear(){
+		
+		$bloc = $this->motivos_model->bloquear($_POST);
+		echo $bloc;
+
+	}
 }
