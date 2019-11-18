@@ -16,7 +16,10 @@ class Motivos extends CI_Controller {
 
 		$vista['motivos'] = $this->motivos_model->listMotivos();
 
+
 		$this->menu();
+		$vista['view_editar']=$this->load->view('motivos/editar', null, true);
+		$vista['view_agregar']=$this->load->view('motivos/agregar', null, true);
 		$this->load->view('motivos/motivos',$vista);
 		$this->load->view('layout/footer');
 	}

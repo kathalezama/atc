@@ -21,7 +21,7 @@
 						<div class="fmapp-view-wrap">
 					     <div class="fmapp-table-view">
 					     <div class="col-xl-2">
-					     	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLarge01">
+					     	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#add">
 					     		<font style="vertical-align: inherit;">
                                     <b>Agregar Motivo</b>
                                 </font>
@@ -48,7 +48,7 @@
                                    <div class="dropdown">
                                      <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
                                      <div role="menu" class="dropdown-menu">
-                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editaUser" id="<?php echo $motivos['id_motivo']; ?>">Editar</a>
+                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editar" id="<?php echo $motivos['id_motivo']; ?>">Editar</a>
                                         <?php if ($motivos['id_estatus'] == 0) { ?>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item _bloquear" id="<?php echo $motivos['id_motivo']; ?>">Bloquear</a>
@@ -83,7 +83,7 @@
             <!-- /Container -->
         </div>
         <!-- /Main Content -->
-<!-- 	<?=$view_cambiar_clave?>
+
 	<?=$view_editar?>
-	<?=$view_nuevo_usuario?> -->
+	<?=$view_agregar?>
         
