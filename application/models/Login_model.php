@@ -3,6 +3,7 @@
 class Login_model extends CI_Model{
     function __construct(){
         parent::__construct();
+        $this->load->model('welcome_model');
     }    
 
 	function login($datos)
@@ -16,6 +17,8 @@ class Login_model extends CI_Model{
 
 		if($user->num_rows()>0)
 		{
+			$this->welcome_model->log($user->row()->id_user,'Inicio de sesión',$this->db->last_query());
+
 			return $user->row_array();
 
 		}else{

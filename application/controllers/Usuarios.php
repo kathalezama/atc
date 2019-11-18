@@ -29,7 +29,7 @@ class Usuarios extends CI_Controller {
 		
 		$menu = $this->welcome_model->menu();
 
-		if (!isset($this->session->userdata->nombre_completo)) {
+		if (isset($this->session->userdata->nombre_completo)) {
 			$this->session->sess_destroy();
 			redirect('login/' , 'refresh');
 		}

@@ -3,7 +3,6 @@
 class Usuarios_model extends CI_Model{
     function __construct(){
         parent::__construct();
-        $this->load->database();
         $this->load->model('welcome_model');
     }    
 
@@ -50,7 +49,7 @@ class Usuarios_model extends CI_Model{
 
 			$this->db->insert('public.t_usuarios',$data);
 
-			$this->welcome_model->log('0','Creación de Usuario',$this->db->last_query());
+			$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de Usuario',$this->db->last_query());
 			$retorno="Usuario Creado";
 
 			return $retorno;
@@ -82,7 +81,7 @@ class Usuarios_model extends CI_Model{
 		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar Usuario'; }
 		elseif ($_POST['valor']==2) { $return = 'Bloqueado'; $log = 'Bloquear Usuario'; }
 
-		$this->welcome_model->log('0',$log,$this->db->last_query());
+		$this->welcome_model->log($this->session->userdata['id_user'],$log,$this->db->last_query());
 
 
 		return $return;
@@ -98,7 +97,7 @@ class Usuarios_model extends CI_Model{
 		$this->db->where('id_user', $_POST['c_id_user']);
 		$this->db->update('public.t_usuarios', $data);
 
-		$this->welcome_model->log('0','Cambio de clave',$this->db->last_query());
+		$this->welcome_model->log($this->session->userdata['id_user'],'Cambio de clave',$this->db->last_query());
 
 
 		return 'Clave Actualizado';

@@ -33,10 +33,8 @@ class Login extends CI_Controller {
 
 		}else{
 
-			//print_r($valuser);
-
        		$this->session->set_userdata($valuser);
-
+       		
 			redirect('welcome/' , 'refresh');
 
 		}
