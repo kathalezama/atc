@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Motivos_model extends CI_Model{
+class Canales_model extends CI_Model{
     function __construct(){
         parent::__construct();
         $this->load->model('welcome_model');
@@ -69,7 +69,7 @@ class Motivos_model extends CI_Model{
 		return $return;
 	}
 
-	function buscar_motivo($datos)
+	function buscar($datos)
 	{
 		$this->db->where('id_motivo', $_POST['id']);
 		$user = $this->db->get('public.t_motivos');

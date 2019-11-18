@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Motivos extends CI_Controller {
+class Canales extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-    	$this->load->model('motivos_model');
+    	$this->load->model('canales_model');
     	$this->load->model('welcome_model');
     	$this->load->helper('date');
 	}
@@ -14,13 +14,13 @@ class Motivos extends CI_Controller {
 	public function index()
 	{
 
-		$vista['motivos'] = $this->motivos_model->listMotivos();
+		$vista['motivos'] = $this->canales_model->listMotivos();
 
 
 		$this->menu();
-		$vista['view_editar']=$this->load->view('motivos/editar', null, true);
-		$vista['view_agregar']=$this->load->view('motivos/agregar', null, true);
-		$this->load->view('motivos/motivos',$vista);
+		$vista['view_editar']=$this->load->view('canales/editar', null, true);
+		$vista['view_agregar']=$this->load->view('canales/agregar', null, true);
+		$this->load->view('canales/canales',$vista);
 		$this->load->view('layout/footer');
 	}
 
@@ -36,7 +36,7 @@ class Motivos extends CI_Controller {
 
 	public function save(){
 
-		$save = $this->motivos_model->save($_POST);
+		$save = $this->canales_model->save($_POST);
 
 		echo "<script> alert('".$save."') </script>";
 
@@ -46,21 +46,21 @@ class Motivos extends CI_Controller {
 
 	public function bloquear(){
 		
-		$bloc = $this->motivos_model->bloquear($_POST);
+		$bloc = $this->canales_model->bloquear($_POST);
 		echo $bloc;
 
 	}
 
-	public function buscar_motivo(){
+	public function buscar(){
 
-		$motivo = $this->motivos_model->buscar_motivo($_POST);
+		$motivo = $this->canales_model->buscar_motivo($_POST);
 
 		echo $motivo['motivo'];
 	}
 
 	public function editar(){
 
-		$motivo = $this->motivos_model->editar($_POST);
+		$motivo = $this->canales_model->editar($_POST);
 		echo "<script> alert('".$motivo."') </script>";
 		redirect('motivos/' , 'refresh');
 
