@@ -1,5 +1,8 @@
 body {
   background-color: #FFF;
+  background-image: url('./selafe.png');
+  background-repeat: no-repeat;
+  background-position: right top;
 }
 
 .margen {
@@ -24,6 +27,10 @@ a {
   text-decoration: none;
 }
 
+td{
+  color: #000000c2;
+}
+
 .login-body{
 	background: #eeeeee;
     padding: 20px;
@@ -41,4 +48,28 @@ a {
 	background-image: url('./selafe2.png');
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.hk-pg-wrapper {
+  background-color: transparent;
+}
+
+table.dataTable tbody tr {
+  background-color: transparent;
+}
+
+.fmapp-wrap .fm-box .fmapp-main .fm-body {
+  background-color: transparent;
+}
+
+tr:hover{
+  background-color: transparent;
+}
+
+.table.table-hover tbody tr:hover, .table.table-striped tbody tr:nth-of-type(2n+1) {
+  background-color: transparent;
+}
+
+.fmapp-wrap .fm-box .fmapp-main .fm-body .fmapp-table-view table.table-hover tbody tr:hover {
+  background-color: #8c67302e;
 }

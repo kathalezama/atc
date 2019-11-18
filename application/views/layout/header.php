@@ -118,12 +118,6 @@
                         echo '</li>';
                     } ?>
                     
-                    <li class="nav-item">
-                        <a class="nav-link" href="documentation.html" >Documentation</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Log</a>
-                    </li>
                 </ul>
             </div>
             <ul class="navbar-nav hk-navbar-content">
