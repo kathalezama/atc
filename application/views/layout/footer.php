@@ -18,11 +18,13 @@
                     </div>
                 </footer>
             </div>
-            <!-- /Footer -->
+             /Footer
         </div> -->
 
     <script type="text/javascript">
         $('#fmapp_table_view').DataTable({
+      "lengthMenu":       [[5, 10, 20, 25, 50, -1], [5, 10, 20, 25, 50, "Todos"]],
+      "iDisplayLength":     5,
       "language": {
         "emptyTable":     "No hay datos disponibles en la tabla.",
         "info":           "Del _START_ al _END_ de _TOTAL_ ",
@@ -33,7 +35,7 @@
         "loadingRecords":   "Cargando...",
         "processing":     "Procesando...",
         "search":       "Buscar:",
-        "searchPlaceholder":  "Dato para buscar",
+        "searchPlaceholder":  "Buscar",
         "zeroRecords":      "No se han encontrado coincidencias.",
         "paginate": {
           "first":      "Primera",

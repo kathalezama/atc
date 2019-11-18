@@ -4,8 +4,8 @@
             <!-- Container -->
             <nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
-				    <li class="breadcrumb-item">Usuarios</li>
-				    <li class="breadcrumb-item active" aria-current="page">Usuarios</li>
+				    <li class="breadcrumb-item">Configuración</li>
+				    <li class="breadcrumb-item active" aria-current="page">Motivo de la visita</li>
 				</ol>
 			</nav>
             <div class="container-fluid margen">
@@ -23,7 +23,7 @@
 					     <div class="col-xl-2">
 					     	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalLarge01">
 					     		<font style="vertical-align: inherit;">
-                                    <b>Agregar Usuario</b>
+                                    <b>Agregar Motivo</b>
                                 </font>
                             </button>
 					     </div>
@@ -49,7 +49,6 @@
                                      <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
                                      <div role="menu" class="dropdown-menu">
                                         <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editaUser" id="<?php echo $motivos['id_motivo']; ?>">Editar</a>
-                                        <a class="dropdown-item _cambiar_clave" href="#" data-toggle="modal" data-target="#cambiarPass" id="<?php echo $motivos['id_motivo']; ?>">Cambiar clave</a>
                                         <?php if ($motivos['id_estatus'] == 0) { ?>
                                         <div class="dropdown-divider"></div>
                                             <a class="dropdown-item _bloquear" id="<?php echo $motivos['id_motivo']; ?>">Bloquear</a>
