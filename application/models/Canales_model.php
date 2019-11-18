@@ -20,11 +20,11 @@ class Canales_model extends CI_Model{
 
 	}
 
-	function listMotivos()
+	function list()
 	{
-		$this->db->join('t_estatus','t_estatus.id_estatus = t_motivos.estatus','left');
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_canales.estatus','left');
 		//$this->db->where('estatus','0');
-		$listMotivos = $this->db->get('public.t_motivos');
+		$listMotivos = $this->db->get('public.t_canales');
 		
 		if($listMotivos->num_rows()>0)
 		{
@@ -35,17 +35,17 @@ class Canales_model extends CI_Model{
 	function save($datos)
 	{
 		$data = array(
-			'motivo'=>$datos['motivo'],
+			'canal'=>$datos['canal'],
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
 			);
 
 
-			$this->db->insert('public.t_motivos',$data);
+			$this->db->insert('public.t_canales',$data);
 
-			$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de Motivo',$this->db->last_query());
-			$retorno="Motivo Creado";
+			$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de canal de atc',$this->db->last_query());
+			$retorno="Canal Creado";
 
 			return $retorno;
 	}
@@ -57,7 +57,7 @@ class Canales_model extends CI_Model{
 			$_POST['name'] => $_POST['valor']
 		];
 
-		$this->db->where('id_motivo', $_POST['id']);
+		$this->db->where('id_canal', $_POST['id']);
 		$this->db->update('public.'.$_POST['tb'], $data);
 
 		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar Motivo'; }
@@ -71,8 +71,8 @@ class Canales_model extends CI_Model{
 
 	function buscar($datos)
 	{
-		$this->db->where('id_motivo', $_POST['id']);
-		$user = $this->db->get('public.t_motivos');
+		$this->db->where('id_canal', $_POST['id']);
+		$user = $this->db->get('public.t_canales');
 
 
 		if($user->num_rows()>0)
@@ -85,15 +85,15 @@ class Canales_model extends CI_Model{
 	function editar($datos)
 	{
 		 $data = array(
-			'motivo'=>$datos['e_motivo'],
+			'canal'=>$datos['e_canal'],
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'ult_mod'=>date('Y-m-d'),
 		);
 
-		$this->db->where('id_motivo', $datos['e_id_motivo']);
-		$this->db->update('public.t_motivos', $data);
+		$this->db->where('id_canal', $datos['e_id']);
+		$this->db->update('public.t_canales', $data);
 
-		return 'Motivo Modificado';
+		return 'Canal Modificado';
 	}
 
 }

@@ -14,7 +14,7 @@ class Canales extends CI_Controller {
 	public function index()
 	{
 
-		$vista['motivos'] = $this->canales_model->listMotivos();
+		$vista['canales'] = $this->canales_model->list();
 
 
 		$this->menu();
@@ -40,7 +40,7 @@ class Canales extends CI_Controller {
 
 		echo "<script> alert('".$save."') </script>";
 
-		redirect('motivos/' , 'refresh');
+		redirect('canales/' , 'refresh');
 
 	}
 
@@ -53,16 +53,16 @@ class Canales extends CI_Controller {
 
 	public function buscar(){
 
-		$motivo = $this->canales_model->buscar_motivo($_POST);
+		$motivo = $this->canales_model->buscar($_POST);
 
-		echo $motivo['motivo'];
+		echo $motivo['canal'];
 	}
 
 	public function editar(){
 
 		$motivo = $this->canales_model->editar($_POST);
 		echo "<script> alert('".$motivo."') </script>";
-		redirect('motivos/' , 'refresh');
+		redirect('canales/' , 'refresh');
 
 	}
 }

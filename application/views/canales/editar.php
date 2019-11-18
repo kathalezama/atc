@@ -1,11 +1,11 @@
-<form action="<?php echo base_url(); ?>index.php/motivos/editar" method="post">
+<form action="<?php echo base_url(); ?>index.php/canales/editar" method="post">
 <div class="modal" id="editar">
    <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
 
 
         <div class="modal-header">
-            <h5 class="modal-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Editar motivo</font></font></h5>
+            <h5 class="modal-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Editar canal de atención</font></font></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
                 <span aria-hidden="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">×</font></font></span>
             </button>
@@ -14,9 +14,9 @@
         
         <div class="modal-body">
             <div class="row">
-                <div class="col-lg-12">Motivo</div>
-                <div class="col-lg-6"><input type="text" name="e_motivo" id="e_motivo" class="form-control"></div>
-                <input type="hidden" name="e_id_motivo" id="e_id_motivo">
+                <div class="col-lg-12">Canal de atención</div>
+                <div class="col-lg-6"><input type="text" name="e_canal" id="e_canal" class="form-control"></div>
+                <input type="hidden" name="e_id" id="e_id">
 
             </div>
         </div>
