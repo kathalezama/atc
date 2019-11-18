@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Welcome_model extends CI_Model{
+class Motivos_model extends CI_Model{
     function __construct(){
         parent::__construct();
     }    
@@ -19,16 +19,16 @@ class Welcome_model extends CI_Model{
 
 	}
 
-	function log($user,$act,$sent){
-
-		$data = array(
-			'id_usuario'=>$user,
-			'fecha_registro'=>date('Y-m-d H:i:s'),
-			'actividad'=>$act,
-			'sentencia'=>$sent,
-			);
-
-			$this->db->insert('public.logs',$data);
-
+	function listMotivos()
+	{
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_motivos.estatus','left');
+		//$this->db->where('estatus','0');
+		$listMotivos = $this->db->get('public.t_motivos');
+		
+		if($listMotivos->num_rows()>0)
+		{
+			return $listMotivos->result_array();
+		}
 	}
+
 }

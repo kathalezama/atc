@@ -3,7 +3,7 @@
             </div>
     </div>
 
-    <div class="hk-footer-wrap container">
+    <!-- <div class="hk-footer-wrap container">
                 <footer class="footer">
                     <div class="row">
                         <div class="col-md-6 col-sm-12">
@@ -19,7 +19,7 @@
                 </footer>
             </div>
             <!-- /Footer -->
-        </div>
+        </div> -->
 
     <script type="text/javascript">
         $('#fmapp_table_view').DataTable({
