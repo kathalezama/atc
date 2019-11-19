@@ -40,7 +40,7 @@ class Preferencial extends CI_Controller {
 
 		echo "<script> alert('".$save."') </script>";
 
-		redirect('canales/' , 'refresh');
+		redirect('preferencial/' , 'refresh');
 
 	}
 
@@ -55,14 +55,14 @@ class Preferencial extends CI_Controller {
 
 		$motivo = $this->preferencial_model->buscar($_POST);
 
-		echo $motivo['canal'];
+		echo $motivo['tcliente'];
 	}
 
 	public function editar(){
 
 		$motivo = $this->preferencial_model->editar($_POST);
 		echo "<script> alert('".$motivo."') </script>";
-		redirect('canales/' , 'refresh');
+		redirect('preferencial/' , 'refresh');
 
 	}
 }

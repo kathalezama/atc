@@ -14,7 +14,7 @@
         
         <div class="modal-body">
             <div class="row">
-                <div class="col-lg-12">Canal de atención</div>
+                <div class="col-lg-12">Atención preferencial</div>
                 <div class="col-lg-6"><input type="text" name="e_preferencial" id="e_preferencial" class="form-control"></div>
                 <input type="hidden" name="e_id" id="e_id">
 

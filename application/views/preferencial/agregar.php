@@ -38,12 +38,12 @@
 
     $('._bloquear').click(function(){
 
-        var confirmacion = confirm("Realmente desea desactivar este canal");
+        var confirmacion = confirm("Realmente desea desactivar este tipo de atención");
         var ide = $(this).attr("id");
 
 
         if (confirmacion==true) {
-            $.post("<?php echo base_url() ?>index.php/canales/bloquear", { id:$(this).attr("id"), tb:'t_canales', name: 'estatus', valor:'1' }, function(data){
+            $.post("<?php echo base_url() ?>index.php/preferencial/bloquear", { id:$(this).attr("id"), tb:'t_tclientes', name: 'estatus', valor:'1' }, function(data){
                 $("#row_desactivar"+ide).html(data);
             });
         }
@@ -51,12 +51,12 @@
 
     $('._activar').click(function(){
 
-        var confirmacion = confirm("Realmente desea activar este canal");
+        var confirmacion = confirm("Realmente desea activar este tipo de atención");
         var ide = $(this).attr("id");
 
 
         if (confirmacion==true) {
-            $.post("<?php echo base_url() ?>index.php/canales/bloquear", { id:$(this).attr("id"), tb:'t_canales', name: 'estatus', valor:'0' }, function(data){
+            $.post("<?php echo base_url() ?>index.php/preferencial/bloquear", { id:$(this).attr("id"), tb:'t_tclientes', name: 'estatus', valor:'0' }, function(data){
                 $("#row_desactivar"+ide).html(data);
               });
         }
@@ -68,9 +68,9 @@
         var ide = $(this).attr("id");
         $('#e_id').val(ide);
 
-        $.post("<?php echo base_url() ?>index.php/canales/buscar", { id:$(this).attr("id")}, function(data){
+        $.post("<?php echo base_url() ?>index.php/preferencial/buscar", { id:$(this).attr("id")}, function(data){
 
-            $('#e_canal').val(data);
+            $('#e_preferencial').val(data);
 
         });
 

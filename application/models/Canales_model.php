@@ -60,8 +60,8 @@ class Canales_model extends CI_Model{
 		$this->db->where('id_canal', $_POST['id']);
 		$this->db->update('public.'.$_POST['tb'], $data);
 
-		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar Motivo'; }
-		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar Motivo'; }
+		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar canal de atc'; }
+		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar canal de atc'; }
 
 		$this->welcome_model->log($this->session->userdata['id_user'],$log,$this->db->last_query());
 
@@ -92,6 +92,9 @@ class Canales_model extends CI_Model{
 
 		$this->db->where('id_canal', $datos['e_id']);
 		$this->db->update('public.t_canales', $data);
+
+		$this->welcome_model->log($this->session->userdata['id_user'],'Canal de atc modificado',$this->db->last_query());
+
 
 		return 'Canal Modificado';
 	}

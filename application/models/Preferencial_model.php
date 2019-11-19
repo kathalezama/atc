@@ -35,7 +35,7 @@ class Preferencial_model extends CI_Model{
 	function save($datos)
 	{
 		$data = array(
-			'canal'=>$datos['canal'],
+			'tcliente'=>$datos['preferencial'],
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
@@ -44,8 +44,8 @@ class Preferencial_model extends CI_Model{
 
 			$this->db->insert('public.t_tclientes',$data);
 
-			$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de canal de atc',$this->db->last_query());
-			$retorno="Canal Creado";
+			$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de atencion preferencial',$this->db->last_query());
+			$retorno="Atención preferencial Creado";
 
 			return $retorno;
 	}
@@ -57,11 +57,11 @@ class Preferencial_model extends CI_Model{
 			$_POST['name'] => $_POST['valor']
 		];
 
-		$this->db->where('id_canal', $_POST['id']);
+		$this->db->where('id_tcliente', $_POST['id']);
 		$this->db->update('public.'.$_POST['tb'], $data);
 
-		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar Motivo'; }
-		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar Motivo'; }
+		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar atc preferencial'; }
+		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar atc preferencial'; }
 
 		$this->welcome_model->log($this->session->userdata['id_user'],$log,$this->db->last_query());
 
@@ -71,7 +71,7 @@ class Preferencial_model extends CI_Model{
 
 	function buscar($datos)
 	{
-		$this->db->where('id_canal', $_POST['id']);
+		$this->db->where('id_tcliente', $_POST['id']);
 		$user = $this->db->get('public.t_tclientes');
 
 
@@ -85,15 +85,18 @@ class Preferencial_model extends CI_Model{
 	function editar($datos)
 	{
 		 $data = array(
-			'canal'=>$datos['e_canal'],
+			'tcliente'=>$datos['e_preferencial'],
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'ult_mod'=>date('Y-m-d'),
 		);
 
-		$this->db->where('id_canal', $datos['e_id']);
+		$this->db->where('id_tcliente', $datos['e_id']);
 		$this->db->update('public.t_tclientes', $data);
 
-		return 'Canal Modificado';
+		$this->welcome_model->log($this->session->userdata['id_user'],'Atc preferencial modificado',$this->db->last_query());
+
+
+		return 'Atención preferencial modificado';
 	}
 
 }

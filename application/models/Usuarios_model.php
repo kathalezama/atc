@@ -130,6 +130,9 @@ class Usuarios_model extends CI_Model{
 		$this->db->where('id_user', $datos['e_id_user']);
 		$this->db->update('public.t_usuarios', $data);
 
+		$this->welcome_model->log($this->session->userdata['id_user'],'Usuario Modificado',$this->db->last_query());
+
+
 		return 'Usuario Modificado';
 	}
 }
