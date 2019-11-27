@@ -21,7 +21,7 @@
     <!-- Data Table CSS -->
     <link href="<?php echo base_url(); ?>assets/vendors/datatables.net-dt/css/jquery.dataTables.min.css" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url(); ?>assets/vendors/datatables.net-responsive-dt/css/responsive.dataTables.min.css" rel="stylesheet" type="text/css" />
-	
+
     <!-- Custom CSS -->
     <link href="<?php echo base_url(); ?>assets/dist/css/style.css" rel="stylesheet" type="text/css">
     <link href="<?php echo base_url(); ?>assets/dist/css/atc.css" rel="stylesheet" type="text/css">

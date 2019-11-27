@@ -1,4 +1,4 @@
-<?php //echo "<br><br><br><br><br><br>"; print_r($_ci_vars['usuarios']) ?>
+<?php // echo "<br><br><br><br><br><br><pre>"; print_r($_ci_vars); echo "</pre>"; ?>
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
@@ -32,37 +32,43 @@
 							<thead>
 						     <tr>
 							  <th>#</th>
-							  <th>Atención preferencial</th>
+							  <th>Punto de Atención</th>
+							  <th>Servicios</th>
+							  <th>Atc. Preferencial</th>
+							  <th>Analista</th>
 							  <th>Estatus</th>
 							  <th></th>
 							 </tr>
 							</thead>
 							<tbody>
-							<?php foreach ($_ci_vars['preferencial'] as $preferencial) { ?>
-							 <tr>
-							  <td><?php echo $preferencial['id_tcliente']; ?></td>
-							  <td><?php echo $preferencial['tcliente']; ?></td>
-							  <td id="row_desactivar<?php echo $preferencial['id_tcliente']; ?>"><?php echo $preferencial['estatus']; ?></td>
-							  <td>
-								<div class="btn-group">
-                                   <div class="dropdown">
-                                     <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
-                                     <div role="menu" class="dropdown-menu">
-                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editar" id="<?php echo $preferencial['id_tcliente']; ?>">Editar</a>
-                                        <?php if ($preferencial['id_estatus'] == 0) { ?>
-                                        <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item _bloquear" id="<?php echo $preferencial['id_tcliente']; ?>">Desactivar</a>
-                                        </div>
-										<?php } elseif ($preferencial['id_estatus'] == 1) {?>
-											<div class="dropdown-divider"></div>
-                                            <a class="dropdown-item _activar" id="<?php echo $preferencial['id_tcliente']; ?>">Activar</a>
-                                        </div>
-										<?php } ?>
-                                    </div>
-                               	</div>
-							  </td>
-							 </tr>
-							<?php } ?>
+								<?php $i=0; foreach ($_ci_vars['ptos'] as $key) { $i++; ?>
+									<tr>
+									  <td><?php echo $i; ?></td>
+									  <td><?php echo $key['nombre']; ?></td>
+									  <td><?php echo $key['servicios']; ?></td>
+									  <td><?php echo $key['preferencial']; ?></td>
+									  <td><?php echo $key['analista']; ?></td>
+									  <td><?php echo $key['estatus']; ?></td>
+									  <td>
+										<div class="btn-group">
+		                                   <div class="dropdown">
+		                                     <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
+		                                     <div role="menu" class="dropdown-menu">
+		                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editar" id="<?php echo $key['id_pto']; ?>">Editar</a>
+		                                        <?php if ($key['id_estatus'] == 0) { ?>
+		                                        <div class="dropdown-divider"></div>
+		                                            <a class="dropdown-item _bloquear" id="<?php echo $key['id_pto']; ?>">Desactivar</a>
+		                                        </div>
+												<?php } elseif ($key['id_estatus'] == 1) {?>
+													<div class="dropdown-divider"></div>
+		                                            <a class="dropdown-item _activar" id="<?php echo $key['id_pto']; ?>">Activar</a>
+		                                        </div>
+												<?php } ?>
+		                                    </div>
+		                               	</div>
+									  </td>
+									 </tr>
+								<?php } ?>							
 							</tbody>
 						  </table>
 
@@ -85,5 +91,5 @@
         <!-- /Main Content -->
 
 	<?=$view_editar?>
-	<?=$view_agregar?>
+	<?=$view_agregar?> 
         
