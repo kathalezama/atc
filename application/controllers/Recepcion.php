@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Puntos extends CI_Controller {
+class Recepcion extends CI_Controller {
 
 	public function __construct()
 	{
@@ -15,32 +15,14 @@ class Puntos extends CI_Controller {
 	{
 		$i=0;
 
-		$datos['servicios'] = $this->puntos_model->listServicios();
-		$datos['preferencial'] = $this->puntos_model->listPreferencial();
-		$datos['analista'] = $this->puntos_model->listAnalista();
-		$datos['analista2'] = $this->puntos_model->listAnalista2();
-		$data = $this->puntos_model->list();
-
-		if ($data<>"") {
-		foreach($data as $sheet) {
-			$i++;		
-			
-			$lista[$i]["id_pto"]=$sheet->id_pto;
-			$lista[$i]["analista"]=$sheet->nombre_completo;
-			$lista[$i]["nombre"]=$sheet->nombre;
-			$lista[$i]["estatus"]=$sheet->estatus;
-			$lista[$i]["id_estatus"]=$sheet->id_estatus;
-			$lista[$i]["servicios"]=$this->puntos_model->serv_pto($sheet->id_pto);		
-			$lista[$i]["preferencial"]=$this->puntos_model->preferencial_pto($sheet->id_pto);
-		 }
-		}
-
-		$vista['ptos'] = $lista;
+		$vista['preferencial'] = $this->puntos_model->listPreferencial();
+		$vista['servicios'] = $this->puntos_model->listServicios();
+		$vista['motivos'] = $this->puntos_model->listMotivos();
 
 		$this->menu();
-		$vista['view_agregar']=$this->load->view('puntos_atc/agregar', $datos , true);
-		$vista['view_editar']=$this->load->view('puntos_atc/editar', $datos , true);
-		$this->load->view('puntos_atc/puntos',$vista);
+		//$vista['view_agregar']=$this->load->view('puntos_atc/agregar', $datos , true);
+		//$vista['view_editar']=$this->load->view('puntos_atc/editar', $datos , true);
+		$this->load->view('recepcion/recepcion',$vista);
 		$this->load->view('layout/footer');
 	}
 

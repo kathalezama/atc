@@ -46,6 +46,34 @@ class Puntos_model extends CI_Model{
 
 	}
 
+	function serv_pto2($id)
+	{
+		$this->db->select('t_servicios.id_servicio');
+		$this->db->join('t_pto_serv','t_pto_serv.id_servicio = t_servicios.id_servicio','left');
+		$this->db->where('t_pto_serv.id_pto',$id);	
+
+		$serv = $this->db->get('public.t_servicios');
+
+		//return $id;
+
+		$servicios = "";
+
+		if($serv->num_rows()>0)
+		{
+			foreach ($serv->result_array() as $key) {
+				
+				$servicios = $servicios.$key['id_servicio'];
+			}
+
+			return $servicios;
+		}else{
+
+			return '0';
+
+		}
+
+	}
+
 	function preferencial_pto($id)
 	{
 		$this->db->select('tcliente');
@@ -67,6 +95,31 @@ class Puntos_model extends CI_Model{
 		}else{
 
 			return 'No aplica';
+		}
+
+	}
+
+	function preferencial_pto2($id)
+	{
+		$this->db->select('id_tcliente');
+		$this->db->join('t_pto_pref','t_pto_pref.id_pre = t_tclientes.id_tcliente','left');
+		$this->db->where('t_pto_pref.id_pto',$id);	
+
+		$serv = $this->db->get('public.t_tclientes');
+
+		$servicios = "";
+
+		if($serv->num_rows()>0)
+		{
+			foreach ($serv->result_array() as $key) {
+				
+				$servicios = $servicios.$key['id_tcliente'].':';
+			}
+
+			return $servicios;
+		}else{
+
+			return '0';
 		}
 
 	}
@@ -97,6 +150,18 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
+	function listMotivos()
+	{
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_motivos.estatus','left');
+		$this->db->where('t_motivos.estatus','0');
+		$listMotivos = $this->db->get('public.t_motivos');
+		
+		if($listMotivos->num_rows()>0)
+		{
+			return $listMotivos->result_array();
+		}
+	}
+
 	function listPreferencial()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_tclientes.estatus','left');
@@ -114,7 +179,7 @@ class Puntos_model extends CI_Model{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_usuarios.estatus','left');
 		$this->db->where('t_usuarios.estatus','0');
 		$this->db->where('t_usuarios.id_rol','3');
-		$this->db->where('t_usuarios.id_user NOT IN (select id_analista from t_ptos_atc)',NULL,FALSE);
+		$this->db->where('t_usuarios.id_user NOT IN (select id_analista from t_ptos_atc where t_ptos_atc.estatus = 0)',NULL,FALSE);
 
 		$listMotivos = $this->db->get('public.t_usuarios');
 		
@@ -124,11 +189,12 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
-	function listAnalistae()
+	function listAnalista2()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_usuarios.estatus','left');
 		$this->db->where('t_usuarios.estatus','0');
 		$this->db->where('t_usuarios.id_rol','3');
+		//$this->db->where('t_usuarios.id_user NOT IN (select id_analista from t_ptos_atc where id_analista='.$id.')',NULL,FALSE);
 
 		$listMotivos = $this->db->get('public.t_usuarios');
 		
@@ -194,11 +260,11 @@ class Puntos_model extends CI_Model{
 			$_POST['name'] => $_POST['valor']
 		];
 
-		$this->db->where('id_tcliente', $_POST['id']);
+		$this->db->where('id_pto', $_POST['id']);
 		$this->db->update('public.'.$_POST['tb'], $data);
 
-		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar atc preferencial'; }
-		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar atc preferencial'; }
+		if ($_POST['valor']==0) { $return = 'Activo'; $log = 'Activar punto de atención'; }
+		elseif ($_POST['valor']==1) { $return = 'Inactivo'; $log = 'Inactivar punto de atención'; }
 
 		$this->welcome_model->log($this->session->userdata['id_user'],$log,$this->db->last_query());
 
@@ -208,13 +274,15 @@ class Puntos_model extends CI_Model{
 
 	function buscar($datos)
 	{
-		$this->db->where('id_tcliente', $_POST['id']);
-		$user = $this->db->get('public.t_tclientes');
-
-
-		if($user->num_rows()>0)
+		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus, t_usuarios.id_user');
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
+		$this->db->join('t_usuarios','t_usuarios.id_user = t_ptos_atc.id_analista','left');
+		$this->db->where('id_pto',$datos);
+		$listMotivos = $this->db->get('public.t_ptos_atc');
+		
+		if($listMotivos->num_rows()>0)
 		{
-			return $user->row_array();
+			return $listMotivos->row_array();
 		}
 
 	}

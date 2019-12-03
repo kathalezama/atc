@@ -37,7 +37,7 @@
                 <div class="col-lg-6">
                     <select id="analista" name="analista" class="form-control">
                     <option value='' >-- Seleccione</option>
-                      <?php foreach ($_ci_vars['analista'] as $key) {
+                      <?php foreach ($_ci_vars['analista2'] as $key) {
                         echo "<option value='".$key['id_user']."'>".$key['nombre_completo']."</option>";
                       } ?>
                    </select>
@@ -57,7 +57,7 @@
                 </div>
 
                 <?php } ?>
-
+                <input type="hidden" name="e_id" id="e_id">
             </div>
         </div>
 

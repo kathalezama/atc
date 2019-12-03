@@ -48,7 +48,7 @@
 									  <td><?php echo $key['servicios']; ?></td>
 									  <td><?php echo $key['preferencial']; ?></td>
 									  <td><?php echo $key['analista']; ?></td>
-									  <td><?php echo $key['estatus']; ?></td>
+									  <td id="row_desactivar<?php echo $key['id_pto']; ?>"><?php echo $key['estatus']; ?></td>
 									  <td>
 										<div class="btn-group">
 		                                   <div class="dropdown">
