@@ -189,6 +189,7 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
+<<<<<<< HEAD
 	function listAnalista2()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_usuarios.estatus','left');
@@ -204,6 +205,8 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
+=======
+>>>>>>> d6f3ffc91491388b59fa015636e6f2dbe1e22ec2
 	function save($datos)
 	{
 		$data = array(

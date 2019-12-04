@@ -14,7 +14,7 @@ class Preferencial extends CI_Controller {
 	public function index()
 	{
 
-		$vista['preferencial'] = $this->preferencial_model->list();
+		$vista['preferencial'] = $this->preferencial_model->lista();
 
 
 		$this->menu();

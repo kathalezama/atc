@@ -33,52 +33,54 @@ class Recepcion_model extends CI_Model{
 			return $listMotivos->result();
 		}
 	}
+
+	function select_pto($datos){
+		$this->db->select('t_ptos_atc.id_pto, t_ptos_atc.nombre');
+		$this->db->join('t_pto_serv','t_pto_serv.id_pto = t_ptos_atc.id_pto','left');
+		$this->db->join('t_pto_pref','t_pto_pref.id_pto = t_ptos_atc.id_pto','left');
+		$this->db->where('estatus','0');
+		$this->db->where('t_pto_pref.id_pre','0');
+		$this->db->where('t_pto_serv.id_servicio','0');
+	}
 	
 	function save($datos)
 	{
 		$data = array(
-			'nombre'=>$datos['nombre'],
-			'id_analista'=>$datos['analista'],
+			'cedula'=>$datos['cedula'],
+			'nombre_completo'=>$datos['nombres'],
+			'correo'=>$datos['correo'],
+			'telefono'=>$datos['telefono'],
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
 		);
 
 
-		$this->db->insert('public.t_ptos_atc',$data);
+		$this->db->insert('public.t_clientes',$data);
 
 		$sql=$this->db->last_query();
 
 		$id = $this->db->insert_id();
 
-		if ($_POST['preferencial']!="") {
-		foreach ($_POST['preferencial'] as $key) {
-
-			$data = array(
-				'id_pto'=>$id,
-				'id_pre'=>$key,
-			);
-
-			$this->db->insert('public.t_pto_pref',$data);
-
-			$sql=$sql.'; '.$this->db->last_query();
-
-	    }
-		}
-
-	    $data = array(
-			'id_pto'=>$id,
-			'id_servicio'=>$_POST['servicios'],
+		$data = array(
+			'id_cliente'=>$id,
+			'id_pto'=>'0',
+			'hora_recepcion'=>date('H:i:s'),
+			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
+			'id_usuario'=>$this->session->userdata['id_user'],
+			'fecha_registro'=>date('Y-m-d'),
+			'estatus'=>'0',
 		);
 
-		$this->db->insert('public.t_pto_serv',$data);
+
+		$this->db->insert('public.t_atencion',$data);
 
 		$sql=$sql.'; '.$this->db->last_query();
 
 
-		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de punto de atención',$sql);
+		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de ticket',$sql);
 
-		$retorno='Punto de atención Creado';
+		$retorno='ticket creado';
 
 		return $retorno;
 	}

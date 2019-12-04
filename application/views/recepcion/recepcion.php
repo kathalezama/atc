@@ -1,4 +1,4 @@
-<?php ?>
+<form action="<?php echo base_url(); ?>index.php/recepcion/save" method="post">
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
@@ -25,8 +25,8 @@
                     	<div class="col-xl-6">Telefono:</div>
                        	<div class="col-xl-6">Correo:</div>
 
-                    	<div class="col-xl-6"><input type="text" class="form-control" id="cedula" name="cedula"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control" id="nombres" name="nombres"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control" id="telefono" name="telefono"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control" id="correo" name="correo"></div>
 
 		                <div class="col-xl-6">Servicio:</div>
                        	<div class="col-xl-6">Motivo:</div>
@@ -79,5 +79,6 @@
 	</div>
             <!-- /Container -->
 </div>
+</form>
         <!-- /Main Content -->
         

@@ -85,6 +85,7 @@
 
         if (confirmacion==true) {
             $.post("<?php echo base_url() ?>index.php/puntos/bloquear", { id:$(this).attr("id"), tb:'t_ptos_atc', name: 'estatus', valor:'1' }, function(data){
+
                 $("#row_desactivar"+ide).html(data);
             });
         }

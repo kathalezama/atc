@@ -6,6 +6,7 @@ class Recepcion extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+    	$this->load->model('recepcion_model');
     	$this->load->model('puntos_model');
     	$this->load->model('welcome_model');
     	$this->load->helper('date');
@@ -40,11 +41,11 @@ class Recepcion extends CI_Controller {
 
 		
 
-		$save = $this->puntos_model->save($_POST);
+		$save = $this->recepcion_model->save($_POST);
 
 		echo "<script> alert('".$save."') </script>";
 
-		redirect('puntos/' , 'refresh');
+		redirect('recepcion/' , 'refresh');
 
 	}
 
