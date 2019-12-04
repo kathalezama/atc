@@ -84,7 +84,7 @@
 
 
         if (confirmacion==true) {
-            $.post("<?php echo base_url() ?>index.php/preferencial/bloquear", { id:$(this).attr("id"), tb:'t_tclientes', name: 'estatus', valor:'1' }, function(data){
+            $.post("<?php echo base_url() ?>index.php/puntos/bloquear", { id:$(this).attr("id"), tb:'t_tclientes', name: 'estatus', valor:'1' }, function(data){
                 $("#row_desactivar"+ide).html(data);
             });
         }
@@ -97,7 +97,7 @@
 
 
         if (confirmacion==true) {
-            $.post("<?php echo base_url() ?>index.php/preferencial/bloquear", { id:$(this).attr("id"), tb:'t_tclientes', name: 'estatus', valor:'0' }, function(data){
+            $.post("<?php echo base_url() ?>index.php/puntos/bloquear", { id:$(this).attr("id"), tb:'t_tclientes', name: 'estatus', valor:'0' }, function(data){
                 $("#row_desactivar"+ide).html(data);
               });
         }
@@ -109,9 +109,22 @@
         var ide = $(this).attr("id");
         $('#e_id').val(ide);
 
-        $.post("<?php echo base_url() ?>index.php/preferencial/buscar", { id:$(this).attr("id")}, function(data){
+        $.post("<?php echo base_url() ?>index.php/puntos/buscar", { id:$(this).attr("id")}, function(data){
 
-            $('#e_preferencial').val(data);
+            //console.log(data);
+            var datos = data.split('|');
+            $("#nombre").val(datos[1]);
+            $('#servicios option[value="'+datos[4]+'"]').prop('selected', true);
+            $('#estatus option[value="'+datos[3]+'"]').prop('selected', true);
+
+            var pref = datos[5].split(':');
+
+            $.each( pref, function( k, v ) {
+              //console.log( "Key: " + k + ", Value: " + v );
+              if (v!="") {
+                $("#"+v).prop("checked", true);
+              }
+            });
 
         });
 

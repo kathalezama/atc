@@ -14,7 +14,7 @@ class Servicios extends CI_Controller {
 	public function index()
 	{
 
-		$vista['servicios'] = $this->servicios_model->list();
+		$vista['servicios'] = $this->servicios_model->lista();
 
 
 		$this->menu();

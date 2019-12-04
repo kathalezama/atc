@@ -14,7 +14,7 @@ class Canales extends CI_Controller {
 	public function index()
 	{
 
-		$vista['canales'] = $this->canales_model->list();
+		$vista['canales'] = $this->canales_model->lista();
 
 
 		$this->menu();

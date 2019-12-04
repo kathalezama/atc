@@ -20,7 +20,7 @@ class Servicios_model extends CI_Model{
 
 	}
 
-	function list()
+	function lista()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_servicios.estatus','left');
 		//$this->db->where('estatus','0');

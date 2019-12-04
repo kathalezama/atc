@@ -57,7 +57,7 @@
                 </div>
 
                 <?php } ?>
-
+                <input type="hidden" name="e_id" id="e_id">
             </div>
         </div>
 
