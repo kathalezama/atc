@@ -116,7 +116,7 @@
         if($(".mail").val().indexOf('@', 0) == -1 || $(".mail").val().indexOf('.', 0) == -1) {
             alert('El correo electrónico introducido no es correcto.');
             //$('.mail').val("");
-            return false;
+            //return false;
         }
     });
   }
