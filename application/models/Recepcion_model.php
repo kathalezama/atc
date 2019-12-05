@@ -20,7 +20,7 @@ class Recepcion_model extends CI_Model{
 
 	}
 
-	function list()
+/*	function list()
 	{
 		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
@@ -32,7 +32,7 @@ class Recepcion_model extends CI_Model{
 		{
 			return $listMotivos->result();
 		}
-	}
+	}*/
 
 	function select_pto($datos){
 		$this->db->select('t_ptos_atc.id_pto, t_ptos_atc.nombre');
@@ -102,6 +102,24 @@ class Recepcion_model extends CI_Model{
 
 
 		return $return;
+	}
+
+	function ticket()
+	{
+
+		$this->db->select('tiket, hora_recepcion, t_estatus.estatus, nombre_completo');
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
+		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
+		$this->db->order_by('id_atencion','asc');
+		$this->db->where('id_estatus','4');
+
+		$listMotivos = $this->db->get('public.t_atencion');
+		
+		if($listMotivos->num_rows()>0)
+		{
+			return $listMotivos->result_array();
+		}
+
 	}
 
 	function buscar($datos)

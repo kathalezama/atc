@@ -33,7 +33,7 @@
 						     <tr>
 							  <th>#</th>
 							  <th>Punto de Atención</th>
-							  <th>Servicios</th>
+							  <th>Servicio</th>
 							  <th>Atc. Preferencial</th>
 							  <th>Analista</th>
 							  <th>Estatus</th>
@@ -45,9 +45,9 @@
 									<tr>
 									  <td><?php echo $i; ?></td>
 									  <td><?php echo $key['nombre']; ?></td>
-									  <td><?php echo $key['servicios']; ?></td>
-									  <td><?php echo $key['preferencial']; ?></td>
-									  <td><?php echo $key['analista']; ?></td>
+									  <td><?php echo $key['servicio']; ?></td>
+									  <td><?php echo $key['id_pref']; ?></td>
+									  <td><?php echo $key['nombre_completo']; ?></td>
 									  <td id="row_desactivar<?php echo $key['id_pto']; ?>"><?php echo $key['estatus']; ?></td>
 									  <td>
 										<div class="btn-group">
