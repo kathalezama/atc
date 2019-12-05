@@ -1,4 +1,4 @@
-<form action="<?php echo base_url(); ?>index.php/recepcion/save" method="post">
+<form action="<?php echo base_url(); ?>index.php/recepcion/save" method="post" id="frm_recepcion">
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
@@ -119,6 +119,25 @@
             //return false;
         }
     });
+
+  $("#frm_recepcion").submit(function () 
+    {  
+      if($(".form-control").val().length < 1) 
+      {  
+        alert("Todos los campos son obligatorios");  
+      }
+
+      if($("#motivos").val()== "") 
+      {  
+        alert("Todos los campos son obligatorios");  
+      }
+
+      if($("#servicios").val()== "") 
+      {  
+        alert("Todos los campos son obligatorios");  
+      } 
+        return false;  
+    }); 
   }
 
 	
