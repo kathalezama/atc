@@ -19,8 +19,8 @@
                 <div class="col-lg-4">Apellidos</div>
 
                 <div class="col-lg-4"><input type="text" name="cedula" id="cedula" class="form-control numero" maxlength="8"></div>
-                <div class="col-lg-4"><input type="text" name="nombres" id="nombres" class="form-control"></div>
-                <div class="col-lg-4"><input type="text" name="apellidos" id="apellidos" class="form-control"></div>
+                <div class="col-lg-4"><input type="text" name="nombres" id="nombres" class="form-control letras"></div>
+                <div class="col-lg-4"><input type="text" name="apellidos" id="apellidos" class="form-control letras"></div>
 
                 
                 <div class="col-lg-4">Correo</div>

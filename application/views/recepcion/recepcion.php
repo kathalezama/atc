@@ -19,14 +19,14 @@
                        	<div class="col-xl-6">Cedula:</div>
                        	<div class="col-xl-6">Apellidos y Nombres:</div>
 
-                    	<div class="col-xl-6"><input type="text" class="form-control" id="cedula" name="cedula"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control" id="nombres" name="nombres"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="cedula" name="cedula" maxlength="8"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control letras" id="nombres" name="nombres"></div>
 
                     	<div class="col-xl-6">Telefono:</div>
                        	<div class="col-xl-6">Correo:</div>
 
-                    	<div class="col-xl-6"><input type="text" class="form-control" id="telefono" name="telefono"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control" id="correo" name="correo"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="telefono" name="telefono" maxlength="11"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control mail" id="correo" name="correo"></div>
 
 		                <div class="col-xl-6">Servicio:</div>
                        	<div class="col-xl-6">Motivo:</div>
@@ -101,7 +101,25 @@
             });
 
         });
-	}
+	
+  $('.numero').on('input', function () 
+    { 
+        this.value = this.value.replace(/[^0-9]/g,'');
+    });
+  
+  $('.letras').on('input', function () 
+    { 
+        this.value = this.value.replace(/[^a-zA-Z ]+$/,'');
+    });
+  
+  $('.mail').blur('input', function () { 
+        if($(".mail").val().indexOf('@', 0) == -1 || $(".mail").val().indexOf('.', 0) == -1) {
+            alert('El correo electrónico introducido no es correcto.');
+            //$('.mail').val("");
+            return false;
+        }
+    });
+  }
 
 	
 </script>        
