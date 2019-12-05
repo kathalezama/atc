@@ -20,7 +20,7 @@ class Recepcion_model extends CI_Model{
 
 	}
 
-	function list()
+/*	function list()
 	{
 		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
@@ -32,7 +32,7 @@ class Recepcion_model extends CI_Model{
 		{
 			return $listMotivos->result();
 		}
-	}
+	}*/
 
 	function select_pto($datos){
 		$this->db->select('t_ptos_atc.id_pto, t_ptos_atc.nombre');
