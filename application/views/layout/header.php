@@ -103,8 +103,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapseAlt">
                 <ul class="navbar-nav">
                     <?php foreach ($_ci_vars as $menu) {
-                        if ($menu['id_padre']==0) {
+                        if (($menu['id_padre']==0) && ($menu['hijos']==1)){
                             echo '<li class="nav-item dropdown show-on-hover"><a class="nav-link dropdown-toggle" href="'.base_url().$menu['ruta'].'" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">'.$menu['item'].'</a>';
+                        }elseif (($menu['id_padre']==0) && ($menu['hijos']==0)){
+                            echo '<li class="nav-item"><a class="nav-link" href="'.base_url().$menu['ruta'].'">'.$menu['item'].'</a>';
                         }
                         if ($menu['hijos']==1) {
                         echo '<div class="dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">';

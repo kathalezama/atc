@@ -53,16 +53,19 @@
                     	<div class="col-xl-12">Atención preferencial:</div>
                        	<div class="col-xl-12"><br></div>
 
-                    	<?php foreach ($_ci_vars['preferencial'] as $key) { ?>
+                    	<div class="col-lg-12">
+                             <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="preferencial" name="preferencial" value="1">
+                                <label class="custom-control-label" for="preferencial">Discapacidad | Adulto Mayor | Mujer Embarazada</label>
+                             </div>                   
+                        </div>
 
-		                <div class="col-lg-4">
-		                     <div class="custom-control custom-checkbox checkbox-primary">
-		                        <input type="checkbox" class="custom-control-input" id="<?php echo $key['id_tcliente']; ?>" name="preferencial[]" value="<?php echo $key['id_tcliente']; ?>">
-		                        <label class="custom-control-label" for="<?php echo $key['id_tcliente']; ?>"><?php echo $key['tcliente']; ?></label>
-		                     </div>                   
-		                </div>
-
-		                <?php } ?>
+                        <div class="col-lg-12">
+                             <div class="custom-control custom-checkbox checkbox-primary">
+                                <input type="checkbox" class="custom-control-input" id="especial" name="especial" value="1">
+                                <label class="custom-control-label" for="especial">Cliente Especial</label>
+                             </div>                   
+                        </div>
 
 
 
@@ -94,7 +97,6 @@
             console.log(obj);
 			$("#ticket").html("");
             $.each( obj, function(k,v) {
-	            //console.log(k+' '+v['estatus']);
 	              if (v!="") {
 	                $("#ticket").html($("#ticket").html()+'<div class="alert alert-primary alert-dismissible fade show" role="alert"><h1>'+v['tiket']+'</h1>'+v['estatus']+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
 	              }
@@ -115,8 +117,6 @@
   $('.mail').blur('input', function () { 
         if($(".mail").val().indexOf('@', 0) == -1 || $(".mail").val().indexOf('.', 0) == -1) {
             alert('El correo electrónico introducido no es correcto.');
-            //$('.mail').val("");
-            //return false;
         }
     });
   }

@@ -69,7 +69,10 @@ class Recepcion_model extends CI_Model{
 			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
-			'estatus'=>'0',
+			'id_servicio'=>$datos['servicios'],
+			'id_motivo'=>$datos['motivo'],
+			'id_pref'=>$datos['preferencial'],
+			'id_ces'=>$datos['especial'],
 		);
 
 
