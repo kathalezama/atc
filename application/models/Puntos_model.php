@@ -216,6 +216,7 @@ class Puntos_model extends CI_Model{
 			'estatus'=>'0',
 			'id_servicio'=>$datos['servicios'],
 			'id_pref'=>$datos['preferencial'],
+			'id_ces'=>$datos['especial'],
 		);
 
 
