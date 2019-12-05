@@ -27,6 +27,11 @@ class Recepcion extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+	public function ticket(){
+		 
+		print_r(json_encode($this->recepcion_model->ticket()));
+	}
+
 	public function menu(){
 		
 		$menu = $this->welcome_model->menu();

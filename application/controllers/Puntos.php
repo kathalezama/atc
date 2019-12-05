@@ -19,23 +19,7 @@ class Puntos extends CI_Controller {
 		$datos['preferencial'] = $this->puntos_model->listPreferencial();
 		$datos['analista'] = $this->puntos_model->listAnalista();
 		$datos['analista2'] = $this->puntos_model->listAnalista2();
-		$data = $this->puntos_model->list();
-
-		if ($data<>"") {
-		foreach($data as $sheet) {
-			$i++;		
-			
-			$lista[$i]["id_pto"]=$sheet->id_pto;
-			$lista[$i]["analista"]=$sheet->nombre_completo;
-			$lista[$i]["nombre"]=$sheet->nombre;
-			$lista[$i]["estatus"]=$sheet->estatus;
-			$lista[$i]["id_estatus"]=$sheet->id_estatus;
-			$lista[$i]["servicios"]=$this->puntos_model->serv_pto($sheet->id_pto);		
-			$lista[$i]["preferencial"]=$this->puntos_model->preferencial_pto($sheet->id_pto);
-		 }
-		}
-
-		$vista['ptos'] = $lista;
+		$vista['ptos'] = $this->puntos_model->lista();
 
 		$this->menu();
 		$vista['view_agregar']=$this->load->view('puntos_atc/agregar', $datos , true);

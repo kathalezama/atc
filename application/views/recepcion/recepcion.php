@@ -73,6 +73,7 @@
                     </div>
                 </section>
             </div>
+            <div class="col-xl-4" id="ticket"></div>
         </div>
                 <!-- /Row -->
 
@@ -81,4 +82,26 @@
 </div>
 </form>
         <!-- /Main Content -->
-        
+<script type="text/javascript">
+	loadTickets();
+	setInterval(loadTickets,5000);
+
+	function loadTickets(){
+		$.post("<?php echo base_url() ?>index.php/recepcion/ticket", { id:0 }, function(data){
+
+            var obj = jQuery.parseJSON( data );
+
+            console.log(obj);
+			$("#ticket").html("");
+            $.each( obj, function(k,v) {
+	            //console.log(k+' '+v['estatus']);
+	              if (v!="") {
+	                $("#ticket").html($("#ticket").html()+'<div class="alert alert-primary alert-dismissible fade show" role="alert"><h1>'+v['tiket']+'</h1>'+v['estatus']+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
+	              }
+            });
+
+        });
+	}
+
+	
+</script>        

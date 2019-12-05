@@ -47,16 +47,20 @@
                 <div class="col-lg-12">Atención preferencial</div>
                 <div class="col-lg-12"><br></div>
 
-                <?php foreach ($_ci_vars['preferencial'] as $key) { ?>
-
-                <div class="col-lg-4">
+                <div class="col-lg-12">
                      <div class="custom-control custom-checkbox checkbox-primary">
-                        <input type="checkbox" class="custom-control-input" id="<?php echo $key['id_tcliente']; ?>" name="preferencial[]" value="<?php echo $key['id_tcliente']; ?>">
-                        <label class="custom-control-label" for="<?php echo $key['id_tcliente']; ?>"><?php echo $key['tcliente']; ?></label>
+                        <input type="checkbox" class="custom-control-input" id="preferencial" name="preferencial" value="1">
+                        <label class="custom-control-label" for="preferencial">Discapacidad | Adulto Mayor | Mujer Embarazada</label>
                      </div>                   
                 </div>
 
-                <?php } ?>
+                <div class="col-lg-12">
+                     <div class="custom-control custom-checkbox checkbox-primary">
+                        <input type="checkbox" class="custom-control-input" id="especial" name="especial" value="1">
+                        <label class="custom-control-label" for="especial">Cliente Especial</label>
+                     </div>                   
+                </div>
+
 
             </div>
         </div>

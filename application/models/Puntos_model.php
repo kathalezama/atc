@@ -124,17 +124,18 @@ class Puntos_model extends CI_Model{
 
 	}
 
-	function list()
+	function lista()
 	{
-		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus');
+		$this->db->select('nombre_completo, t_ptos_atc.nombre, t_servicios.nombre as servicio, id_pto, t_estatus.estatus, t_estatus.id_estatus, id_pref');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
 		$this->db->join('t_usuarios','t_usuarios.id_user = t_ptos_atc.id_analista','left');
+		$this->db->join('t_servicios','t_servicios.id_servicio = t_ptos_atc.id_servicio','left');
 		//$this->db->where('estatus','0');
 		$listMotivos = $this->db->get('public.t_ptos_atc');
 		
 		if($listMotivos->num_rows()>0)
 		{
-			return $listMotivos->result();
+			return $listMotivos->result_array();
 		}
 	}
 
@@ -189,7 +190,6 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
-<<<<<<< HEAD
 	function listAnalista2()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_usuarios.estatus','left');
@@ -205,8 +205,7 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
-=======
->>>>>>> d6f3ffc91491388b59fa015636e6f2dbe1e22ec2
+
 	function save($datos)
 	{
 		$data = array(
@@ -215,39 +214,14 @@ class Puntos_model extends CI_Model{
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
+			'id_servicio'=>$datos['servicios'],
+			'id_pref'=>$datos['preferencial'],
 		);
 
 
 		$this->db->insert('public.t_ptos_atc',$data);
 
 		$sql=$this->db->last_query();
-
-		$id = $this->db->insert_id();
-
-		if ($_POST['preferencial']!="") {
-		foreach ($_POST['preferencial'] as $key) {
-
-			$data = array(
-				'id_pto'=>$id,
-				'id_pre'=>$key,
-			);
-
-			$this->db->insert('public.t_pto_pref',$data);
-
-			$sql=$sql.'; '.$this->db->last_query();
-
-	    }
-		}
-
-	    $data = array(
-			'id_pto'=>$id,
-			'id_servicio'=>$_POST['servicios'],
-		);
-
-		$this->db->insert('public.t_pto_serv',$data);
-
-		$sql=$sql.'; '.$this->db->last_query();
-
 
 		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de punto de atención',$sql);
 
