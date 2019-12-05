@@ -5,6 +5,10 @@ body {
   background-position: right top;
 }
 
+._alert {
+  color:red;
+}
+
 .margen {
   padding: 50px;
   min-height: 655px;

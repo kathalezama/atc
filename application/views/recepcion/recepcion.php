@@ -69,11 +69,13 @@
 
 
 
-		                <div class="col-xl-12"><br></div>
-                       	<div class="col-xl-10"><br></div>
+                    <div class="col-xl-12"><br></div>
+                    <div class="col-xl-10"><br></div>
 
 		                <div class="col-lg-2"><button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;">Guardar</font></button></div>
                     </div>
+                    <div class="col-xl-12 _alert"></div>
+                    
                 </section>
             </div>
             <div class="col-xl-4" id="ticket"></div>
@@ -92,9 +94,9 @@
 	function loadTickets(){
 		$.post("<?php echo base_url() ?>index.php/recepcion/ticket", { id:0 }, function(data){
 
-            var obj = jQuery.parseJSON( data );
+    var obj = jQuery.parseJSON( data );
 
-            console.log(obj);
+    console.log(obj);
 			$("#ticket").html("");
             $.each( obj, function(k,v) {
 	              if (v!="") {
@@ -124,19 +126,21 @@
     {  
       if($(".form-control").val().length < 1) 
       {  
-        alert("Todos los campos son obligatorios");  
+        $('._alert').html("Todos los campos son obligatorios");
+        return false;  
       }
 
       if($("#motivos").val()== "") 
       {  
-        alert("Todos los campos son obligatorios");  
+        $('._alert').html("Todos los campos son obligatorios"); 
+        return false;  
       }
 
       if($("#servicios").val()== "") 
       {  
-        alert("Todos los campos son obligatorios");  
+        $('._alert').html("Todos los campos son obligatorios");
+        return false;   
       } 
-        return false;  
     }); 
   }
 
