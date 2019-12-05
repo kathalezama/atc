@@ -45,22 +45,35 @@ class Recepcion_model extends CI_Model{
 	
 	function save($datos)
 	{
-		$data = array(
-			'cedula'=>$datos['cedula'],
-			'nombre_completo'=>$datos['nombres'],
-			'correo'=>$datos['correo'],
-			'telefono'=>$datos['telefono'],
-			'id_usuario'=>$this->session->userdata['id_user'],
-			'fecha_registro'=>date('Y-m-d'),
-			'estatus'=>'0',
-		);
+		$sql="";
 
+		$this->db->where('cedula',$datos['cedula']);
 
-		$this->db->insert('public.t_clientes',$data);
+		$cliente = $this->db->get('public.t_clientes');
+		
+		if($cliente->num_rows()>0)
+		{
 
-		$sql=$this->db->last_query();
+			$id = $cliente->row_array()->id_cliente;
+			
+		}else{
 
-		$id = $this->db->insert_id();
+			$data = array(
+				'cedula'=>$datos['cedula'],
+				'nombre_completo'=>$datos['nombres'],
+				'correo'=>$datos['correo'],
+				'telefono'=>$datos['telefono'],
+				'id_usuario'=>$this->session->userdata['id_user'],
+				'fecha_registro'=>date('Y-m-d'),
+				'estatus'=>'0',
+			);
+
+			$this->db->insert('public.t_clientes',$data);
+
+			$sql=$this->db->last_query();
+
+			$id = $this->db->insert_id();
+		}		
 
 		$data = array(
 			'id_cliente'=>$id,
@@ -70,7 +83,7 @@ class Recepcion_model extends CI_Model{
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'id_servicio'=>$datos['servicios'],
-			'id_motivo'=>$datos['motivo'],
+			'id_motivo'=>$datos['motivos'],
 			'id_pref'=>$datos['preferencial'],
 			'id_ces'=>$datos['especial'],
 		);
@@ -115,6 +128,7 @@ class Recepcion_model extends CI_Model{
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
 		$this->db->order_by('id_atencion','asc');
 		$this->db->where('id_estatus','4');
+		$this->db->limit('4');
 
 		$listMotivos = $this->db->get('public.t_atencion');
 		
@@ -127,11 +141,9 @@ class Recepcion_model extends CI_Model{
 
 	function buscar($datos)
 	{
-		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus, t_usuarios.id_user');
-		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
-		$this->db->join('t_usuarios','t_usuarios.id_user = t_ptos_atc.id_analista','left');
-		$this->db->where('id_pto',$datos);
-		$listMotivos = $this->db->get('public.t_ptos_atc');
+		$this->db->select('nombre_completo, telefono, correo');
+		$this->db->where('cedula',$datos);
+		$listMotivos = $this->db->get('public.t_clientes');
 		
 		if($listMotivos->num_rows()>0)
 		{

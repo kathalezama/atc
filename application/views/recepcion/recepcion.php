@@ -67,15 +67,13 @@
                              </div>                   
                         </div>
 
-
-
                     <div class="col-xl-12"><br></div>
                     <div class="col-xl-10"><br></div>
 
 		                <div class="col-lg-2"><button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;">Guardar</font></button></div>
                     </div>
                     <div class="col-xl-12 _alert"></div>
-                    
+
                 </section>
             </div>
             <div class="col-xl-4" id="ticket"></div>
@@ -96,7 +94,7 @@
 
     var obj = jQuery.parseJSON( data );
 
-    console.log(obj);
+   // console.log(obj);
 			$("#ticket").html("");
             $.each( obj, function(k,v) {
 	              if (v!="") {
@@ -105,7 +103,19 @@
             });
 
         });
-	
+  }
+
+  $('#cedula').blur(function(){
+    $.post("<?php echo base_url() ?>index.php/recepcion/buscar", { id:$(this).val() }, function(data){
+
+        var obj = jQuery.parseJSON( data );
+        $('#nombres').val(obj['nombre_completo']);
+        $('#correo').val(obj['correo']);
+        $('#telefono').val(obj['telefono']);
+
+    });
+  });
+
   $('.numero').on('input', function () 
     { 
         this.value = this.value.replace(/[^0-9]/g,'');
@@ -142,7 +152,5 @@
         return false;   
       } 
     }); 
-  }
-
 	
 </script>        

@@ -62,19 +62,9 @@ class Recepcion extends CI_Controller {
 	}
 
 	public function buscar(){
-		//print_r($_POST);
-		$lista = $this->puntos_model->buscar($_POST['id']);
-		$return = $lista['nombre_completo'].'|'.$lista['nombre'].'|'.$lista['id_pto'].'|'.$lista['id_estatus'].'|'.$lista['id_user'].'|';
-		$lista=$this->puntos_model->serv_pto2($_POST['id']);
-		$return=$return.$lista; 
-		
-		$lista=$this->puntos_model->preferencial_pto2($_POST['id']);
-		$return=$return.'|'.$lista; 
 
-
-		//$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus');
-
-		echo $return;
+		$lista = $this->recepcion_model->buscar($_POST['id']);
+		echo json_encode($lista);
 	}
 
 	public function editar(){
