@@ -12,7 +12,7 @@
                 <!-- Row -->
 
         <div class="row">
-            <div class="col-xl-8 pa-0">
+            <div class="col-xl-7 pa-0">
                	<section class="hk-sec-wrapper">
                   	<h5 class="hk-sec-title">Asignar ticket</h5>
                     <div class="row">
@@ -76,7 +76,7 @@
 
                 </section>
             </div>
-            <div class="col-xl-4" id="ticket"></div>
+            <div class="col-xl-5" id="ticket"></div>
         </div>
                 <!-- /Row -->
 
@@ -98,7 +98,7 @@
 			$("#ticket").html("");
             $.each( obj, function(k,v) {
 	              if (v!="") {
-	                $("#ticket").html($("#ticket").html()+'<div class="alert alert-primary alert-dismissible fade show" role="alert"><h1>'+v['tiket']+'</h1>'+v['estatus']+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
+	                $("#ticket").html($("#ticket").html()+'<div class="alert alert-primary alert-dismissible fade show" role="alert"><h1>'+v['tiket']+'('+v['nombre']+')</h1>'+v['estatus']+'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
 	              }
             });
 

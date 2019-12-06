@@ -53,8 +53,7 @@ class Recepcion_model extends CI_Model{
 		
 		if($cliente->num_rows()>0)
 		{
-
-			$id = $cliente->row_array()->id_cliente;
+			$id = $cliente->row()->id_cliente;
 			
 		}else{
 
@@ -73,11 +72,23 @@ class Recepcion_model extends CI_Model{
 			$sql=$this->db->last_query();
 
 			$id = $this->db->insert_id();
-		}		
+		}	
+
+		$this->db->where('id_servicio',$datos['servicios']);
+		$this->db->where('estatus','0');
+		if($datos['preferencial'])	$this->db->where('id_pref',$datos['preferencial']);
+		if($datos['especial'])  $this->db->where('id_ces',$datos['especial']);
+		//$this->db->where('t_ptos_atc.id_pto IN (select id_pto, count(id_pto) from t_atencion group by id_pto order by 2 asc limit 1)',NULL,FALSE);
+
+		$pto_atc = $this->db->get('public.t_ptos_atc');	
+		$ptos_s = $pto_atc->result_array();
+
+		$sql=$this->db->last_query();
+
 
 		$data = array(
-			'id_cliente'=>$id,
-			'id_pto'=>'0',
+			'id_cliente'=> $id,
+			'id_pto'=>$pto,
 			'hora_recepcion'=>date('H:i:s'),
 			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
 			'id_usuario'=>$this->session->userdata['id_user'],
@@ -91,7 +102,7 @@ class Recepcion_model extends CI_Model{
 
 		$this->db->insert('public.t_atencion',$data);
 
-		$sql=$sql.'; '.$this->db->last_query();
+		//$sql=$sql.'; '.$this->db->last_query();
 
 
 		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de ticket',$sql);
@@ -123,9 +134,10 @@ class Recepcion_model extends CI_Model{
 	function ticket()
 	{
 
-		$this->db->select('tiket, hora_recepcion, t_estatus.estatus, nombre_completo');
+		$this->db->select('tiket, hora_recepcion, t_estatus.estatus, nombre_completo, nombre');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
+		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');
 		$this->db->order_by('id_atencion','asc');
 		$this->db->where('id_estatus','4');
 		$this->db->limit('4');
