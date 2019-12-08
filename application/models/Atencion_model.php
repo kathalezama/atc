@@ -19,17 +19,8 @@ class Atencion_model extends CI_Model{
 		}
 
 	}
-
-	function select_pto($datos){
-		$this->db->select('t_ptos_atc.id_pto, t_ptos_atc.nombre');
-		$this->db->join('t_pto_serv','t_pto_serv.id_pto = t_ptos_atc.id_pto','left');
-		$this->db->join('t_pto_pref','t_pto_pref.id_pto = t_ptos_atc.id_pto','left');
-		$this->db->where('estatus','0');
-		$this->db->where('t_pto_pref.id_pre','0');
-		$this->db->where('t_pto_serv.id_servicio','0');
-	}
 	
-	function save($datos)
+	/*function save($datos)
 	{
 		$sql="";
 
@@ -85,34 +76,19 @@ class Atencion_model extends CI_Model{
 		$retorno='ticket creado';
 
 		return $retorno;
-	}
+	}*/
 
-
-	function ticket()
+	function buscar()
 	{
-
-		$this->db->select('tiket, hora_recepcion, t_estatus.estatus, nombre_completo, nombre');
-		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
+		$this->db->select('nombre_completo, telefono, correo, cedula, t_servicios.nombre, motivo');
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
-		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');
-		$this->db->order_by('id_atencion','desc');
-		$this->db->where('id_estatus','4');
-		$this->db->limit('4');
-
+		$this->db->join('t_servicios','t_servicios.id_servicio = t_atencion.id_servicio','left');
+		$this->db->join('t_motivos','t_motivos.id_motivo = t_atencion.id_motivo','left');
+		//$this->db->where('cedula',$datos);
 		$listMotivos = $this->db->get('public.t_atencion');
-		
-		if($listMotivos->num_rows()>0)
-		{
-			return $listMotivos->result_array();
-		}
 
-	}
 
-	function buscar($datos)
-	{
-		$this->db->select('nombre_completo, telefono, correo');
-		$this->db->where('cedula',$datos);
-		$listMotivos = $this->db->get('public.t_clientes');
+		//return $this->db->last_query();
 		
 		if($listMotivos->num_rows()>0)
 		{

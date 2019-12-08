@@ -78,12 +78,18 @@
     var inicioConteo, idTimeout, cronometro = document.querySelector('#cronometro'), botonReiniciar = document.querySelector('#botonReiniciar');
 
     $("#iniciar").click(function(){
-      $.post("<?php echo base_url() ?>index.php/atencion/buscar", { }, function(data){
+      $.post("<?php echo base_url() ?>index.php/atencion/buscar", { id:0 }, function(data){
 
         var obj = jQuery.parseJSON( data );
+        console.log(obj);
         $('#nombres').val(obj['nombre_completo']);
         $('#correo').val(obj['correo']);
         $('#telefono').val(obj['telefono']);
+        $('#cedula').val(obj['cedula']);
+        $('#servicio').val(obj['nombre']);
+        $('#motivo').val(obj['motivo']);
+
+        //nombre_completo, telefono, correo, cedula, t_servicios.nombre, motivo
 
     });
 

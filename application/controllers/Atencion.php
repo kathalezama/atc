@@ -6,7 +6,7 @@ class Atencion extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-    	//$this->load->model('atencion_model');
+    	$this->load->model('atencion_model');
     	$this->load->model('welcome_model');
     	$this->load->helper('date');
 	}
@@ -45,7 +45,7 @@ class Atencion extends CI_Controller {
 
 		
 
-		$save = $this->recepcion_model->save($_POST);
+		$save = $this->atencion_model->save($_POST);
 
 		echo "<script> alert('".$save."') </script>";
 
@@ -62,8 +62,9 @@ class Atencion extends CI_Controller {
 */
 	public function buscar(){
 
-		$lista = $this->recepcion_model->buscar();
+		$lista = $this->atencion_model->buscar();
 		echo json_encode($lista);
+		//echo $lista;
 	}
 
 /*	public function editar(){
