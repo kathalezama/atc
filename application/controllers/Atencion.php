@@ -40,7 +40,7 @@ class Atencion extends CI_Controller {
 		}
 		$this->load->view('layout/header',$menu);
 	}
-/*
+
 	public function save(){
 
 		
@@ -53,20 +53,20 @@ class Atencion extends CI_Controller {
 
 	}
 
-	public function bloquear(){
+/*	public function bloquear(){
 		
 		$bloc = $this->puntos_model->bloquear($_POST);
 		echo $bloc;
 
 	}
-
+*/
 	public function buscar(){
 
-		$lista = $this->recepcion_model->buscar($_POST['id']);
+		$lista = $this->recepcion_model->buscar();
 		echo json_encode($lista);
 	}
 
-	public function editar(){
+/*	public function editar(){
 
 		$motivo = $this->puntos_model->editar($_POST);
 		echo "<script> alert('".$motivo."') </script>";

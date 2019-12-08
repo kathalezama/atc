@@ -1,3 +1,6 @@
+<!-- <br><br><br><br><br> -->
+<?php //print_r($this->session->userdata); ?>
+
 <form action="<?php echo base_url(); ?>index.php/recepcion/save" method="post" id="frm_recepcion">
 
 <div class="hk-pg-wrapper pb-0">
@@ -20,27 +23,27 @@
                       <div class="col-xl-6">Cedula:</div>
                       <div class="col-xl-6">Apellidos y Nombres:</div>
 
-                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="cedula" name="cedula" maxlength="8"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control letras" id="nombres" name="nombres"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="cedula" name="cedula" maxlength="8" readonly=""></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control letras" id="nombres" name="nombres" readonly=""></div>
 
                     	<div class="col-xl-6">Telefono:</div>
                       <div class="col-xl-6">Correo:</div>
 
-                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="telefono" name="telefono" maxlength="11"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control mail" id="correo" name="correo"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="telefono" name="telefono" readonly=""></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control mail" id="correo" name="correo" readonly=""></div>
 
                       <div class="col-xl-6">Motivo:</div>
                       <div class="col-xl-6">Servicio:</div>
 
-                      <div class="col-xl-6"><input type="text" class="form-control numero" id="motivo" name="motivo"></div>
-                      <div class="col-xl-6"><input type="text" class="form-control mail" id="servicio" name="servicio"></div>
+                      <div class="col-xl-6"><input type="text" class="form-control numero" id="motivo" name="motivo" readonly=""></div>
+                      <div class="col-xl-6"><input type="text" class="form-control mail" id="servicio" name="servicio" readonly=""></div>
 
                       <div class="col-xl-12">Observaciones</div>
                       <div class="col-xl-12"><textarea class="form-control"></textarea></div>
                       <div class="col-xl-12"><br></div>
 
                       <div class="col-lg-2"><button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;">Atendido</font></button></div>
-                      <div class="col-lg-2"><button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;">No atendido</font></button></div>
+                      <div class="col-lg-2"><button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;">No atendido</font></button></div>
                       <div class="col-xl-7"><br></div>
 
                       <div class="col-xl-12 _alert"></div>

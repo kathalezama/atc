@@ -8,7 +8,8 @@ class Login_model extends CI_Model{
 
 	function login($datos)
 	{	
-		$this->db->select('id_user, id_rol, nombre_completo, correo, telefono, username, cedula');
+		$this->db->select('id_user, id_rol, nombre_completo, correo, telefono, username, cedula, id_servicio, id_pref, id_ces');
+		$this->db->join('t_ptos_atc','t_ptos_atc.id_analista = t_usuarios.id_user','left');
 		$this->db->where('t_usuarios.username',$datos['user']);
 		$this->db->where('t_usuarios.clave',MD5($datos['clave']));
 		$this->db->where('t_usuarios.estatus','0');
