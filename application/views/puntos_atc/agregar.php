@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-6">Nombre del punto de atc.</div>
                 <div class="col-lg-6">Servicio</div>
-                <div class="col-lg-6"><input type="text" name="nombre" id="nombre" class="form-control letras" required></div>
+                <div class="col-lg-6"><input type="text" name="nombre" id="nombre" class="form-control" required></div>
                 <div class="col-lg-6">
                     <select id="servicios" name="servicios" class="form-control">
                     <option value='' >-- Seleccione</option>

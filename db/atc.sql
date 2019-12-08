@@ -5,7 +5,7 @@
 -- Dumped from database version 11.5 (Debian 11.5-1+deb10u1)
 -- Dumped by pg_dump version 11.5 (Debian 11.5-1+deb10u1)
 
--- Started on 2019-12-04 13:02:53 -04
+-- Started on 2019-12-06 10:27:06 -04
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -136,7 +136,11 @@ CREATE TABLE public.t_atencion (
     hora_atc_f character varying(30),
     id_usuario integer,
     fecha_registro timestamp without time zone,
-    estatus integer DEFAULT 0
+    estatus integer DEFAULT 4,
+    id_servicio integer,
+    id_motivo integer,
+    id_pref integer,
+    id_ces integer
 );
 
 
@@ -438,7 +442,10 @@ CREATE TABLE public.t_ptos_atc (
     id_usuario integer,
     fecha_registro timestamp without time zone,
     ult_mod date,
-    estatus integer DEFAULT 0
+    estatus integer DEFAULT 0,
+    id_servicio integer,
+    id_pref integer,
+    id_ces integer
 );
 
 
@@ -758,110 +765,16 @@ ALTER TABLE ONLY public.t_usuarios ALTER COLUMN id_user SET DEFAULT nextval('pub
 --
 
 COPY public.logs (id_log, id_usuario, fecha_registro, actividad, sentencia) FROM stdin;
-29	8	2019-11-18 09:17:42	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-27	8	2019-11-16 17:25:25	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '3'
-26	8	2019-11-16 17:25:11	Creación de Usuario	INSERT INTO "public"."t_usuarios" ("cedula", "id_rol", "nombre_completo", "correo", "telefono", "username", "clave", "id_usuario", "fecha_registro", "estatus") VALUES ('21072511', '1', 'Leza,a Katherine', 'klezama@grupobinar.com', '04127255789', 'admin', 'e10adc3949ba59abbe56e057f20f883e', '0', '2019-11-16', '0')
-25	8	2019-11-15 16:23:42	Creación de Usuario	INSERT INTO "public"."t_usuarios" ("cedula", "id_rol", "nombre_completo", "correo", "telefono", "username", "clave", "id_usuario", "fecha_registro", "estatus") VALUES (NULL, NULL, ' ', NULL, NULL, NULL, 'd41d8cd98f00b204e9800998ecf8427e', '0', '2019-11-15', '0')
-24	8	2019-11-15 11:00:23	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = 'e10adc3949ba59abbe56e057f20f883e'\nWHERE "id_user" = '1'
-23	8	2019-11-15 11:00:09	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '1'
-22	8	2019-11-15 11:00:03	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '1'
-21	8	2019-11-15 10:59:57	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '1'
-20	8	2019-11-15 10:56:09	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = '202cb962ac59075b964b07152d234b70'\nWHERE "id_user" = '1'
-18	8	2019-11-15 10:55:17	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = '123456'\nWHERE "id_user" = '1'
-19	8	2019-11-15 10:55:41	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = '123456'\nWHERE "id_user" = '1'
-17	8	2019-11-15 10:51:27	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = '123456'\nWHERE "id_user" IS NULL
-16	8	2019-11-14 11:11:29	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '6'
-15	8	2019-11-14 11:11:26	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '3'
-14	8	2019-11-14 11:11:17	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '3'
-13	8	2019-11-14 11:11:10	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '3'
-12	8	2019-11-14 11:11:05	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '3'
-11	8	2019-11-14 11:10:16	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '6'
-10	8	2019-11-14 11:10:06	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '3'
-9	8	2019-11-14 11:10:03	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '1'
-8	8	2019-11-14 11:08:24	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '6'
-7	8	2019-11-14 11:08:07	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '3'
-6	8	2019-11-14 11:08:04	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '1'
-5	8	2019-11-14 11:04:46	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '1'
-4	8	2019-11-14 10:54:23	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '3'
-1	8	2019-11-14 10:50:44	Creación de Usuario	INSERT INTO "public"."t_usuarios" ("cedula", "id_rol", "nombre_completo", "correo", "telefono", "username", "clave", "id_usuario", "fecha_registro", "estatus") VALUES ('10489029', '3', 'Parra Zulma', 'zparra@gmail.com', '04142508158', 'zparra', '123456', '0', '2019-11-14', '0')
-30	8	2019-11-18 09:21:20	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '3'
-31	8	2019-11-18 09:55:58	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-32	8	2019-11-18 10:18:33	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-33	8	2019-11-18 10:40:07	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-95	8	2019-12-03 10:15:54	Usuario Modificado	UPDATE "public"."t_usuarios" SET "id_rol" = '3', "nombre_completo" = 'Parra Kelly', "correo" = 'kellyp@gmial.com', "telefono" = '04127255879', "id_usuario" = '8', "ult_mod" = '2019-12-03'\nWHERE "id_user" = '10'
-34	8	2019-11-18 10:40:21	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-37	8	2019-11-18 11:42:32	Creación de Motivo	INSERT INTO "public"."t_motivos" ("motivo", "id_usuario", "fecha_registro", "estatus") VALUES ('Prueba', '8', '2019-11-18', '0')
-40	8	2019-11-18 11:47:59	Inactivar Motivo	UPDATE "public"."t_motivos" SET "estatus" = '1'\nWHERE "id_motivo" = '27'
-41	8	2019-11-18 11:49:37	Activar Motivo	UPDATE "public"."t_motivos" SET "estatus" = '0'\nWHERE "id_motivo" = '27'
-42	8	2019-11-18 12:40:14	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-43	8	2019-11-18 12:45:06	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-44	8	2019-11-18 13:58:10	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = 'd41d8cd98f00b204e9800998ecf8427e'\nWHERE "id_user" IS NULL
-45	8	2019-11-18 15:04:30	Creación de Motivo	INSERT INTO "public"."t_motivos" ("motivo", "id_usuario", "fecha_registro", "estatus") VALUES ('Prueba', '8', '2019-11-18', '0')
-46	8	2019-11-18 15:05:36	Creación de canal de atc	INSERT INTO "public"."t_canales" ("canal", "id_usuario", "fecha_registro", "estatus") VALUES ('prueba', '8', '2019-11-18', '0')
-47	8	2019-11-18 15:06:37	Inactivar Motivo	UPDATE "public"."t_canales" SET "estatus" = '1'\nWHERE "id_canal" = '8'
-48	8	2019-11-18 15:06:46	Activar Motivo	UPDATE "public"."t_canales" SET "estatus" = '0'\nWHERE "id_canal" = '8'
-49	8	2019-11-19 09:32:20	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-50	8	2019-11-19 09:41:52	Creación de atencion preferencial	INSERT INTO "public"."t_tclientes" ("tcliente", "id_usuario", "fecha_registro", "estatus") VALUES ('prueba', '8', '2019-11-19', '0')
-51	8	2019-11-19 09:43:50	Inactivar Motivo	UPDATE "public"."t_tclientes" SET "estatus" = '1'\nWHERE "id_tcliente" = '1'
-52	8	2019-11-19 09:43:57	Activar Motivo	UPDATE "public"."t_tclientes" SET "estatus" = '0'\nWHERE "id_tcliente" = '1'
-53	8	2019-11-19 09:44:01	Inactivar Motivo	UPDATE "public"."t_tclientes" SET "estatus" = '1'\nWHERE "id_tcliente" = '5'
-54	8	2019-11-19 09:55:37	Inactivar Motivo	UPDATE "public"."t_motivos" SET "estatus" = '1'\nWHERE "id_motivo" = '28'
-55	8	2019-11-19 13:55:58	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-56	8	2019-11-19 14:16:06	Creación de atencion preferencial	INSERT INTO "public"."t_servicios" ("nombre", "id_usuario", "fecha_registro", "estatus") VALUES ('prueba', '8', '2019-11-19', '0')
-57	8	2019-11-19 14:17:39	Inactivar servicio	UPDATE "public"."t_servicios" SET "estatus" = '1'\nWHERE "id_servicio" = '1'
-58	8	2019-11-19 14:17:45	Activar servicio	UPDATE "public"."t_servicios" SET "estatus" = '0'\nWHERE "id_servicio" = '1'
-59	8	2019-11-19 14:17:52	Inactivar servicio	UPDATE "public"."t_servicios" SET "estatus" = '1'\nWHERE "id_servicio" = '4'
-60	8	2019-11-19 14:23:33	Atc preferencial modificado	UPDATE "public"."t_tclientes" SET "tcliente" = NULL, "id_usuario" = '8', "ult_mod" = '2019-11-19'\nWHERE "id_tcliente" = '4'
-61	8	2019-11-19 14:24:09	Atc preferencial modificado	UPDATE "public"."t_tclientes" SET "tcliente" = 'Clientes especiales', "id_usuario" = '8', "ult_mod" = '2019-11-19'\nWHERE "id_tcliente" = '4'
-62	8	2019-11-19 14:25:13	servicio modificado	UPDATE "public"."t_servicios" SET "nombre" = 'prueba..', "id_usuario" = '8', "ult_mod" = '2019-11-19'\nWHERE "id_servicio" = '4'
-63	8	2019-11-19 14:26:17	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-64	8	2019-11-19 14:29:33	Creación de Usuario	INSERT INTO "public"."t_usuarios" ("cedula", "id_rol", "nombre_completo", "correo", "telefono", "username", "clave", "id_usuario", "fecha_registro", "estatus") VALUES ('19226092', '1', 'Velasco Ericson', 'ericsonvelascos@gmail.com', '04242661784', 'ericsoncy', 'e10adc3949ba59abbe56e057f20f883e', '8', '2019-11-19', '0')
-65	8	2019-11-19 14:30:14	Usuario Modificado	UPDATE "public"."t_usuarios" SET "id_rol" = '1', "nombre_completo" = 'Velasco Ericson', "correo" = 'ericsonvelascos@gmail.com', "telefono" = '04242661784', "id_usuario" = '8', "ult_mod" = '2019-11-19'\nWHERE "id_user" = '9'
-66	8	2019-11-19 14:30:36	Cambio de clave	UPDATE "public"."t_usuarios" SET "clave" = '827ccb0eea8a706c4c34a16891f84e7b'\nWHERE "id_user" = '9'
-67	8	2019-11-19 14:31:00	Bloquear Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '2'\nWHERE "id_user" = '6'
-68	9	2019-11-19 14:34:15	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'ericsoncy'\nAND "t_usuarios"."clave" = '827ccb0eea8a706c4c34a16891f84e7b'\nAND "t_usuarios"."estatus" = '0'
-69	9	2019-11-20 14:56:45	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'ericsoncy'\nAND "t_usuarios"."clave" = '827ccb0eea8a706c4c34a16891f84e7b'\nAND "t_usuarios"."estatus" = '0'
-70	8	2019-11-21 10:29:56	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-71	8	2019-11-21 14:44:20	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-72	8	2019-11-22 12:06:31	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-73	8	2019-11-22 13:25:59	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-74	8	2019-11-22 14:40:36	Activar Usuario	UPDATE "public"."t_usuarios" SET "estatus" = '0'\nWHERE "id_user" = '6'
-75	8	2019-11-22 15:23:02	Creación de punto de atencion	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('q', '6', '8', '2019-11-22', '0')
-76	8	2019-11-22 15:23:12	Creación de punto de atencion	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('q', '6', '8', '2019-11-22', '0')
-77	8	2019-11-22 15:23:23	Creación de punto de atencion	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('q', '6', '8', '2019-11-22', '0')
-78	8	2019-11-22 15:24:11	Creación de punto de atencion	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('q', '6', '8', '2019-11-22', '0')
-79	8	2019-11-22 15:26:13	Creación de punto de atencion	SELECT LASTVAL() AS ins_id
-80	8	2019-11-25 09:42:33	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-81	8	2019-11-25 10:00:00	Creación de punto de atención	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('prueba', '6', '8', '2019-11-25', '0') INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (8, '2') INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (8, '3') INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (8, '1')
-82	8	2019-11-25 10:16:16	Creación de punto de atención	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('Taquilla 1', '6', '8', '2019-11-25', '0'); INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (9, '2'); INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (9, '3'); INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (9, '1'); INSERT INTO "public"."t_pto_serv" ("id_pto", "id_servicio") VALUES (9, '2')
-83	8	2019-11-25 13:53:17	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-84	8	2019-11-26 10:13:16	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-85	8	2019-11-26 15:10:13	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-86	8	2019-11-26 15:33:03	Creación de punto de atención	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('Oficina 1', '6', '8', '2019-11-26', '0'); INSERT INTO "public"."t_pto_serv" ("id_pto", "id_servicio") VALUES (10, '3')
-87	8	2019-11-27 14:38:26	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-88	8	2019-11-27 21:16:37	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-89	8	2019-11-28 10:27:10	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-90	8	2019-11-28 10:47:26	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-91	8	2019-11-28 14:42:21	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-92	8	2019-12-02 12:54:17	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-93	8	2019-12-03 09:57:10	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-94	8	2019-12-03 10:15:28	Creación de Usuario	INSERT INTO "public"."t_usuarios" ("cedula", "id_rol", "nombre_completo", "correo", "telefono", "username", "clave", "id_usuario", "fecha_registro", "estatus") VALUES ('14953533', '1', 'Parra Kelly', 'kellyp@gmial.com', '04127255879', 'kelly', 'e10adc3949ba59abbe56e057f20f883e', '8', '2019-12-03', '0')
-96	8	2019-12-03 10:16:56	Creación de Usuario	INSERT INTO "public"."t_usuarios" ("cedula", "id_rol", "nombre_completo", "correo", "telefono", "username", "clave", "id_usuario", "fecha_registro", "estatus") VALUES ('10381381', '3', 'Morales Jose', 'jmorales@live.com', '04127255879', 'manito', 'e10adc3949ba59abbe56e057f20f883e', '8', '2019-12-03', '0')
-97	8	2019-12-03 11:03:55	Creación de punto de atención	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES ('Recepcion', '11', '8', '2019-12-03', '0'); INSERT INTO "public"."t_pto_serv" ("id_pto", "id_servicio") VALUES (11, '1')
-98	8	2019-12-03 11:07:44	Inactivar punto de atención	UPDATE "public"."t_ptos_atc" SET "estatus" = '1'\nWHERE "id_pto" = '9'
-99	8	2019-12-03 11:07:55	Inactivar punto de atención	UPDATE "public"."t_ptos_atc" SET "estatus" = '1'\nWHERE "id_pto" = '9'
-100	8	2019-12-03 11:10:44	Activar punto de atención	UPDATE "public"."t_ptos_atc" SET "estatus" = '0'\nWHERE "id_pto" = '9'
-101	8	2019-12-03 11:15:29	Inactivar punto de atención	UPDATE "public"."t_ptos_atc" SET "estatus" = '1'\nWHERE "id_pto" = '9'
-102	8	2019-12-03 11:15:35	Activar punto de atención	UPDATE "public"."t_ptos_atc" SET "estatus" = '0'\nWHERE "id_pto" = '9'
-103	8	2019-12-03 13:42:46	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-104	8	2019-12-03 19:25:35	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-105	8	2019-12-04 08:54:05	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-106	8	2019-12-04 09:47:43	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-107	8	2019-12-04 10:47:23	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
-108	8	2019-12-04 10:47:56	Creación de punto de atención	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus") VALUES (NULL, NULL, '8', '2019-12-04', '0'); INSERT INTO "public"."t_pto_pref" ("id_pto", "id_pre") VALUES (12, '1'); INSERT INTO "public"."t_pto_serv" ("id_pto", "id_servicio") VALUES (12, '2')
-109	8	2019-12-04 10:48:09	Inactivar punto de atención	UPDATE "public"."t_ptos_atc" SET "estatus" = '1'\nWHERE "id_pto" = '12'
-110	8	2019-12-04 10:53:04	Creación de ticket	INSERT INTO "public"."t_clientes" ("cedula", "nombre_completo", "correo", "telefono", "id_usuario", "fecha_registro", "estatus") VALUES ('21072511', 'katherine', NULL, NULL, '8', '2019-12-04', '0'); INSERT INTO "public"."t_atencion" ("id_cliente", "id_pto", "hora_recepcion", "tiket", "id_usuario", "fecha_registro", "estatus") VALUES (1, '0', '10:53:04', 'K-2511', '8', '2019-12-04', '0')
-111	8	2019-12-04 10:54:04	Creación de ticket	INSERT INTO "public"."t_clientes" ("cedula", "nombre_completo", "correo", "telefono", "id_usuario", "fecha_registro", "estatus") VALUES ('123123', 'Eduardo', NULL, NULL, '8', '2019-12-04', '0'); INSERT INTO "public"."t_atencion" ("id_cliente", "id_pto", "hora_recepcion", "tiket", "id_usuario", "fecha_registro", "estatus") VALUES (2, '0', '10:54:04', 'E-3123', '8', '2019-12-04', '0')
+140	8	2019-12-05 15:02:42	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+141	8	2019-12-05 15:03:13	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+142	8	2019-12-05 15:03:42	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+143	8	2019-12-05 15:20:42	Inicio de sesión	SELECT "id_user", "id_rol", "nombre_completo", "correo", "telefono", "username", "cedula"\nFROM "public"."t_usuarios"\nWHERE "t_usuarios"."username" = 'admin'\nAND "t_usuarios"."clave" = 'e10adc3949ba59abbe56e057f20f883e'\nAND "t_usuarios"."estatus" = '0'
+144	8	2019-12-05 15:22:23	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+145	8	2019-12-05 15:23:00	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+146	8	2019-12-05 15:29:42	Creación de punto de atención	INSERT INTO "public"."t_ptos_atc" ("nombre", "id_analista", "id_usuario", "fecha_registro", "estatus", "id_servicio", "id_pref", "id_ces") VALUES ('Oficina I', '11', '8', '2019-12-05', '0', '3', '1', NULL)
+147	8	2019-12-05 15:39:12	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+148	8	2019-12-05 15:40:13	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '1'\nAND "estatus" = '0'\nAND "id_pref" = '1'
+149	8	2019-12-05 15:41:40	Creación de ticket	SELECT *\nFROM "public"."t_ptos_atc"\nWHERE "id_servicio" = '3'\nAND "estatus" = '0'\nAND "id_pref" = '1'
 \.
 
 
@@ -901,9 +814,11 @@ COPY public.solicitudes (id_solicitud, id_cliente, id_usuario, id_pto, id_estatu
 -- Data for Name: t_atencion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.t_atencion (id_atencion, tiket, id_cliente, id_pto, hora_recepcion, hora_atc_i, hora_atc_f, id_usuario, fecha_registro, estatus) FROM stdin;
-1	K-2511	1	0	10:53:04	\N	\N	8	2019-12-04 00:00:00	0
-2	E-3123	2	0	10:54:04	\N	\N	8	2019-12-04 00:00:00	0
+COPY public.t_atencion (id_atencion, tiket, id_cliente, id_pto, hora_recepcion, hora_atc_i, hora_atc_f, id_usuario, fecha_registro, estatus, id_servicio, id_motivo, id_pref, id_ces) FROM stdin;
+30	K-2511	20	13	15:23:00	\N	\N	8	2019-12-05 00:00:00	4	3	4	1	\N
+31	E-5661	21	13	15:39:12	\N	\N	8	2019-12-05 00:00:00	4	3	12	1	\N
+32	Z-9029	22	14	15:40:13	\N	\N	8	2019-12-05 00:00:00	4	1	6	1	\N
+33	J-1381	23	13	15:41:40	\N	\N	8	2019-12-05 00:00:00	4	3	7	1	\N
 \.
 
 
@@ -932,8 +847,11 @@ COPY public.t_canales (id_canal, canal, id_usuario, fecha_registro, ult_mod, est
 --
 
 COPY public.t_clientes (id_cliente, cedula, nombre_completo, correo, telefono, id_usuario, fecha_registro, ult_mod, estatus) FROM stdin;
-1	21072511	katherine	\N	\N	8	2019-12-04 00:00:00	\N	0
-2	123123	Eduardo	\N	\N	8	2019-12-04 00:00:00	\N	0
+20	21072511	katherine Lezama	kathylezama@live.com	04127255879	8	2019-12-05 00:00:00	\N	0
+21	5535661	Eduardo	jmorales@live.com	04142508158	8	2019-12-05 00:00:00	\N	0
+22	10489029	Zulma	jmorales@live.com	04142508158	8	2019-12-05 00:00:00	\N	0
+23	10381381	Jose Morales	jmorales@live.com	04142508158	8	2019-12-05 00:00:00	\N	0
+24	123123	Kelly	jmorales@live.com	04142508158	8	2019-12-05 00:00:00	\N	0
 \.
 
 
@@ -1013,10 +931,6 @@ COPY public.t_motivos (id_motivo, motivo, id_usuario, fecha_registro, ult_mod, e
 --
 
 COPY public.t_pto_pref (id_pto_pre, id_pto, id_pre) FROM stdin;
-4	9	2
-5	9	3
-6	9	1
-7	12	1
 \.
 
 
@@ -1027,10 +941,6 @@ COPY public.t_pto_pref (id_pto_pre, id_pto, id_pre) FROM stdin;
 --
 
 COPY public.t_pto_serv (id_pto_serv, id_pto, id_servicio) FROM stdin;
-1	9	2
-2	10	3
-3	11	1
-4	12	2
 \.
 
 
@@ -1040,11 +950,9 @@ COPY public.t_pto_serv (id_pto_serv, id_pto, id_servicio) FROM stdin;
 -- Data for Name: t_ptos_atc; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.t_ptos_atc (id_pto, id_analista, nombre, id_usuario, fecha_registro, ult_mod, estatus) FROM stdin;
-10	10	Oficina 1	8	2019-11-26 00:00:00	\N	0
-11	11	Recepcion	8	2019-12-03 00:00:00	\N	0
-9	6	Taquilla 1	8	2019-11-25 00:00:00	\N	0
-12	\N	\N	8	2019-12-04 00:00:00	\N	1
+COPY public.t_ptos_atc (id_pto, id_analista, nombre, id_usuario, fecha_registro, ult_mod, estatus, id_servicio, id_pref, id_ces) FROM stdin;
+13	10	Taquilla 1	8	2019-12-04 00:00:00	\N	0	3	1	\N
+14	11	Oficina I	8	2019-12-05 00:00:00	\N	0	3	1	\N
 \.
 
 
@@ -1112,7 +1020,7 @@ COPY public.t_usuarios (id_user, id_rol, nombre_completo, correo, telefono, user
 -- Name: logs_id_log_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.logs_id_log_seq', 111, true);
+SELECT pg_catalog.setval('public.logs_id_log_seq', 149, true);
 
 
 --
@@ -1130,7 +1038,7 @@ SELECT pg_catalog.setval('public.solicitudes_id_solicitud_seq', 1, false);
 -- Name: t_atencion_id_atencion_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.t_atencion_id_atencion_seq', 2, true);
+SELECT pg_catalog.setval('public.t_atencion_id_atencion_seq', 33, true);
 
 
 --
@@ -1148,7 +1056,7 @@ SELECT pg_catalog.setval('public.t_canales_id_canal_seq', 8, true);
 -- Name: t_clientes_id_cliente_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.t_clientes_id_cliente_seq', 2, true);
+SELECT pg_catalog.setval('public.t_clientes_id_cliente_seq', 24, true);
 
 
 --
@@ -1193,7 +1101,7 @@ SELECT pg_catalog.setval('public.t_pto_serv_id_pto_serv_seq', 4, true);
 -- Name: t_ptos_atc_id_pto_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.t_ptos_atc_id_pto_seq', 12, true);
+SELECT pg_catalog.setval('public.t_ptos_atc_id_pto_seq', 14, true);
 
 
 --
@@ -1385,7 +1293,7 @@ ALTER TABLE ONLY public.t_usuarios
     ADD CONSTRAINT pk_user PRIMARY KEY (id_user);
 
 
--- Completed on 2019-12-04 13:02:54 -04
+-- Completed on 2019-12-06 10:27:06 -04
 
 --
 -- PostgreSQL database dump complete

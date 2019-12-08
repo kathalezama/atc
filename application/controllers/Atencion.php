@@ -1,36 +1,35 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Recepcion extends CI_Controller {
+class Atencion extends CI_Controller {
 
 	public function __construct()
 	{
 		parent::__construct();
-    	$this->load->model('recepcion_model');
-    	$this->load->model('puntos_model');
+    	//$this->load->model('atencion_model');
     	$this->load->model('welcome_model');
     	$this->load->helper('date');
 	}
 
 	public function index()
 	{
-		$i=0;
+		//echo "hola";
 
-		$vista['preferencial'] = $this->puntos_model->listPreferencial();
-		$vista['servicios'] = $this->puntos_model->listServicios();
-		$vista['motivos'] = $this->puntos_model->listMotivos();
+		//$vista['preferencial'] = $this->puntos_model->listPreferencial();
+		//$vista['servicios'] = $this->puntos_model->listServicios();
+		//$vista['motivos'] = $this->puntos_model->listMotivos();
 
 		$this->menu();
 		//$vista['view_agregar']=$this->load->view('puntos_atc/agregar', $datos , true);
 		//$vista['view_editar']=$this->load->view('puntos_atc/editar', $datos , true);
-		$this->load->view('recepcion/recepcion',$vista);
+		$this->load->view('atencion/atencion');
 		$this->load->view('layout/footer');
 	}
 
-	public function ticket(){
+	/*public function ticket(){
 		 
 		print_r(json_encode($this->recepcion_model->ticket()));
-	}
+	}*/
 
 	public function menu(){
 		
@@ -41,7 +40,7 @@ class Recepcion extends CI_Controller {
 		}
 		$this->load->view('layout/header',$menu);
 	}
-
+/*
 	public function save(){
 
 		
@@ -54,10 +53,24 @@ class Recepcion extends CI_Controller {
 
 	}
 
+	public function bloquear(){
+		
+		$bloc = $this->puntos_model->bloquear($_POST);
+		echo $bloc;
+
+	}
+
 	public function buscar(){
 
 		$lista = $this->recepcion_model->buscar($_POST['id']);
 		echo json_encode($lista);
 	}
 
+	public function editar(){
+
+		$motivo = $this->puntos_model->editar($_POST);
+		echo "<script> alert('".$motivo."') </script>";
+		redirect('servicios/' , 'refresh');
+
+	}*/
 }

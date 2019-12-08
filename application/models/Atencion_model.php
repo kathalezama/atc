@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Recepcion_model extends CI_Model{
+class Atencion_model extends CI_Model{
     function __construct(){
         parent::__construct();
         $this->load->model('welcome_model');
@@ -19,20 +19,6 @@ class Recepcion_model extends CI_Model{
 		}
 
 	}
-
-/*	function list()
-	{
-		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus');
-		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
-		$this->db->join('t_usuarios','t_usuarios.id_user = t_ptos_atc.id_analista','left');
-		//$this->db->where('estatus','0');
-		$listMotivos = $this->db->get('public.t_ptos_atc');
-		
-		if($listMotivos->num_rows()>0)
-		{
-			return $listMotivos->result();
-		}
-	}*/
 
 	function select_pto($datos){
 		$this->db->select('t_ptos_atc.id_pto, t_ptos_atc.nombre');
