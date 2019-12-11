@@ -77,3 +77,7 @@ tr:hover{
 .fmapp-wrap .fm-box .fmapp-main .fm-body .fmapp-table-view table.table-hover tbody tr:hover {
   background-color: #8c67302e;
 }
+
+.alert.alert-wth-icon {
+    padding-left: 20px;
+}

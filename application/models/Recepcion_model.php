@@ -78,7 +78,7 @@ class Recepcion_model extends CI_Model{
 		$data = array(
 			'id_cliente'=> $id,
 			'id_pto'=>'0',
-			'hora_recepcion'=>date('H:i:s'),
+			'hora_recepcion'=>date('H:i'),
 			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
@@ -105,12 +105,13 @@ class Recepcion_model extends CI_Model{
 	function ticket()
 	{
 
-		$this->db->select('tiket, hora_recepcion, t_estatus.estatus, nombre_completo, nombre');
+		$this->db->select('tiket, hora_recepcion, hora_atc_i, t_estatus.estatus, t_estatus.id_estatus, nombre_completo, nombre');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
 		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');
-		$this->db->order_by('id_atencion','desc');
+		$this->db->order_by('estatus, id_atencion','desc');
 		$this->db->where('id_estatus','4');
+		$this->db->or_where('id_estatus','5');
 		$this->db->limit('4');
 
 		$listMotivos = $this->db->get('public.t_atencion');

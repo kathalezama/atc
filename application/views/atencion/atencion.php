@@ -1,7 +1,7 @@
 <!-- <br><br><br><br><br> -->
 <?php //print_r($this->session->userdata); ?>
 
-<form action="<?php echo base_url(); ?>index.php/recepcion/save" method="post" id="frm_recepcion">
+<form action="<?php echo base_url(); ?>index.php/atencion/save" method="post" id="frm_recepcion">
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
@@ -16,7 +16,7 @@
 
         <div class="row">
             <div class="col-xl-7 pa-0">
-
+              <input type="hidden" name="id_atencion" id="id_atencion">
                	<section class="hk-sec-wrapper">
                   	<h5 class="hk-sec-title">Atención al Cliente</h5>
                     <div class="row">
@@ -39,11 +39,11 @@
                       <div class="col-xl-6"><input type="text" class="form-control mail" id="servicio" name="servicio" readonly=""></div>
 
                       <div class="col-xl-12">Observaciones</div>
-                      <div class="col-xl-12"><textarea class="form-control"></textarea></div>
+                      <div class="col-xl-12"><textarea class="form-control" name="obs" id="obs"></textarea></div>
                       <div class="col-xl-12"><br></div>
 
-                      <div class="col-lg-2"><button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;">Atendido</font></button></div>
-                      <div class="col-lg-2"><button type="submit" class="btn btn-primary"><font style="vertical-align: inherit;">No atendido</font></button></div>
+                      <div class="col-lg-2"><button type="submit" id="save" name="save" class="btn btn-primary" value="1"><font style="vertical-align: inherit;">Atendido</font></button></div>
+                      <div class="col-lg-2"><button type="submit" class="btn btn-primary" id="save" name="save" value="2"><font style="vertical-align: inherit;">No atendido</font></button></div>
                       <div class="col-xl-7"><br></div>
 
                       <div class="col-xl-12 _alert"></div>
@@ -80,20 +80,27 @@
     $("#iniciar").click(function(){
       $.post("<?php echo base_url() ?>index.php/atencion/buscar", { id:0 }, function(data){
 
-        var obj = jQuery.parseJSON( data );
-        console.log(obj);
-        $('#nombres').val(obj['nombre_completo']);
-        $('#correo').val(obj['correo']);
-        $('#telefono').val(obj['telefono']);
-        $('#cedula').val(obj['cedula']);
-        $('#servicio').val(obj['nombre']);
-        $('#motivo').val(obj['motivo']);
+        if (data==0) {
 
-        //nombre_completo, telefono, correo, cedula, t_servicios.nombre, motivo
+          alert("No hay tikets pendientes para este servicio");
+
+        }else{
+
+          var obj = jQuery.parseJSON( data );
+          console.log(obj);
+          $('#nombres').val(obj['nombre_completo']);
+          $('#correo').val(obj['correo']);
+          $('#telefono').val(obj['telefono']);
+          $('#cedula').val(obj['cedula']);
+          $('#servicio').val(obj['nombre']);
+          $('#motivo').val(obj['motivo']);
+          $('#id_atencion').val(obj['id_atencion']);
+          iniciar();
+
+        }
 
     });
 
-      iniciar();
     });
 
     function zeroIzq(n){

@@ -20,38 +20,10 @@ class Atencion_model extends CI_Model{
 
 	}
 	
-	/*function save($datos)
+	function save($datos)
 	{
 		$sql="";
 
-		$this->db->where('cedula',$datos['cedula']);
-
-		$cliente = $this->db->get('public.t_clientes');
-		
-		if($cliente->num_rows()>0)
-		{
-			$id = $cliente->row()->id_cliente;
-			
-		}else{
-
-			$data = array(
-				'cedula'=>$datos['cedula'],
-				'nombre_completo'=>$datos['nombres'],
-				'correo'=>$datos['correo'],
-				'telefono'=>$datos['telefono'],
-				'id_usuario'=>$this->session->userdata['id_user'],
-				'fecha_registro'=>date('Y-m-d'),
-				'estatus'=>'0',
-			);
-
-			$this->db->insert('public.t_clientes',$data);
-
-			$sql=$this->db->last_query();
-
-			$id = $this->db->insert_id();
-		}	
-
-	
 		$data = array(
 			'id_cliente'=> $id,
 			'id_pto'=>'0',
@@ -68,31 +40,49 @@ class Atencion_model extends CI_Model{
 
 		$this->db->insert('public.t_atencion',$data);
 
-		$sql=$sql.'; '.$this->db->last_query();
-
+		$sql=$this->db->last_query();
 
 		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de ticket',$sql);
 
 		$retorno='ticket creado';
 
 		return $retorno;
-	}*/
+	}
 
 	function buscar()
 	{
-		$this->db->select('nombre_completo, telefono, correo, cedula, t_servicios.nombre, motivo');
+		// [nombre_completo]  [correo]  [telefono] [username] [cedula] [id_servicio] [id_pref] [id_ces]
+
+		$this->db->select('id_atencion, nombre_completo, telefono, correo, cedula, t_servicios.nombre, motivo');
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
 		$this->db->join('t_servicios','t_servicios.id_servicio = t_atencion.id_servicio','left');
 		$this->db->join('t_motivos','t_motivos.id_motivo = t_atencion.id_motivo','left');
-		//$this->db->where('cedula',$datos);
+		$this->db->where('t_servicios.id_servicio',$this->session->userdata['id_servicio']);
+		$this->db->where('t_atencion.estatus','4');
+		$this->db->order_by('id_ces, id_pref, hora_recepcion','asc');
 		$listMotivos = $this->db->get('public.t_atencion');
 
+		$this->welcome_model->log($this->session->userdata['id_user'],'Llamando cliente',$this->db->last_query());
 
-		//return $this->db->last_query();
-		
+
 		if($listMotivos->num_rows()>0)
 		{
+
+			$data = array(
+				'estatus'=>'5',
+				'id_pto'=>$this->session->userdata['id_pto'],
+				'hora_atc_i'=>date('H:i'),
+			);
+
+			$this->db->where('id_atencion', $listMotivos->row()->id_atencion);
+			$this->db->update('public.t_atencion', $data);
+
+			$this->welcome_model->log($this->session->userdata['id_user'],'Llamando cliente',$this->db->last_query());
+ 
 			return $listMotivos->row_array();
+		} else {
+
+			return '0';
 		}
 
 	}

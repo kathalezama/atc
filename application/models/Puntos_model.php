@@ -267,7 +267,7 @@ class Puntos_model extends CI_Model{
 
 	function editar($datos)
 	{
-		 $data = array(
+		$data = array(
 			'tcliente'=>$datos['e_preferencial'],
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'ult_mod'=>date('Y-m-d'),

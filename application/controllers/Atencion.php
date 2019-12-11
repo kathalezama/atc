@@ -43,35 +43,31 @@ class Atencion extends CI_Controller {
 
 	public function save(){
 
-		
+		echo "<pre>";
+		print_r($_POST);
+		echo "</pre>";
 
 		$save = $this->atencion_model->save($_POST);
 
-		echo "<script> alert('".$save."') </script>";
+		//echo "<script> alert('".$save."') </script>";
 
-		redirect('recepcion/' , 'refresh');
-
-	}
-
-/*	public function bloquear(){
-		
-		$bloc = $this->puntos_model->bloquear($_POST);
-		echo $bloc;
+		//redirect('atencion/' , 'refresh');
 
 	}
-*/
+
 	public function buscar(){
 
 		$lista = $this->atencion_model->buscar();
-		echo json_encode($lista);
-		//echo $lista;
+		if ($lista==0) {
+
+			echo $lista;
+
+		}else{
+
+			echo json_encode($lista);
+
+		}
 	}
 
-/*	public function editar(){
 
-		$motivo = $this->puntos_model->editar($_POST);
-		echo "<script> alert('".$motivo."') </script>";
-		redirect('servicios/' , 'refresh');
-
-	}*/
 }
