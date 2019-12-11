@@ -9,6 +9,15 @@ body {
   color:red;
 }
 
+.h-tiket{
+  color: white;
+}
+
+.card-text{
+  color: white;
+  font-weight: bold;
+}
+
 .margen {
   padding: 50px;
   min-height: 655px;

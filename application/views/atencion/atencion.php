@@ -42,8 +42,8 @@
                       <div class="col-xl-12"><textarea class="form-control" name="obs" id="obs"></textarea></div>
                       <div class="col-xl-12"><br></div>
 
-                      <div class="col-lg-2"><button type="submit" id="save" name="save" class="btn btn-primary" value="1"><font style="vertical-align: inherit;">Atendido</font></button></div>
-                      <div class="col-lg-2"><button type="submit" class="btn btn-primary" id="save" name="save" value="2"><font style="vertical-align: inherit;">No atendido</font></button></div>
+                      <div class="col-lg-2"><button type="submit" id="save" name="save" class="btn btn-primary" value="6"><font style="vertical-align: inherit;">Atendido</font></button></div>
+                      <div class="col-lg-2"><button type="submit" class="btn btn-primary" id="save" name="save" value="7"><font style="vertical-align: inherit;">No atendido</font></button></div>
                       <div class="col-xl-7"><br></div>
 
                       <div class="col-xl-12 _alert"></div>

@@ -20,19 +20,6 @@ class Recepcion_model extends CI_Model{
 
 	}
 
-/*	function list()
-	{
-		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus');
-		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
-		$this->db->join('t_usuarios','t_usuarios.id_user = t_ptos_atc.id_analista','left');
-		//$this->db->where('estatus','0');
-		$listMotivos = $this->db->get('public.t_ptos_atc');
-		
-		if($listMotivos->num_rows()>0)
-		{
-			return $listMotivos->result();
-		}
-	}*/
 
 	function select_pto($datos){
 		$this->db->select('t_ptos_atc.id_pto, t_ptos_atc.nombre');
@@ -105,7 +92,7 @@ class Recepcion_model extends CI_Model{
 	function ticket()
 	{
 
-		$this->db->select('tiket, hora_recepcion, hora_atc_i, t_estatus.estatus, t_estatus.id_estatus, nombre_completo, nombre');
+		$this->db->select('id_atencion, tiket, hora_recepcion, hora_atc_i, t_estatus.estatus, t_estatus.id_estatus, nombre_completo, nombre');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
 		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');
@@ -113,6 +100,26 @@ class Recepcion_model extends CI_Model{
 		$this->db->where('id_estatus','4');
 		$this->db->or_where('id_estatus','5');
 		$this->db->limit('4');
+
+		$listMotivos = $this->db->get('public.t_atencion');
+		
+		if($listMotivos->num_rows()>0)
+		{
+			return $listMotivos->result_array();
+		}
+
+	}
+
+	function monitor_p($datos)
+	{
+
+		$this->db->select('tiket, hora_recepcion, hora_atc_i, t_estatus.estatus, t_estatus.id_estatus, nombre_completo, nombre');
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
+		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
+		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');
+		$this->db->order_by('estatus, id_atencion','desc');
+		$this->db->where('id_estatus',$datos['id']);
+		$this->db->limit('5');
 
 		$listMotivos = $this->db->get('public.t_atencion');
 		
@@ -136,4 +143,12 @@ class Recepcion_model extends CI_Model{
 
 	}
 
+	function atendido($datos){
+		$data = array(
+				'estatus'=>'8',
+			);
+
+			$this->db->where('id_atencion', $datos['id']);
+			$this->db->update('public.t_atencion', $data);
+	}
  }

@@ -25,26 +25,19 @@ class Atencion_model extends CI_Model{
 		$sql="";
 
 		$data = array(
-			'id_cliente'=> $id,
-			'id_pto'=>'0',
-			'hora_recepcion'=>date('H:i:s'),
-			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
-			'id_usuario'=>$this->session->userdata['id_user'],
-			'fecha_registro'=>date('Y-m-d'),
-			'id_servicio'=>$datos['servicios'],
-			'id_motivo'=>$datos['motivos'],
-			'id_pref'=>$datos['preferencial'],
-			'id_ces'=>$datos['especial'],
+			'observacion'=>$datos['obs'],
+			'hora_atc_f'=>date('H:i'),
+			'estatus'=>$datos['save'],
 		);
 
-
-		$this->db->insert('public.t_atencion',$data);
+		$this->db->where('id_atencion', $datos['id_atencion']);
+		$this->db->update('public.t_atencion', $data);
 
 		$sql=$this->db->last_query();
 
 		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de ticket',$sql);
 
-		$retorno='ticket creado';
+		$retorno='Atencion Finalizada';
 
 		return $retorno;
 	}
@@ -57,7 +50,7 @@ class Atencion_model extends CI_Model{
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
 		$this->db->join('t_servicios','t_servicios.id_servicio = t_atencion.id_servicio','left');
 		$this->db->join('t_motivos','t_motivos.id_motivo = t_atencion.id_motivo','left');
-		$this->db->where('t_servicios.id_servicio',$this->session->userdata['id_servicio']);
+		//$this->db->where('t_servicios.id_servicio',$this->session->userdata['id_servicio']);
 		$this->db->where('t_atencion.estatus','4');
 		$this->db->order_by('id_ces, id_pref, hora_recepcion','asc');
 		$listMotivos = $this->db->get('public.t_atencion');

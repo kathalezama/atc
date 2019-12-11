@@ -27,9 +27,26 @@ class Recepcion extends CI_Controller {
 		$this->load->view('layout/footer');
 	}
 
+	public function monitor(){
+
+		$this->load->view('layout/header_login');
+		$this->load->view('recepcion/monitor');
+
+	}
+
 	public function ticket(){
 		 
 		print_r(json_encode($this->recepcion_model->ticket()));
+	}
+
+	public function atendido(){
+		 
+		$this->recepcion_model->atendido($_POST);
+	}
+
+	public function monitor_p(){
+		 
+		print_r(json_encode($this->recepcion_model->monitor_p($_POST)));
 	}
 
 	public function menu(){
@@ -43,8 +60,6 @@ class Recepcion extends CI_Controller {
 	}
 
 	public function save(){
-
-		
 
 		$save = $this->recepcion_model->save($_POST);
 
