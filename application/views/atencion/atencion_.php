@@ -4,7 +4,7 @@
             <!-- Container -->
             <nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
-				    <li class="breadcrumb-item">Recepcion</li>
+				    <li class="breadcrumb-item">Atención Telefonica</li>
 				    <li class="breadcrumb-item active" aria-current="page"></li>
 				</ol>
 			</nav>
@@ -13,8 +13,20 @@
 
         <div class="row">
             <div class="col-xl-7 pa-0">
+              <table>
+                <tr>
+                  <td style="padding-right: 25px">
+                    <button type="button" class="btn btn-success" id="cronometro">00:00:00</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-icon btn-success btn-icon-style-1" id="iniciar" type="button"><span class="btn-icon-wrap"><i class="fa fa-play"></i></span></button>
+                  </td>
+                  <td style="padding-left: 5px">Iniciar</td>    
+                </tr>
+              </table>
+              <br>
                	<section class="hk-sec-wrapper">
-                  	<h5 class="hk-sec-title">Asignar ticket</h5>
+                  	<h5 class="hk-sec-title">Atención Telefonica</h5>
                     <div class="row">
                        	<div class="col-xl-6">Cedula:</div>
                        	<div class="col-xl-6">Apellidos y Nombres:</div>
@@ -49,29 +61,19 @@
 		                   </select>
                        	</div>
 
-                       	<div class="col-xl-12"><br></div>
-                    	<div class="col-xl-12">Atención preferencial:</div>
-                       	<div class="col-xl-12"><br></div>
+                   	<div class="col-xl-12"><br></div>
 
-                    	<div class="col-lg-12">
-                             <div class="custom-control custom-checkbox checkbox-primary">
-                                <input type="checkbox" class="custom-control-input" id="preferencial" name="preferencial" value="1">
-                                <label class="custom-control-label" for="preferencial">Discapacidad | Adulto Mayor | Mujer Embarazada</label>
-                             </div>                   
-                        </div>
-
-                        <div class="col-lg-12">
-                             <div class="custom-control custom-checkbox checkbox-primary">
-                                <input type="checkbox" class="custom-control-input" id="especial" name="especial" value="1">
-                                <label class="custom-control-label" for="especial">Cliente Especial</label>
-                             </div>                   
-                        </div>
-
-                    <div class="col-xl-12"><audio id="xyz" src="<?php echo base_url(); ?>assets/atencion.mp3" preload="auto"></audio></div>
+                    <div class="col-xl-12">Observaciones</div>
+                    <div class="col-xl-12"><textarea class="form-control" name="obs" id="obs"></textarea></div>
                     <div class="col-xl-12"><br></div>
-                    <div class="col-xl-10"><br></div>
 
-		                <div class="col-lg-2"><button type="submit" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;">Guardar</font></button></div>
+                    <input type="hidden" name="hora" id="hora">
+
+                    <div class="col-xl-12"><br></div>
+
+		                <div class="col-lg-2"><button type="submit" id="save" name="save" class="btn btn-primary save" value="6"><font style="vertical-align: inherit;">Atendido</font></button></div>
+                    <div class="col-lg-2"><button type="submit" class="btn btn-primary save" id="save" name="save" value="7"><font style="vertical-align: inherit;">No atendido</font></button></div>
+                    <div class="col-xl-7"><br></div>
                     </div>
                     <div class="col-xl-12 _alert"></div>
 
@@ -87,59 +89,55 @@
 </form>
         <!-- /Main Content -->
 <script type="text/javascript">
-	loadTickets();
-	setInterval(loadTickets,5000);
 
-	function loadTickets(){
-		$.post("<?php echo base_url() ?>index.php/recepcion/ticket", { id:0 }, function(data){
+  $('#cedula').prop('disabled', true);
+  $('#nombres').prop('disabled', true);
+  $('#correo').prop('disabled', true);
+  $('#telefono').prop('disabled', true);
+  $('#servicios').prop('disabled', true);
+  $('#motivos').prop('disabled', true);
+  $('#obs').prop('disabled', true);
+  $('.save').prop('disabled', true);
 
-    var obj = jQuery.parseJSON( data );
+  var inicioConteo, idTimeout, cronometro = document.querySelector('#cronometro'), botonReiniciar = document.querySelector('#botonReiniciar');
 
-    //console.log(obj);
+  $("#iniciar").click(function(){
 
-			$("#ticket").html("");
-            var estilo ="alert alert-primary alert-dismissible fade show";
-            var hora, taquilla;
-            $.each( obj, function(k,v) {
-	              if (v!="") {
-                  if (v['id_estatus']=="5") { 
-                    estilo = 'alert alert-danger alert-wth-icon alert-dismissible fade show ';
-                  }
-                  else {
-                    estilo ="alert alert-primary alert-dismissible fade show"; 
-                  }
-                  if (v['nombre']) { taquilla=' ('+v['nombre']+')'; }
-                  else { taquilla =""; }
+    $('#cedula').prop('disabled', false);
+    $('#nombres').prop('disabled', false);
+    $('#correo').prop('disabled', false);
+    $('#telefono').prop('disabled', false);
+    $('#servicios').prop('disabled', false);
+    $('#motivos').prop('disabled', false);
+    $('#obs').prop('disabled', false);
+    $('.save').prop('disabled', false);
+    var d = new Date();
+    var h = d.getHours() + ':' +d.getMinutes();
+    $("#hora").val(h);
+    iniciar();
 
-                    var d = new Date();  
+  });
 
-                    if (v['hora_atc_i']) { hora = v['hora_atc_i'];  }   
-                    else { hora = d.getHours() + ':' +d.getMinutes(); }    
-                    //console.log(hora);
+	function zeroIzq(n){
+        return n.toString().replace(/^(\d)$/,'0$1');
+    }
 
-                    var hora_inicio = hora;
-                    var hora_final = d.getHours() + ':' +d.getMinutes();
+    function formatoSegundos(s){
+        return zeroIzq(Math.floor(s / 3600))+':'+zeroIzq(Math.floor(s%3600 / 60))+':'+zeroIzq(Math.floor((s%3600)%60));
+    }
 
-                    var minutos_inicio_ = hora_inicio.split(':');
-                    var minutos_final_ = hora_final.split(':');
+    function actualizar(){
+        var dif = Date.now() - inicioConteo;
+        dif = Math.round(dif / 1000);
+        cronometro.innerHTML = formatoSegundos(dif);
+        idTimeout = setTimeout(actualizar,1000);
+    }
 
-                    var minutos_inicio = parseInt(minutos_inicio_[0]) * 60 + parseInt(minutos_inicio_[1]);
-                    var minutos_final = parseInt(minutos_final_[0]) * 60 + parseInt(minutos_final_[1]);
-                    
-                    var diferencia = (minutos_final - minutos_inicio)*60;
-
-                    if ((diferencia >= 60) && (v['id_estatus']==5)) {
-                      $.post("<?php echo base_url() ?>index.php/recepcion/atendido", { id:v['id_atencion'] }, function(e){});
-                    }else{
-                        //
-                      $("#ticket").html($("#ticket").html()+'<div class="'+estilo+'" role="alert"><h1>'+v['tiket']+taquilla+'</h1>'+v['estatus']+'</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
-                    }
-                    
-	              }
-            });
-
-        });
-  }
+    function iniciar(){
+        clearTimeout(idTimeout);
+        inicioConteo = Date.now();
+        actualizar();
+    }
 
   $('#cedula').blur(function(){
     $.post("<?php echo base_url() ?>index.php/recepcion/buscar", { id:$(this).val() }, function(data){
