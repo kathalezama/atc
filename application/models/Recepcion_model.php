@@ -119,7 +119,7 @@ class Recepcion_model extends CI_Model{
 		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');
 		$this->db->order_by('estatus, id_atencion','desc');
 		$this->db->where('id_estatus',$datos['id']);
-		$this->db->limit('5');
+		$this->db->limit($datos['lim']);
 
 		$listMotivos = $this->db->get('public.t_atencion');
 		

@@ -64,6 +64,7 @@ class Atencion_model extends CI_Model{
 			$data = array(
 				'estatus'=>'5',
 				'id_pto'=>$this->session->userdata['id_pto'],
+				'id_analista'=>$this->session->userdata['id_user'],
 				'hora_atc_i'=>date('H:i'),
 			);
 

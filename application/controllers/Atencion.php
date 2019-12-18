@@ -13,23 +13,11 @@ class Atencion extends CI_Controller {
 
 	public function index()
 	{
-		//echo "hola";
-
-		//$vista['preferencial'] = $this->puntos_model->listPreferencial();
-		//$vista['servicios'] = $this->puntos_model->listServicios();
-		//$vista['motivos'] = $this->puntos_model->listMotivos();
 
 		$this->menu();
-		//$vista['view_agregar']=$this->load->view('puntos_atc/agregar', $datos , true);
-		//$vista['view_editar']=$this->load->view('puntos_atc/editar', $datos , true);
 		$this->load->view('atencion/atencion');
 		$this->load->view('layout/footer');
 	}
-
-	/*public function ticket(){
-		 
-		print_r(json_encode($this->recepcion_model->ticket()));
-	}*/
 
 	public function menu(){
 		
@@ -43,15 +31,9 @@ class Atencion extends CI_Controller {
 
 	public function save(){
 
-		echo "<pre>";
-		print_r($_POST);
-		echo "</pre>";
-
 		$save = $this->atencion_model->save($_POST);
-
-		//echo "<script> alert('".$save."') </script>";
-
-		//redirect('atencion/' , 'refresh');
+		echo "<script> alert('".$save."') </script>";
+		redirect('atencion/' , 'refresh');
 
 	}
 

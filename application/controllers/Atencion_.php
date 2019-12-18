@@ -21,8 +21,6 @@ class Atencion_ extends CI_Controller {
 		$vista['motivos'] = $this->puntos_model->listMotivos();
 
 		$this->menu();
-		//$vista['view_agregar']=$this->load->view('puntos_atc/agregar', $datos , true);
-		//$vista['view_editar']=$this->load->view('puntos_atc/editar', $datos , true);
 		$this->load->view('atencion/atencion_',$vista);
 		$this->load->view('layout/footer');
 	}
