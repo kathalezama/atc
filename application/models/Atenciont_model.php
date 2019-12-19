@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Atencion_model extends CI_Model{
+class Atenciont_model extends CI_Model{
     function __construct(){
         parent::__construct();
         $this->load->model('welcome_model');
@@ -24,20 +24,61 @@ class Atencion_model extends CI_Model{
 	{
 		$sql="";
 
+		$this->db->where('cedula',$datos['cedula']);
+
+		$cliente = $this->db->get('public.t_clientes');
+		
+		if($cliente->num_rows()>0)
+		{
+			$id = $cliente->row()->id_cliente;
+			
+		}else{
+
+			$data = array(
+				'cedula'=>$datos['cedula'],
+				'nombre_completo'=>$datos['nombres'],
+				'correo'=>$datos['correo'],
+				'telefono'=>$datos['telefono'],
+				'id_usuario'=>$this->session->userdata['id_user'],
+				'fecha_registro'=>date('Y-m-d'),
+				'estatus'=>'0',
+			);
+
+			$this->db->insert('public.t_clientes',$data);
+
+			$sql=$this->db->last_query();
+
+			$id = $this->db->insert_id();
+		}	
+
+	
 		$data = array(
+			'id_cliente'=> $id,
+			'id_pto'=>'0',
+			'hora_recepcion'=>$datos['hora'],
+			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
+			'id_usuario'=>$this->session->userdata['id_user'],
+			'fecha_registro'=>date('Y-m-d'),
+			'id_servicio'=>$datos['servicios'],
+			'id_motivo'=>$datos['motivos'],
+			'id_pref'=>$datos['preferencial'],
+			'id_ces'=>$datos['especial'],
+			'id_canal'=>$datos['canales'],
 			'observacion'=>$datos['obs'],
 			'hora_atc_f'=>date('H:i'),
+			'hora_atc_i'=>$datos['hora'],
 			'estatus'=>$datos['save'],
 		);
 
-		$this->db->where('id_atencion', $datos['id_atencion']);
-		$this->db->update('public.t_atencion', $data);
 
-		$sql=$this->db->last_query();
+		$this->db->insert('public.t_atencion',$data);
 
-		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de ticket',$sql);
+		$sql=$sql.'; '.$this->db->last_query();
 
-		$retorno='Atencion Finalizada';
+
+		$this->welcome_model->log($this->session->userdata['id_user'] ,'Creación de ticket otros canales',$sql);
+
+		$retorno='solicitud creado';
 
 		return $retorno;
 	}

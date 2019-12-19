@@ -163,6 +163,19 @@ class Puntos_model extends CI_Model{
 		}
 	}
 
+	function listCanales()
+	{
+		$this->db->join('t_estatus','t_estatus.id_estatus = t_canales.estatus','left');
+		$this->db->where('t_canales.estatus','0');
+		$listMotivos = $this->db->get('public.t_canales');
+		
+		if($listMotivos->num_rows()>0)
+		{
+			return $listMotivos->result_array();
+		}
+	}
+
+
 	function listPreferencial()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_tclientes.estatus','left');

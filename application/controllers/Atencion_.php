@@ -6,7 +6,7 @@ class Atencion_ extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-    	$this->load->model('recepcion_model');
+    	$this->load->model('atenciont_model');
     	$this->load->model('puntos_model');
     	$this->load->model('welcome_model');
     	$this->load->helper('date');
@@ -19,6 +19,7 @@ class Atencion_ extends CI_Controller {
 		$vista['preferencial'] = $this->puntos_model->listPreferencial();
 		$vista['servicios'] = $this->puntos_model->listServicios();
 		$vista['motivos'] = $this->puntos_model->listMotivos();
+		$vista['canales'] = $this->puntos_model->listCanales();
 
 		$this->menu();
 		$this->load->view('atencion/atencion_',$vista);
@@ -34,17 +35,17 @@ class Atencion_ extends CI_Controller {
 
 	public function ticket(){
 		 
-		print_r(json_encode($this->recepcion_model->ticket()));
+		print_r(json_encode($this->atenciont_model->ticket()));
 	}
 
 	public function atendido(){
 		 
-		$this->recepcion_model->atendido($_POST);
+		$this->atenciont_model->atendido($_POST);
 	}
 
 	public function monitor_p(){
 		 
-		print_r(json_encode($this->recepcion_model->monitor_p($_POST)));
+		print_r(json_encode($this->atenciont_model->monitor_p($_POST)));
 	}
 
 	public function menu(){
@@ -59,17 +60,17 @@ class Atencion_ extends CI_Controller {
 
 	public function save(){
 
-		$save = $this->recepcion_model->save($_POST);
+		$save = $this->atenciont_model->save($_POST);
 
 		echo "<script> alert('".$save."') </script>";
 
-		redirect('recepcion/' , 'refresh');
+		redirect('atencion_' , 'refresh');
 
 	}
 
 	public function buscar(){
 
-		$lista = $this->recepcion_model->buscar($_POST['id']);
+		$lista = $this->atenciont_model->buscar($_POST['id']);
 		echo json_encode($lista);
 	}
 

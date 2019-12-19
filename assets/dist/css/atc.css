@@ -5,6 +5,10 @@ body {
   background-position: right top;
 }
 
+.jumbotron {
+    padding: 2rem 1rem;
+}
+
 ._alert {
   color:red;
 }

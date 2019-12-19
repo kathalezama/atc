@@ -1,10 +1,10 @@
-<form action="<?php echo base_url(); ?>index.php/recepcion/save" method="post" id="frm_recepcion">
+<form action="<?php echo base_url(); ?>index.php/atencion_/save" method="post" id="frm_recepcion">
 
 <div class="hk-pg-wrapper pb-0">
             <!-- Container -->
             <nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
-				    <li class="breadcrumb-item">Atención Telefonica</li>
+				    <li class="breadcrumb-item">Otros canales de atención</li>
 				    <li class="breadcrumb-item active" aria-current="page"></li>
 				</ol>
 			</nav>
@@ -40,7 +40,7 @@
                     	<div class="col-xl-6"><input type="text" class="form-control numero" id="telefono" name="telefono" maxlength="11"></div>
                     	<div class="col-xl-6"><input type="text" class="form-control mail" id="correo" name="correo"></div>
 
-		                <div class="col-xl-6">Servicio:</div>
+		                    <div class="col-xl-6">Servicio:</div>
                        	<div class="col-xl-6">Motivo:</div>
 
                        	<div class="col-lg-6">
@@ -58,8 +58,19 @@
 		                      <?php foreach ($_ci_vars['motivos'] as $key) {
 		                        echo "<option value='".$key['id_motivo']."'>".$key['motivo']."</option>";
 		                      } ?>
-		                   </select>
+		                    </select>
                        	</div>
+
+                        <div class="col-xl-12">Canal de atención:</div>
+                        <div class="col-lg-6">
+                        <select id="canales" name="canales" class="form-control">
+                        <option value='' >-- Seleccione</option>
+                          <?php foreach ($_ci_vars['canales'] as $key) {
+                            echo "<option value='".$key['id_canal']."'>".$key['canal']."</option>";
+                          } ?>
+                        </select>
+                        </div>
+
 
                    	<div class="col-xl-12"><br></div>
 
@@ -96,6 +107,7 @@
   $('#telefono').prop('disabled', true);
   $('#servicios').prop('disabled', true);
   $('#motivos').prop('disabled', true);
+  $('#canales').prop('disabled', true);
   $('#obs').prop('disabled', true);
   $('.save').prop('disabled', true);
 
@@ -106,6 +118,7 @@
     $('#cedula').prop('disabled', false);
     $('#nombres').prop('disabled', false);
     $('#correo').prop('disabled', false);
+    $('#canales').prop('disabled', false);
     $('#telefono').prop('disabled', false);
     $('#servicios').prop('disabled', false);
     $('#motivos').prop('disabled', false);
