@@ -9,6 +9,10 @@ body {
     padding: 2rem 1rem;
 }
 
+.espacio{
+  margin-left: 25px;
+}
+
 ._alert {
   color:red;
 }

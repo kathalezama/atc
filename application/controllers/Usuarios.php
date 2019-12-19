@@ -25,6 +25,15 @@ class Usuarios extends CI_Controller {
 
 	}
 
+	public function perfiles()
+	{
+		$menu['perfiles'] = $this->usuarios_model->menu();
+		$this->menu();
+		$this->load->view('usuarios/perfiles', $menu);
+		$this->load->view('layout/footer');
+
+	}
+
 	public function menu(){
 		
 		$menu = $this->welcome_model->menu();
@@ -39,8 +48,6 @@ class Usuarios extends CI_Controller {
 
 	public function save_nuevo_usuario(){
 		
-		//[cedula] > [nombres] > [apellidos] > [correo] > [telefono] > [rol] > [username] > [clave] > [rclave] 
-
 		$save = $this->usuarios_model->save_nuevo_usuario($_POST);
 
 		echo "<script> alert('".$save."') </script>";
