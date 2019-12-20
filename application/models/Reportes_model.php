@@ -39,7 +39,7 @@ class Reportes_model extends CI_Model{
 		$this->db->where('id_motivo',$motivo);
 		$this->db->where('id_analista',$analista);
 		$this->db->where('id_canal','0');
-		$this->db->where("fecha_registro BETWEEN '".$fechas['desde']."' AND '".$fechas['hasta']."'");
+		//$this->db->where("fecha_registro BETWEEN '".$fechas['desde']."' AND '".$fechas['hasta']."'");
 
 
 		$listMotivos = $this->db->get('public.t_atencion');
@@ -56,7 +56,7 @@ class Reportes_model extends CI_Model{
 		$this->db->where('id_motivo',$motivo);
 		$this->db->where('id_analista',$analista);
 		$this->db->where('id_canal !=','0');
-		$this->db->where("fecha_registro BETWEEN '".$fechas['desde']."' AND '".$fechas['hasta']."'");
+		//$this->db->where("fecha_registro BETWEEN '".$fechas['desde']."' AND '".$fechas['hasta']."'");
 
 
 		$listMotivos = $this->db->get('public.t_atencion');
