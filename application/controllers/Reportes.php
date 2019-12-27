@@ -79,7 +79,7 @@ class Reportes extends CI_Controller {
 				$total=0;
 
 				$this->fpdf->SetFont('Arial','B',9);
-				$this->fpdf->Cell(62,6,utf8_decode($value['motivo']),0,0,'L');
+				$this->fpdf->Cell(62,6,($value['motivo']),0,0,'L');
 				$this->fpdf->SetFont('Arial','',9);
 
 				for ($i=$x*7; $i < $e; $i++) { 
@@ -98,7 +98,7 @@ class Reportes extends CI_Controller {
 				$total=0;
 
 				$this->fpdf->SetFont('Arial','B',9);
-				$this->fpdf->Cell(62,6,utf8_decode('Totales'),1,0,'L');
+				$this->fpdf->Cell(62,6,('Totales'),1,0,'L');
 				$this->fpdf->SetFont('Arial','',9);
 
 				for ($i=$x*7; $i < $e; $i++) { 
@@ -163,7 +163,7 @@ class Reportes extends CI_Controller {
 				$total=0;
 
 				$this->fpdf->SetFont('Arial','B',9);
-				$this->fpdf->Cell(62,6,utf8_decode($value['motivo']),0,0,'L');
+				$this->fpdf->Cell(62,6,($value['motivo']),0,0,'L');
 				$this->fpdf->SetFont('Arial','',9);
 
 				for ($i=$x*7; $i < $e; $i++) { 
@@ -182,7 +182,7 @@ class Reportes extends CI_Controller {
 				$total=0;
 
 				$this->fpdf->SetFont('Arial','B',9);
-				$this->fpdf->Cell(62,6,utf8_decode('Totales'),1,0,'L');
+				$this->fpdf->Cell(62,6,('Totales'),1,0,'L');
 				$this->fpdf->SetFont('Arial','',9);
 
 				for ($i=$x*7; $i < $e; $i++) { 

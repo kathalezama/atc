@@ -4,7 +4,7 @@
             <nav aria-label="breadcrumb">
 				<ol class="breadcrumb">
 				    <li class="breadcrumb-item">Reportes</li>
-				    <li class="breadcrumb-item active" aria-current="page">Back Office</li>
+				    <li class="breadcrumb-item active" aria-current="page">Front Office</li>
 				</ol>
 			</nav>
             <div class="container-fluid margen">

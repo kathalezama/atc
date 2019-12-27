@@ -44,8 +44,7 @@ class Usuarios_model extends CI_Model{
 			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'estatus'=>'0',
-			);
-
+		);
 
 			$this->db->insert('public.t_usuarios',$data);
 
@@ -55,12 +54,54 @@ class Usuarios_model extends CI_Model{
 			return $retorno;
 	}
 
+	function save_perfiles($datos){
+
+		$data = array(
+			'rol'=>$datos['perfil'],
+			'fecha_registro'=>date('Y-m-d'),
+		);
+
+		$this->db->insert('public.t_roles',$data);
+
+		$id = $this->db->insert_id();
+		$i=0;
+
+		$this->welcome_model->log($this->session->userdata['id_user'] ,'Perfil de Usuario',$this->db->last_query());
+		$retorno="Perfil Creado";
+
+
+		foreach ($datos['opciones'] as $key) {
+			$data = array(
+			'id_rol'=>$id,
+			'id_menu'=>$key,
+			);
+		
+			$this->db->insert('public.menu_rol',$data);
+
+			$i++;
+		}
+
+		return $retorno;
+
+	}
+
 	function listUsuarios()
 	{
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_usuarios.estatus','left');
 		$this->db->join('t_roles','t_roles.id_rol = t_usuarios.id_rol','left');
 		//$this->db->where('estatus','0');
 		$listUsuarios = $this->db->get('public.t_usuarios');
+		
+		if($listUsuarios->num_rows()>0)
+		{
+			return $listUsuarios->result_array();
+		}
+	}
+
+	function listRoles()
+	{
+		$this->db->order_by('id_rol','asc');
+		$listUsuarios = $this->db->get('public.t_roles');
 		
 		if($listUsuarios->num_rows()>0)
 		{

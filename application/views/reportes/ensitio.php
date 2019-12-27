@@ -26,7 +26,7 @@
 					 		<div class="col-xl-6"><input type="date" name="hasta" id="hasta" class="form-control"></div>
 					 		<div class="col-xl-12"><br></div>
 					 		<div class="col-xl-3"><input type="submit" class="btn btn-primary" value="Generar PDF"></div>
-					 		<div class="col-xl-3"><input type="button" class="btn btn-primary" value="Generar XLS"></div>
+					 		<div class="col-xl-3"><a href="<?php echo base_url(); ?>index.php/rpt_excel/ensitio" class="btn btn-primary">Generar XLS</a></div>
 					 	</div>
 	   				 </div>
 					</div>

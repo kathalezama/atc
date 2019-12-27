@@ -113,7 +113,7 @@ class Recepcion_model extends CI_Model{
 	function monitor_p($datos)
 	{
 
-		$this->db->select('tiket, hora_recepcion, hora_atc_i, t_estatus.estatus, t_estatus.id_estatus, nombre_completo, nombre');
+		$this->db->select('id_atencion, tiket, hora_recepcion, hora_atc_i, t_estatus.estatus, t_estatus.id_estatus, nombre_completo, nombre');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_atencion.estatus','left');
 		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente','left');
 		$this->db->join('t_ptos_atc','t_ptos_atc.id_pto = t_atencion.id_pto','left');

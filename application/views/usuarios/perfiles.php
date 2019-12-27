@@ -15,6 +15,7 @@
                    <div class="fm-box">
 					<div class="fmapp-main fmapp-view-switch">
 					 <div class="fm-body">
+					 	<form action="<?php echo base_url(); ?>index.php/usuarios/save_perfiles" method="post">
 					 	<div class="row">
 					 		<div class="col-lg-4">
 					 			<h6>Perfil:</h6>
@@ -24,18 +25,20 @@
 					 				if($key['id_padre']==0){ ?>
 					 				<div class="checkbox">
 			                        <label>
-			                          <input type="checkbox" class="padre" name="opciones[]" id="<?= $key['id_menu'] ?>">
+			                          <input type="checkbox" class="padre" name="opciones[]" id="<?php echo $key['id_menu'] ?>" value="<?php echo $key['id_menu'] ?>">
 			                            <?= $key['item'] ?>
 			                        </label>
 			                      </div>
 					 			<?php if ($key['hijos']=='1') { foreach ($_ci_vars['perfiles'] as $v) { if ($key['id_menu']==$v['id_padre']) {?>
 					 				<div class="checkbox espacio">
 					 				<label>
-			                          <input type="checkbox" class="hijos <?= $v['id_padre'] ?>" name="opciones[]" id="<?= $v['id_menu'] ?>">
+			                          <input type="checkbox" class="hijos <?= $v['id_padre'] ?>" name="opciones[]" id="<?php echo $v['id_menu'] ?>" value="<?php echo $v['id_menu'] ?>">
 			                            <?= $v['item'] ?>
 			                        </label>
 			                    	</div>
 					 			<?php }}}}}?>
+					 			<br>
+					 			<button class="btn btn-primary" type="submit">Guardar</button>
 					 		</div>
 					 		<div class="col-lg-8">
 					 			<table id="fmapp_table_view" class="table table-hover w-100">
@@ -46,29 +49,34 @@
 									 </tr>
 									</thead>
 									<tbody>
-										<td>Administrador</td>
+										<?php foreach ($_ci_vars['roles'] as $key) { ?>
+										<tr>
+										<td><?php echo $key['rol'] ?></td>
 										<td>
 											<div class="btn-group">
 			                                   <div class="dropdown">
 			                                     <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
 			                                     <div role="menu" class="dropdown-menu">
 			                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editar" id="<?php echo $canales['id_canal']; ?>">Editar</a>
-			                                        <?php if ($canales['id_estatus'] == 0) { ?>
+			                                        <?php if ($key['id_estatus'] == 0) { ?>
 			                                        <div class="dropdown-divider"></div>
 			                                            <a class="dropdown-item _bloquear" id="<?php echo $canales['id_canal']; ?>">Desactivar</a>
 			                                        </div>
-													<?php } elseif ($canales['id_estatus'] == 1) {?>
+													<?php } elseif ($key['id_estatus'] == 1) {?>
 														<div class="dropdown-divider"></div>
 			                                            <a class="dropdown-item _activar" id="<?php echo $canales['id_canal']; ?>">Activar</a>
 			                                        </div>
 													<?php } ?>
 			                                    </div>
-			                               	</div>
 										</td>
+										</tr>
+										<?php } ?>
+
 									</tbody>
 								</table>
 					 		</div>
 					 	</div>
+					 </form>
 					 </div>
 					</div>
 				   </div>

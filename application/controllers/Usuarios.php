@@ -27,6 +27,7 @@ class Usuarios extends CI_Controller {
 
 	public function perfiles()
 	{
+		$menu['roles'] = $this->usuarios_model->roles();
 		$menu['perfiles'] = $this->usuarios_model->menu();
 		$this->menu();
 		$this->load->view('usuarios/perfiles', $menu);
@@ -53,6 +54,15 @@ class Usuarios extends CI_Controller {
 		echo "<script> alert('".$save."') </script>";
 
 		redirect('usuarios/' , 'refresh');
+	}
+
+	public function save_perfiles(){
+
+		$save = $this->usuarios_model->save_perfiles($_POST);
+
+		echo "<script> alert('".$save."') </script>";
+
+		redirect('usuarios/perfiles' , 'refresh');
 	}
 
 	public function bloquear_usuario(){
