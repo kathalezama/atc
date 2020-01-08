@@ -157,6 +157,19 @@ class Usuarios_model extends CI_Model{
 
 	}
 
+	function buscar_p($datos)
+	{
+		$this->db->where('id_rol', $_POST['id']);
+		$user = $this->db->get('public.menu_rol');
+
+
+		if($user->num_rows()>0)
+		{
+			return $user->result_array();
+		}
+
+	}
+
 	function edit_usuario($datos)
 	{
 		 $data = array(

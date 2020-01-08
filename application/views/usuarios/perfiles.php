@@ -57,16 +57,7 @@
 			                                   <div class="dropdown">
 			                                     <a href="#" aria-expanded="false" data-toggle="dropdown" class="btn btn-link dropdown-toggle btn-icon-dropdown"><i class="icon dripicons-menu"></i><span class="caret"></span></a>
 			                                     <div role="menu" class="dropdown-menu">
-			                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#editar" id="<?php echo $canales['id_canal']; ?>">Editar</a>
-			                                        <?php if ($key['id_estatus'] == 0) { ?>
-			                                        <div class="dropdown-divider"></div>
-			                                            <a class="dropdown-item _bloquear" id="<?php echo $canales['id_canal']; ?>">Desactivar</a>
-			                                        </div>
-													<?php } elseif ($key['id_estatus'] == 1) {?>
-														<div class="dropdown-divider"></div>
-			                                            <a class="dropdown-item _activar" id="<?php echo $canales['id_canal']; ?>">Activar</a>
-			                                        </div>
-													<?php } ?>
+			                                        <a class="dropdown-item _editar" href="#" data-toggle="modal" data-target="#opciones" id="<?php echo $key['id_rol'];?>">Editar</a>
 			                                    </div>
 										</td>
 										</tr>
@@ -89,8 +80,71 @@
 
             </div>
             <!-- /Container -->
-</div>     
+</div>
+
+
+<form action="<?php echo base_url(); ?>index.php/usuarios/editar_p" method="post">
+<div class="modal" id="opciones">
+   <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+
+
+        <div class="modal-header">
+            <h5 class="modal-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Opciones</font></font></h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                <span aria-hidden="true"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">×</font></font></span>
+            </button>
+        </div>
+
+        
+        <div class="modal-body">
+            <div class="row">
+                <?php foreach ($_ci_vars['perfiles'] as $key) { 
+				if($key['id_padre']==0){ ?>
+				<div class="col-lg-12">
+					<div class="checkbox">
+			         <label>
+			            <input type="checkbox" class="e_padre" name="opciones[]" id="e_<?php echo $key['id_menu'] ?>" value="<?php echo $key['id_menu'] ?>">
+			              <?= $key['item'] ?>
+			            </label>
+			        </div>
+			    </div>
+				<?php if ($key['hijos']=='1') { foreach ($_ci_vars['perfiles'] as $v) { if ($key['id_menu']==$v['id_padre']) {?>
+				<div class="col-lg-12">
+					<div class="checkbox espacio">
+					 	<label>
+			              <input type="checkbox" class="e_hijos <?= $v['id_padre'] ?>" name="opciones[]" id="e_<?php echo $v['id_menu'] ?>" value="<?php echo $v['id_menu'] ?>">
+			                   <?= $v['item'] ?>
+			            </label>
+			        </div>
+			    </div>
+				<?php }}}}}?>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cerrar</font></font></button>
+            <button type="button" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar</font></font></button>
+        </div>
+    </div>
+    
+</div>
+</div>
+</form>     
 <script type="text/javascript">
+
+	$("._editar").click(function(){
+		$(".e_padre").prop("checked", false);
+		$(".e_hijos").prop("checked", false);
+		$.post("<?php echo base_url() ?>index.php/usuarios/buscar_p", { id:$(this).attr("id")}, function(data){
+			 data=$.parseJSON(data);
+             console.log(data);
+             $.each(data, function( i, v ) {
+             	console.log(v['id_menu']);
+             	$("#e_"+v['id_menu']).prop("checked", true);
+			 });
+        });
+	})
 
 	$(".padre").click(function() {
       	var id=$(this).attr("id");

@@ -88,6 +88,14 @@ class Usuarios extends CI_Controller {
 
 	}
 
+	public function buscar_p(){
+
+		$user = $this->usuarios_model->buscar_p($_POST);
+
+		echo json_encode($user);
+
+	}
+
 	public function edit_usuario(){
 
 		//print_r($_POST);
