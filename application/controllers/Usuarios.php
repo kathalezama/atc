@@ -98,10 +98,18 @@ class Usuarios extends CI_Controller {
 
 	public function edit_usuario(){
 
-		//print_r($_POST);
 		$user = $this->usuarios_model->edit_usuario($_POST);
 		echo "<script> alert('".$user."') </script>";
 		redirect('usuarios/' , 'refresh');
+
+	}
+
+	public function editar_p(){
+		
+		$user = $this->usuarios_model->editar_p($_POST);
+
+		echo "<script> alert('".$user."') </script>";
+		redirect('usuarios/perfiles' , 'refresh');
 
 	}
 }

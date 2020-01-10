@@ -189,4 +189,23 @@ class Usuarios_model extends CI_Model{
 
 		return 'Usuario Modificado';
 	}
+
+	function editar_p($datos)
+	{
+
+		$this->db->where('id_rol', $datos['rol']);
+		$this->db->delete('public.menu_rol');
+		
+		foreach ($datos['opciones'] as $key) {
+			$data = array(
+			'id_rol'=>$datos['rol'],
+			'id_menu'=>$key,
+			);
+		
+			$this->db->insert('public.menu_rol',$data);
+			//$this->db->where('id_user', $datos['e_id_user']);
+		}
+
+		return 'Perfil Modificado';
+	}
 }

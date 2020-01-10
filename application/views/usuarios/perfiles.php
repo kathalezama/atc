@@ -119,12 +119,13 @@
 			        </div>
 			    </div>
 				<?php }}}}}?>
+				<input type="hidden" name="rol" id="rol">
             </div>
         </div>
 
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Cerrar</font></font></button>
-            <button type="button" id="c_guardar" name="c_guardar" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar</font></font></button>
+            <button type="submit" id="editar" name="editar" class="btn btn-primary"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Guardar</font></font></button>
         </div>
     </div>
     
@@ -136,6 +137,7 @@
 	$("._editar").click(function(){
 		$(".e_padre").prop("checked", false);
 		$(".e_hijos").prop("checked", false);
+		$("#rol").val($(this).attr("id"));
 		$.post("<?php echo base_url() ?>index.php/usuarios/buscar_p", { id:$(this).attr("id")}, function(data){
 			 data=$.parseJSON(data);
              console.log(data);
