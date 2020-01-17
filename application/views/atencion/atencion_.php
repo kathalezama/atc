@@ -34,12 +34,6 @@
                     	<div class="col-xl-6"><input type="text" class="form-control numero" id="cedula" name="cedula" maxlength="8"></div>
                     	<div class="col-xl-6"><input type="text" class="form-control letras" id="nombres" name="nombres"></div>
 
-                    	<div class="col-xl-6">Telefono:</div>
-                       	<div class="col-xl-6">Correo:</div>
-
-                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="telefono" name="telefono" maxlength="11"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control mail" id="correo" name="correo"></div>
-
 		                    <div class="col-xl-6">Servicio:</div>
                        	<div class="col-xl-6">Motivo:</div>
 

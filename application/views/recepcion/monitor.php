@@ -1,39 +1,49 @@
 <div class="hk-pg-wrapper pb-0">
-   
   <div class="container-fluid margen">
-                <!-- Row -->
-    <div class="row"> 
-
-      <div class="col-lg-3" id="ticket"></div>
-      <div class="col-lg-9">
         <div class="row">
-          <div class="col-lg-12"><img src="<?php echo base_url(); ?>assets/ejem.jpg" width="100%" height="256px" style="margin-bottom: 14px"> </div>
-            <div class="col-lg-5" id="llamados"></div>
-            <div class="col-lg-7" id="llamando"></div>
+          <div class="col-lg-12">
+              <img class="mySlides" src="<?php echo base_url(); ?>assets/slide1.jpg" style="width:100%">
+              <img class="mySlides" src="<?php echo base_url(); ?>assets/slide2.jpg" style="width:100%">
           </div>
+          <div class="col-lg-4" id="ticket"></div>
+          <div class="col-lg-4" id="llamando"></div>
+          <div class="col-lg-4" id="llamados"></div>
         </div>
-    </div>
             
-	</div>
-            <!-- /Container -->
+  </div>
 </div>
         <!-- /Main Content -->
 <script type="text/javascript">
   loadTickets();
   tiketsLlamados();
-	llamando();
+  llamando();
   setInterval(loadTickets,5000);
   setInterval(tiketsLlamados,5000);
-	setInterval(llamando,2000);
+  setInterval(llamando,5000);
 
-	function loadTickets(){
-		$.post("<?php echo base_url() ?>index.php/recepcion/monitor_p", { id:4, lim:5 }, function(data){
+  var myIndex = 0;
+  carousel();
+
+  function carousel() {
+  var i;
+  var x = document.getElementsByClassName("mySlides");
+  for (i = 0; i < x.length; i++) {
+    x[i].style.display = "none";  
+  }
+  myIndex++;
+  if (myIndex > x.length) {myIndex = 1}    
+     x[myIndex-1].style.display = "block";  
+     setTimeout(carousel, 8000); // Change image every 2 seconds
+  }
+
+  function loadTickets(){
+    $.post("<?php echo base_url() ?>index.php/recepcion/monitor_p", { id:4, lim:5 }, function(data){
 
     var obj = jQuery.parseJSON( data );
 
     //console.log(obj);
 
-			$("#ticket").html("");
+      $("#ticket").html("");
             var estilo ="alert alert-primary alert-dismissible fade show";
             var hora, taquilla;
             $.each( obj, function(k,v) {
@@ -64,12 +74,12 @@
                     var minutos_final = parseInt(minutos_final_[0]) * 60 + parseInt(minutos_final_[1]);
                     
                     var diferencia = (minutos_final - minutos_inicio)*60;
+                    //console.log(diferencia);
 
                     if ((diferencia >= 60) && (v['id_estatus']==5)) {
                       $.post("<?php echo base_url() ?>index.php/recepcion/atendido", { id:v['id_atencion'] }, function(e){});
-                      console.log("por aqui ando");
-                    }else{
-                      console.log("ahora por aqui");
+                    }else {
+                      //console.log("ahora por aqui");
                       $("#ticket").html($("#ticket").html()+'<div class="'+estilo+'" role="alert"><h1>'+v['tiket']+taquilla+'</h1>'+v['estatus']+'</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
                     }
                     
@@ -149,7 +159,7 @@
                       $.post("<?php echo base_url() ?>index.php/recepcion/atendido", { id:v['id_atencion'] }, function(e){});
                       console.log(v['id_atencion']);
                     }else{
-                      $("#ticket").html($("#ticket").html()+'<div class="'+estilo+'" role="alert"><h1>'+v['tiket']+taquilla+'</h1>'+v['estatus']+'</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
+                      $("#llamando").html($("#llamando").html()+'<div class="'+estilo+'" role="alert"><h1>'+v['tiket']+taquilla+'</h1>'+v['estatus']+'</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
                     }
     
                 }
@@ -157,5 +167,5 @@
 
         });
     }
-	
+  
 </script>        

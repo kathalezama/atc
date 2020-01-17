@@ -128,11 +128,21 @@
                     
                     var diferencia = (minutos_final - minutos_inicio)*60;
 
-                    if ((diferencia >= 60) && (v['id_estatus']==5)) {
+                    if ((diferencia >= 240) && (v['id_estatus']==5)) {
                       $.post("<?php echo base_url() ?>index.php/recepcion/atendido", { id:v['id_atencion'] }, function(e){});
-                    }else{
-                        //
+                      console.log("atendido");
+                    }else if ((v['id_estatus']==5)) {
+                      if (diferencia >= 180) {
                       $("#ticket").html($("#ticket").html()+'<div class="'+estilo+'" role="alert"><h1>'+v['tiket']+taquilla+'</h1>'+v['estatus']+'</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
+                        console.log("pasaron 3 min "+diferencia);
+                      }else{
+                        $("#ticket").html($("#ticket").html()+'<div class="alert alert-primary alert-dismissible fade show" role="alert"><h1>'+v['tiket']+taquilla+'</h1>En espera</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
+                      console.log("llamado - 3");
+
+                      }
+                    }else {
+                      $("#ticket").html($("#ticket").html()+'<div class="'+estilo+'" role="alert"><h1>'+v['tiket']+taquilla+'</h1>'+v['estatus']+'</br>'+v['hora_recepcion']+' | '+v['nombre_completo']+'</div>');
+                      console.log("en espera "+v['tiket']+' '+diferencia);
                     }
                     
 	              }

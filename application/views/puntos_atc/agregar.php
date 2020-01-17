@@ -19,7 +19,8 @@
                 <div class="col-lg-6"><input type="text" name="nombre" id="nombre" class="form-control" required></div>
                 <div class="col-lg-6">
                     <select id="servicios" name="servicios" class="form-control">
-                    <option value='' >-- Seleccione</option>
+                    <option value='' selected="">-- Seleccione</option>
+                    <option value='0' >Todos</option>
                       <?php foreach ($_ci_vars['servicios'] as $key) {
                         echo "<option value='".$key['id_servicio']."'>".$key['nombre']."</option>";
                       } ?>
