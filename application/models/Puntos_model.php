@@ -265,7 +265,7 @@ class Puntos_model extends CI_Model{
 
 	function buscar($datos)
 	{
-		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus, t_usuarios.id_user');
+		$this->db->select('nombre_completo, nombre, id_pto, t_estatus.estatus, t_estatus.id_estatus, t_usuarios.id_user, t_ptos_atc.id_servicio');
 		$this->db->join('t_estatus','t_estatus.id_estatus = t_ptos_atc.estatus','left');
 		$this->db->join('t_usuarios','t_usuarios.id_user = t_ptos_atc.id_analista','left');
 		$this->db->where('id_pto',$datos);
@@ -281,18 +281,21 @@ class Puntos_model extends CI_Model{
 	function editar($datos)
 	{
 		$data = array(
-			'tcliente'=>$datos['e_preferencial'],
+			'nombre'=>$datos['nombre'],
+			'id_analista'=>$datos['analista'],
 			'id_usuario'=>$this->session->userdata['id_user'],
-			'ult_mod'=>date('Y-m-d'),
+			'fecha_registro'=>date('Y-m-d'),
+			'estatus'=>'0',
+			'id_servicio'=>$datos['servicios'],
 		);
 
-		$this->db->where('id_tcliente', $datos['e_id']);
-		$this->db->update('public.t_tclientes', $data);
+		$this->db->where('id_pto', $datos['e_id']);
+		$this->db->update('public.t_ptos_atc', $data);
 
-		$this->welcome_model->log($this->session->userdata['id_user'],'Atc preferencial modificado',$this->db->last_query());
+		$this->welcome_model->log($this->session->userdata['id_user'],'punto de atencion modificado',$this->db->last_query());
 
 
-		return 'Atención preferencial modificado';
+		return 'modificado';
 	}
 
 }

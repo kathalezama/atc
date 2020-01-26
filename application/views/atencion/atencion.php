@@ -97,6 +97,7 @@
           $('#id_atencion').val(obj['id_atencion']);
           iniciar();
           $('.save').prop('disabled', false);
+          $("#iniciar").prop('disabled', true);
 
         }
 

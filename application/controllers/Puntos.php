@@ -58,9 +58,10 @@ class Puntos extends CI_Controller {
 	}
 
 	public function buscar(){
-		//print_r($_POST);
 		$lista = $this->puntos_model->buscar($_POST['id']);
-		$return = $lista['nombre_completo'].'|'.$lista['nombre'].'|'.$lista['id_pto'].'|'.$lista['id_estatus'].'|'.$lista['id_user'].'|';
+		//print_r($lista);
+
+		$return = $lista['nombre_completo'].'|'.$lista['nombre'].'|'.$lista['id_pto'].'|'.$lista['id_estatus'].'|'.$lista['id_user'].'|'.$lista['id_servicio'].'|';
 		$lista=$this->puntos_model->serv_pto2($_POST['id']);
 		$return=$return.$lista; 
 		
@@ -74,10 +75,10 @@ class Puntos extends CI_Controller {
 	}
 
 	public function editar(){
-
+		//print_r($_POST);
 		$motivo = $this->puntos_model->editar($_POST);
 		echo "<script> alert('".$motivo."') </script>";
-		redirect('servicios/' , 'refresh');
+		redirect('puntos/' , 'refresh');
 
 	}
 }

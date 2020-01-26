@@ -19,8 +19,8 @@
                        	<div class="col-xl-6">Cedula:</div>
                        	<div class="col-xl-6">Apellidos y Nombres:</div>
 
-                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="cedula" name="cedula" maxlength="8"></div>
-                    	<div class="col-xl-6"><input type="text" class="form-control letras" id="nombres" name="nombres"></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control numero" id="cedula" name="cedula" maxlength="8" required=""></div>
+                    	<div class="col-xl-6"><input type="text" class="form-control letras" id="nombres" name="nombres" required=""></div>
 
                     	<div class="col-xl-6">Telefono:</div>
                        	<div class="col-xl-6">Correo:</div>

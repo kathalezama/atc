@@ -66,4 +66,21 @@ class Reportes_model extends CI_Model{
 			return $listMotivos->row()->total;
 		}
 	}
+
+	function atencion(){
+
+		$this->db->select('cedula, nombre_completo, hora_recepcion, hora_atc_i, hora_atc_f, t_clientes.id_cliente as cliente, t_atencion.id_cliente as atencion, motivo, t_atencion.fecha_registro');
+		$this->db->join('t_clientes','t_clientes.id_cliente = t_atencion.id_cliente');
+		$this->db->join('t_motivos','t_motivos.id_motivo = t_atencion.id_motivo','left');
+		//$this->db->where("fecha_registro BETWEEN '".$fechas['desde']."' AND '".$fechas['hasta']."'");
+		$this->db->order_by('t_atencion.fecha_registro, hora_recepcion');
+
+		$listMotivos = $this->db->get('public.t_atencion');
+		
+		if($listMotivos->num_rows()>0)
+		{
+			return $listMotivos->result_array();
+		}
+
+	}
  }
