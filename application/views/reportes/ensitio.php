@@ -25,8 +25,8 @@
 					 		<div class="col-xl-6"><input type="date" name="desde" id="desde" class="form-control"></div>
 					 		<div class="col-xl-6"><input type="date" name="hasta" id="hasta" class="form-control"></div>
 					 		<div class="col-xl-12"><br></div>
-					 		<div class="col-xl-3"><input type="submit" class="btn btn-primary" value="Generar PDF"></div>
-					 		<div class="col-xl-3"><a href="<?php echo base_url(); ?>index.php/rpt_excel/ensitio" class="btn btn-primary">Generar XLS</a></div>
+					 		<div class="col-xl-3"><input type="submit" class="btn btn-primary" value="Generar PDF" id="pdf"></div>
+					 		<div class="col-xl-3"><input type="submit" class="btn btn-primary" value="Generar XLS" id="excel"></div>
 					 	</div>
 	   				 </div>
 					</div>
@@ -40,4 +40,22 @@
             <!-- /Container -->
 </div>
 </form>
+ <input type="hidden" name="ruta_e" id="ruta_e" value="<?php echo base_url().'index.php/rpt_excel/ensitio';?>">
+<input type="hidden" name="ruta_p" id="ruta_p" value="<?php echo base_url().'index.php/reportes/ensitio';?>">
+
  
+ <script type="text/javascript">
+
+    $("#excel").click(function(){
+     // alert("aqui");
+        $('form').attr("action", $("#ruta_e").val());
+        $('form').attr("target", '_blanck');
+    });
+
+    $("#pdf").click(function(){
+     // alert("aqui");
+        $('form').attr("action", $("#ruta_p").val());
+        $('form').attr("target", '_blanck');
+    });
+
+</script>

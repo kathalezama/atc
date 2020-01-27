@@ -58,6 +58,8 @@ class Reportes_model extends CI_Model{
 		$this->db->where('id_canal !=','0');
 		$this->db->where("fecha_registro BETWEEN '".$fechas['desde']."' AND '".$fechas['hasta']."'");
 
+		//echo $this->db->last_query();
+
 
 		$listMotivos = $this->db->get('public.t_atencion');
 		

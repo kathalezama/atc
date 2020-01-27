@@ -48,6 +48,8 @@ class Reportes extends CI_Controller {
 
 	public function otroscanales()
 	{
+
+		//print_r($_POST);
 		$analistas = $this->reportes_model->analistas();
 		$motivos = $this->reportes_model->motivos();
 
@@ -248,20 +250,35 @@ class Reportes extends CI_Controller {
 		$this->fpdf->Ln(8);
 		$this->fpdf->SetFont('Arial','',8);
 
-
+		$hfin='00:00';
 		foreach ($atencion as $key) {
-
 			$fecha = explode(' ', $key['fecha_registro']);
 
 			$hora1 = new DateTime($fecha[0].' '.$key['hora_recepcion']);//fecha inicial
 			$hora2 = new DateTime($fecha[0].' '.$key['hora_atc_i']);//fecha de cierre
 			$hora3 = new DateTime($fecha[0].' '.$key['hora_atc_f']);//fecha de cierre
+			$hora4 = new DateTime($fecha[0].' '.$hfin);//fecha de cierre
 
 			$intervalo = $hora1->diff($hora2);
 			$intervalo2 = $hora2->diff($hora3);
 
-			//echo $intervalo->format('%Y años %m meses %d days %H horas %i minutos %s segundos');
+			if ($fecha[0]!=$fecha_ant) {
+				$i=0;
+				//echo $fecha_ant;
+			}
+			$i++;
+			//echo $i;
+			if ($i==1) {
+				$pausa="--";
+				$fecha_ant=$fecha[0];
+			}else{
+				//echo "string";
+				//echo $hfin.' '.$key['hora_atc_i'].' ';
+				$pausa = $hora4->diff($hora2);
+			}
+
 			
+
 			$this->fpdf->Cell(15,6,$fecha[0],0,0,'L');
 			$this->fpdf->Cell(20,6,$key['cedula'],0,0,'R');
 			$this->fpdf->Cell(65,6,utf8_decode(ucwords(strtolower($key['nombre_completo']))),0,0,'L');
@@ -271,9 +288,11 @@ class Reportes extends CI_Controller {
 			$this->fpdf->Cell(20,6,$intervalo->format('%H:%I'),0,0,'L');
 			$this->fpdf->Cell(20,6,$key['hora_atc_i'],0,0,'L');
 			$this->fpdf->Cell(20,6,$intervalo2->format('%H:%I'),0,0,'L');
-			$this->fpdf->Cell(20,6,'Pausa',0,0,'L');
+			$this->fpdf->Cell(20,6,$pausa,0,0,'L');
 			$this->fpdf->Ln(6);
-
+			$fecha_ant=$fecha[0];
+			$hfin=$key['hora_atc_f'];
+			//echo $hfin;
 
 		}
 

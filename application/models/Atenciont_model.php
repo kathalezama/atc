@@ -51,13 +51,11 @@ class Atenciont_model extends CI_Model{
 			$id = $this->db->insert_id();
 		}	
 
-	
+		$user = trim($this->session->userdata['id_user']);
 		$data = array(
 			'id_cliente'=> $id,
 			'id_pto'=>'0',
 			'hora_recepcion'=>$datos['hora'],
-			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
-			'id_usuario'=>$this->session->userdata['id_user'],
 			'fecha_registro'=>date('Y-m-d'),
 			'id_servicio'=>$datos['servicios'],
 			'id_motivo'=>$datos['motivos'],
@@ -68,6 +66,9 @@ class Atenciont_model extends CI_Model{
 			'hora_atc_f'=>date('H:i'),
 			'hora_atc_i'=>$datos['hora'],
 			'estatus'=>$datos['save'],
+			'tiket'=>strtoupper(substr($datos['nombres'], 0, 1)).'-'.substr($datos['cedula'], -4, 4),
+			'id_usuario'=>$user,
+			'id_analista'=>$user,
 		);
 
 

@@ -123,6 +123,8 @@ class Rpt_excel extends CI_Controller {
 	}
 
     public function otroscanales(){
+       // print_r($_POST);
+
         $this->excel->setActiveSheetIndex(0);
         $this->excel->getActiveSheet()->setTitle('Reporte de vendedor');
         $this->excel->getActiveSheet()->getDefaultRowDimension()->setRowHeight(15); 
