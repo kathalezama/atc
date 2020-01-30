@@ -11,6 +11,7 @@ class Reportes extends CI_Controller {
 		parent::__construct();
     	$this->load->library('fpdf_master');
     	$this->load->model('reportes_model');
+    	$this->load->model('puntos_model');
     	$this->load->model('welcome_model');
 
 	}
@@ -24,8 +25,10 @@ class Reportes extends CI_Controller {
 
 	public function v_analistas(){
 
+		$datos['analista'] = $this->puntos_model->listAnalista2();
+
 		$this->menu();
-		$this->load->view('reportes/analistas');
+		$this->load->view('reportes/poranalista', $datos);
 		$this->load->view('layout/footer');
 	}
 
@@ -218,8 +221,8 @@ class Reportes extends CI_Controller {
 	public function analistas()
 	{
 
-		//$analistas = $this->reportes_model->analistas();
-		$atencion = $this->reportes_model->atencion();
+		$analistas = $this->reportes_model->analista($_POST['analista']);
+		$atencion = $this->reportes_model->atencion($_POST);
 		//echo "<pre>";
 		//print_r($atencion);
 		//echo "</pre>";
@@ -231,7 +234,7 @@ class Reportes extends CI_Controller {
 		//$this->fpdf->Ln(8);
 		$this->fpdf->Cell(280,6,'Resumen por Analista',0,0,'L');
 		$this->fpdf->Ln(6);
-		$this->fpdf->Cell(280,6,'Analista:',0,0,'L');
+		$this->fpdf->Cell(280,6,'Analista: '.$analistas['nombre_completo'],0,0,'L');
 		$this->fpdf->Ln(6);
 		$this->fpdf->Cell(280,6,'Desde '.$_POST['desde'].' hasta '.$_POST['hasta'],0,0,'L');
 		$this->fpdf->Ln(15);
@@ -239,19 +242,20 @@ class Reportes extends CI_Controller {
 		$this->fpdf->Cell(15,6,'Fecha',1,0,'C');
 		$this->fpdf->Cell(20,6,'Cedula',1,0,'C');
 		$this->fpdf->Cell(65,6,'Asegurado',1,0,'C');
-		$this->fpdf->Cell(40,6,'Motivo',1,0,'C');
-		$this->fpdf->Cell(25,6,'Canal ATC',1,0,'C');
+		$this->fpdf->Cell(45,6,'Motivo',1,0,'C');
+		$this->fpdf->Cell(30,6,'Canal ATC',1,0,'C');
+		$this->fpdf->Cell(20,6,'Pausa',1,0,'C');
 		$this->fpdf->Cell(20,6,'H. llegada',1,0,'C');
 		$this->fpdf->Cell(20,6,'Espera',1,0,'C');
 		$this->fpdf->Cell(20,6,'Hora ATC',1,0,'C');
 		$this->fpdf->Cell(20,6,'ATC',1,0,'C');
-		$this->fpdf->Cell(20,6,'Pausa',1,0,'C');
 
-		$this->fpdf->Ln(8);
+		$this->fpdf->Ln(6);
 		$this->fpdf->SetFont('Arial','',8);
 
 		$hfin='00:00';
 		foreach ($atencion as $key) {
+ 
 			$fecha = explode(' ', $key['fecha_registro']);
 
 			$hora1 = new DateTime($fecha[0].' '.$key['hora_recepcion']);//fecha inicial
@@ -264,16 +268,15 @@ class Reportes extends CI_Controller {
 
 			if ($fecha[0]!=$fecha_ant) {
 				$i=0;
-				//echo $fecha_ant;
+				$hfin='00:00';
+				$this->fpdf->Cell(275,0.1,'',1,0,'L');
+				$this->fpdf->Ln(0.2);
 			}
 			$i++;
-			//echo $i;
 			if ($i==1) {
-				$pausa="--";
+				$pausa = $hora4->diff($hora4);
 				$fecha_ant=$fecha[0];
 			}else{
-				//echo "string";
-				//echo $hfin.' '.$key['hora_atc_i'].' ';
 				$pausa = $hora4->diff($hora2);
 			}
 
@@ -282,13 +285,13 @@ class Reportes extends CI_Controller {
 			$this->fpdf->Cell(15,6,$fecha[0],0,0,'L');
 			$this->fpdf->Cell(20,6,$key['cedula'],0,0,'R');
 			$this->fpdf->Cell(65,6,utf8_decode(ucwords(strtolower($key['nombre_completo']))),0,0,'L');
-			$this->fpdf->Cell(40,6,utf8_decode(ucwords(strtolower($key['motivo']))),0,0,'L');
-			$this->fpdf->Cell(25,6,'Canal ATC',0,0,'L');
+			$this->fpdf->Cell(45,6,utf8_decode(ucwords(strtolower($key['motivo']))),0,0,'L');
+			$this->fpdf->Cell(30,6,'Canal ATC',0,0,'L');
+			$this->fpdf->Cell(20,6,$pausa->format('%H:%I'),0,0,'L');
 			$this->fpdf->Cell(20,6,$key['hora_recepcion'],0,0,'L');
 			$this->fpdf->Cell(20,6,$intervalo->format('%H:%I'),0,0,'L');
 			$this->fpdf->Cell(20,6,$key['hora_atc_i'],0,0,'L');
 			$this->fpdf->Cell(20,6,$intervalo2->format('%H:%I'),0,0,'L');
-			$this->fpdf->Cell(20,6,$pausa,0,0,'L');
 			$this->fpdf->Ln(6);
 			$fecha_ant=$fecha[0];
 			$hfin=$key['hora_atc_f'];
